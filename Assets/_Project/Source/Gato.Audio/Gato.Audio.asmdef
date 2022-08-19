@@ -1,0 +1,17 @@
+{
+    "name": "Gato.Audio",
+    "rootNamespace": "Gato.Audio",
+    "references": [
+        "GUID:f412fcd852ca5284885832e7f1a931b6",
+        "GUID:a8ea122f90950044886c8a0bd05aa53c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,29 @@
+{
+    "name": "Gato.UI",
+    "rootNamespace": "Gato.UI",
+    "references": [
+        "GUID:0b74a713c0b23f149b78b235c911ab7d",
+        "GUID:f412fcd852ca5284885832e7f1a931b6",
+        "GUID:4a480b2936cfa1d48a54c4c9e2df9c8f",
+        "GUID:1af79e1d043d7fe4bb90b6e153304a23",
+        "GUID:a8ea122f90950044886c8a0bd05aa53c",
+        "GUID:afedad58e6c7b2648a88d295839d9ce4",
+        "GUID:ba118ffbfd3623c429e983da9908f46a",
+        "GUID:72d1fea872bd7a449bf3818f2b0a6708",
+        "GUID:68765d262e2128e4ab49c983f3411946",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:593a5b492d29ac6448b1ebf7f035ef33",
+        "GUID:9e24947de15b9834991c9d8411ea37cf",
+        "GUID:84651a3751eca9349aac36a66bba901b",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
