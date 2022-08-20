@@ -6,6 +6,6 @@ namespace Gato.Core
     [RequireImplementors]
     public interface IService : IDisposable
     {
-        ServiceLocator OwningLocator { get; set; }
+        public ServiceLocator OwningLocator { get; set; }
     }
 }
