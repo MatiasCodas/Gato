@@ -8,7 +8,7 @@ namespace Gato.Gameplay
         private const string HorizontalAxisName = "Horizontal";
         private const string VerticalAxisName = "Vertical";
 
-        private IeventS
+        //private IeventS  //set as commentary as I wasn't sure of the objective here and was getting a compilation error
 
         public override void Setup()
         {
