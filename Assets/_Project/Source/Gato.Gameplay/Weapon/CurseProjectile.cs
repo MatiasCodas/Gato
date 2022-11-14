@@ -18,21 +18,20 @@ namespace Gato.Gameplay
         private bool _isMoving;
         private GameObject _collisionObject;
         private Vector2 _direction;
+        private CurseRopeShooter _ropeShooter;
+
+        
 
         public void Setup(Vector2 direction)
         {
             _isMoving = true;
             _direction = direction;
+            _ropeShooter = gameObject.GetComponent<CurseRopeShooter>();
         }
 
         public void ActivateCurse()
         {
-            if(_collisionObject != null)
-            {
-                Destroy(_collisionObject);
-            }
-
-            Destroy(gameObject);
+            _ropeShooter.TargetHit(_collisionObject);
         }
 
         private void FixedUpdate()
