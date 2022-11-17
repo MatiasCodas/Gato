@@ -383,6 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 50
+  timerToDestroy: 1
 --- !u!61 &-1308334231131028443
 BoxCollider2D:
   m_ObjectHideFlags: 0

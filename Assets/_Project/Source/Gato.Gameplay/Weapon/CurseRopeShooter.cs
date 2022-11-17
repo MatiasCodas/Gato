@@ -9,6 +9,7 @@ namespace Gato.Gameplay
 
         public static CurseRopeShooter ActiveCurse;
         public static Transform ActiveCurseTransform;
+        private bool alreadyActive;
 
         public GameObject projectile;
         public ObjectBoolean activate;
@@ -68,6 +69,7 @@ namespace Gato.Gameplay
 
         public void TargetHit(GameObject affectedByCurse)
         {
+            if (alreadyActive) return;
             hinge.enabled = true;
             hinge.connectedBody = affectedByCurse.GetComponent<Rigidbody2D>();
             if (ActiveCurse == null)
@@ -76,8 +78,20 @@ namespace Gato.Gameplay
                 ActiveCurseTransform = transform;
                 return;
             }
-
+            ChainJointManager.target = ActiveCurseTransform.position;
             ShootTongue(ActiveCurseTransform);
+            ActiveCurse = null;
+            ActiveCurseTransform = null;
+            alreadyActive = true;
+        }
+
+        private void OnDestroy()
+        {
+            if (ActiveCurse == this)
+            {
+                ActiveCurse = null;
+                ActiveCurseTransform = null;
+            }
         }
 
     }
