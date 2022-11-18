@@ -16,6 +16,7 @@ namespace Gato.Gameplay
         private float _movementSpeed = 3f;
 
         private bool _isMoving;
+        private static bool _isCursed;
         private GameObject _collisionObject;
         private Vector2 _direction;
         private CurseRopeShooter _ropeShooter;
@@ -34,11 +35,18 @@ namespace Gato.Gameplay
         public void ActivateCurse()
         {
             _ropeShooter.TargetHit(_collisionObject);
+            
+            if(_isCursed)
+            {
+                StartCoroutine( SetTimer(true));
+                _isCursed = false;
+
+            }
         }
 
         private void FixedUpdate()
         {
-            StartCoroutine(SetTimer());
+            StartCoroutine(SetTimer(false));
             if (!_isMoving)
             {
                 return;
@@ -46,28 +54,38 @@ namespace Gato.Gameplay
 
             transform.Translate(_direction * _movementSpeed * Time.deltaTime);
         }
-
+        private static GameObject currentTargetObject;
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Player")) return;
+            if (!_isMoving) return;
             _isMoving = false;
             _collisionObject = collision.gameObject;
 
             if (collision.gameObject.name == "Curse")
             {
                 OnCurseTriggered?.Invoke();
-
+                _isCursed = true;
                 return;
+            }
+            else
+            {
+
+                currentTargetObject = collision.gameObject;
             }
 
             OnObjectTriggered?.Invoke();
         }
 
-        private IEnumerator SetTimer()
+        private IEnumerator SetTimer(bool both)
         {
 
             yield return new WaitForSeconds(timerToDestroy);
-            if (!_isMoving) yield break;
+            if (!_isMoving && !both) yield break;
+            if (both && currentTargetObject != null)
+            {
+                Destroy(currentTargetObject);
+            }
             Destroy(gameObject);
         }
     }

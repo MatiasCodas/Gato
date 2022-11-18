@@ -97,6 +97,7 @@ namespace Gato.Gameplay
 
         private void OnDestroy()
         {
+            if (RopeJointsPool[0].gameObject == null) return;
             RopeJointsPool.Clear();
             RopeJoints = 0;
         }
