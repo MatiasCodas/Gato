@@ -38,7 +38,7 @@ namespace Gato.Gameplay
             
             if(_isCursed)
             {
-                StartCoroutine( SetTimer(true));
+               // StartCoroutine( SetTimer(true));
                 _isCursed = false;
 
             }

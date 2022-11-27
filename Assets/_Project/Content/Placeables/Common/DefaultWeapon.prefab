@@ -11,13 +11,16 @@ GameObject:
   - component: {fileID: 4190188561484433513}
   - component: {fileID: 1652512764898945128}
   - component: {fileID: 4387377546241008471}
+  - component: {fileID: 8474168053369713351}
+  - component: {fileID: 3383839845448995161}
+  - component: {fileID: 725654697867381382}
   m_Layer: 6
   m_Name: Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4190188561484433513
 Transform:
   m_ObjectHideFlags: 0
@@ -27,11 +30,11 @@ Transform:
   m_GameObject: {fileID: 3530115098601723569}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3944658612640150365}
-  m_RootOrder: 0
+  m_Father: {fileID: 8624125270280504717}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1652512764898945128
 SpriteRenderer:
@@ -98,9 +101,72 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstParent: {fileID: 8624125270280504717}
-  elongate: {fileID: 11400000, guid: 13793d8508146b24bb95cc54efdb14a7, type: 2}
+  isChasing: 0
+  isGettingLonger: 0
+  hinge: {fileID: 0}
+  spring: {fileID: 725654697867381382}
+  ropeSpeed: 10
+  currentAttachedBody: {fileID: 0}
+  PoolTongue: {fileID: 6372259319196734301}
   hand: {fileID: 21300000, guid: 6eb211ce8a1652f45bcbff4e89c96328, type: 3}
   fist: {fileID: 21300000, guid: 2fd17a6e3b054ef43aabd7bf6a57cefd, type: 3}
+--- !u!58 &8474168053369713351
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530115098601723569}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.642
+--- !u!50 &3383839845448995161
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530115098601723569}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!231 &725654697867381382
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530115098601723569}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 1
+  m_DampingRatio: 0
+  m_Frequency: 2
 --- !u!1 &3787673955607526423
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,11 +193,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3787673955607526423}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -12.66}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4190188561484433513}
+  m_Children: []
   m_Father: {fileID: 8624125270280504717}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -253,7 +318,7 @@ LineRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 4
+    numCornerVertices: 6
     numCapVertices: 0
     alignment: 0
     textureMode: 0
@@ -277,7 +342,7 @@ MonoBehaviour:
   RopeJointsPool: []
   totalDistance: 0
   chainJointPrefab: {fileID: 7388936715939031520, guid: 6bafeac78e3cebe4d972bc7886e31158, type: 3}
-  poolSize: 10
+  poolSize: 20
   targetRB: {fileID: 5965649354770061061}
   hand: {fileID: 4190188561484433513}
 --- !u!1 &8624125270280504712
@@ -315,6 +380,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3944658612640150365}
+  - {fileID: 4190188561484433513}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -443,10 +509,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6ec1f3269fb604f89b948c0af9b4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 7388936715939031520, guid: 6bafeac78e3cebe4d972bc7886e31158, type: 3}
+  projectile: {fileID: 3530115098601723569}
   activate: {fileID: 11400000, guid: 13793d8508146b24bb95cc54efdb14a7, type: 2}
   shot: 0
   ropePoolGameObject: {fileID: 3787673955607526423}
+  ropeTip: {fileID: 4387377546241008471}
 --- !u!233 &2015051606954381330
 HingeJoint2D:
   m_ObjectHideFlags: 0
