@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Gato.Gameplay
 {
-    public class TongueTip : MonoBehaviour
+    public class RopeTip : MonoBehaviour
     {
         public Transform firstParent;
         public static Transform globalTarget;
@@ -12,7 +12,7 @@ namespace Gato.Gameplay
         public bool isChasing;
         private Transform followTransform;
 
-        private RopePoolTongue poolTongue;
+        private RopePoolAndLineHandler poolTongue;
         public bool isGettingLonger;
         private SpriteRenderer sprite;
         private Rigidbody2D rigidbody2D;
@@ -20,7 +20,7 @@ namespace Gato.Gameplay
         public SpringJoint2D spring;
         public float ropeSpeed;
         public GameObject currentAttachedBody;
-        public RopePoolTongue PoolTongue;
+        public RopePoolAndLineHandler PoolTongue;
 
         public Sprite hand;
         public Sprite fist;
@@ -28,7 +28,7 @@ namespace Gato.Gameplay
 
         private void Start()
         {
-            poolTongue = GetComponentInParent<RopePoolTongue>();
+            poolTongue = GetComponentInParent<RopePoolAndLineHandler>();
             sprite = GetComponent<SpriteRenderer>();
             rigidbody2D = GetComponent<Rigidbody2D>();
             spring = GetComponent<SpringJoint2D>();

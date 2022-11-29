@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Gato.Gameplay
 {
-    public class RopePoolTongue : MonoBehaviour
+    public class RopePoolAndLineHandler : MonoBehaviour
     {
         public int RopeJoints;
         public List<GameObject> RopeJointsPool = new List<GameObject>();
@@ -14,7 +14,7 @@ namespace Gato.Gameplay
         public int poolSize;
         public Rigidbody2D targetRB;
         public Transform hand;
-        private TongueTip handScript;
+        private RopeTip handScript;
         private SpringJoint2D handJoint;
         private int currentRopeDist;
 
@@ -30,7 +30,7 @@ namespace Gato.Gameplay
             CreateJoints();
             RopeJoints = 0;
 
-            handScript = hand.GetComponent<TongueTip>();
+            handScript = hand.GetComponent<RopeTip>();
             handJoint = hand.GetComponent<SpringJoint2D>();
         }
 

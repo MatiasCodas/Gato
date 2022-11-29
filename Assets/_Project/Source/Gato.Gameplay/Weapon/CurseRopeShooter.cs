@@ -16,17 +16,17 @@ namespace Gato.Gameplay
         public bool shot;
         private HingeJoint2D hinge;
         public GameObject ropePoolGameObject;
-        private RopePoolTongue ropePoolScript;
+        private RopePoolAndLineHandler ropePoolScript;
         private Rigidbody2D rb2d;
         GameObject firstJoint;
-        public TongueTip ropeTip;
+        public RopeTip ropeTip;
 
 
         private void Start()
         {
             hinge = GetComponent<HingeJoint2D>();
             rb2d = GetComponent<Rigidbody2D>();
-            ropePoolScript = ropePoolGameObject.GetComponent<RopePoolTongue>();
+            ropePoolScript = ropePoolGameObject.GetComponent<RopePoolAndLineHandler>();
             shot = false;
         }
 
@@ -57,7 +57,7 @@ namespace Gato.Gameplay
                 ActiveCurseTransform = transform;
                 return;
             }
-            TongueTip.globalTarget = ActiveCurseTransform;
+            RopeTip.globalTarget = ActiveCurseTransform;
             ShootTongue(ActiveCurseTransform);
             ActiveCurse = null;
             ActiveCurseTransform = null;
