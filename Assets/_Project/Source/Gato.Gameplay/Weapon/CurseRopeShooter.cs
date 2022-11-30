@@ -46,7 +46,7 @@ namespace Gato.Gameplay
             activate.value = false;
         }
 
-        public void TargetHit(GameObject affectedByCurse)
+        public void TargetHit(GameObject affectedByCurse, bool isCursed)
         {
             if (alreadyActive) return;
             hinge.enabled = true;
@@ -58,6 +58,7 @@ namespace Gato.Gameplay
                 return;
             }
             RopeTip.globalTarget = ActiveCurseTransform;
+            ropeTip.cursed = isCursed;
             ShootTongue(ActiveCurseTransform);
             ActiveCurse = null;
             ActiveCurseTransform = null;

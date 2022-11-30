@@ -16,7 +16,7 @@ namespace Gato.Gameplay
         private float _movementSpeed = 3f;
 
         private bool _isMoving;
-        private static bool _isCursed;
+        public bool _isCursed;
         private GameObject _collisionObject;
         private Vector2 _direction;
         private CurseRopeShooter _ropeShooter;
@@ -34,7 +34,7 @@ namespace Gato.Gameplay
 
         public void ActivateCurse()
         {
-            _ropeShooter.TargetHit(_collisionObject);
+            _ropeShooter.TargetHit(_collisionObject, _isCursed);
             
             if(_isCursed)
             {

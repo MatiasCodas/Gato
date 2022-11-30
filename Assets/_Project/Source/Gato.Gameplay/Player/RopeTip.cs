@@ -21,6 +21,8 @@ namespace Gato.Gameplay
         public float ropeSpeed;
         public GameObject currentAttachedBody;
         public RopePoolAndLineHandler PoolTongue;
+        public CurseProjectile CurseProjectile;
+        public bool cursed;
 
         public Sprite hand;
         public Sprite fist;
@@ -56,6 +58,7 @@ namespace Gato.Gameplay
             isGettingLonger = false;
             rigidbody2D.velocity = Vector2.zero;
             PoolTongue.ActivateJoints(transform);
+            if (cursed) collision.gameObject.SendMessage("Curse1");
         }
     }
 }
