@@ -58,6 +58,7 @@ namespace Gato.Gameplay
             isGettingLonger = false;
             rigidbody2D.velocity = Vector2.zero;
             PoolTongue.ActivateJoints(transform);
+            Debug.Log(cursed);
             if (cursed) collision.gameObject.SendMessage("Curse1");
         }
     }

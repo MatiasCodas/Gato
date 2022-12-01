@@ -32,9 +32,9 @@ namespace Gato.Gameplay
             _ropeShooter = gameObject.GetComponent<CurseRopeShooter>();
         }
 
-        public void ActivateCurse()
+        public void ActivateCurse(bool cursed)
         {
-            _ropeShooter.TargetHit(_collisionObject, _isCursed);
+            _ropeShooter.TargetHit(_collisionObject, cursed);
             
             if(_isCursed)
             {
