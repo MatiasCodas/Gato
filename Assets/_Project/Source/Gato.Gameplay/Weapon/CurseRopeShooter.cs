@@ -31,7 +31,7 @@ namespace Gato.Gameplay
         }
 
 
-        private void ShootTongue(Transform target)
+        private void ShootRope(Transform target)
         {
             shot = true;
             ropeTip.currentAttachedBody = hinge.connectedBody.gameObject;
@@ -59,7 +59,7 @@ namespace Gato.Gameplay
             }
             RopeTip.globalTarget = ActiveCurseTransform;
             ropeTip.cursed = isCursed;
-            ShootTongue(ActiveCurseTransform);
+            ShootRope(ActiveCurseTransform);
             ActiveCurse = null;
             ActiveCurseTransform = null;
             alreadyActive = true;
