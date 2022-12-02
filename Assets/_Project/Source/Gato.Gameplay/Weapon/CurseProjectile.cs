@@ -20,6 +20,7 @@ namespace Gato.Gameplay
         private GameObject _collisionObject;
         private Vector2 _direction;
         private CurseRopeShooter _ropeShooter;
+        private static bool isTarget = true;
 
         public float timerToDestroy;
 
@@ -34,7 +35,7 @@ namespace Gato.Gameplay
 
         public void ActivateCurse(bool cursed)
         {
-            _ropeShooter.TargetHit(_collisionObject, cursed);
+            _ropeShooter.TargetHit(_collisionObject, _isCursed);
             
             if(_isCursed)
             {
@@ -59,14 +60,13 @@ namespace Gato.Gameplay
         {
             if (collision.CompareTag("Player")) return;
             if (!_isMoving) return;
+            transform.parent = collision.transform;
             _isMoving = false;
             _collisionObject = collision.gameObject;
-
+            
             if (collision.gameObject.name == "Curse")
             {
-                OnCurseTriggered?.Invoke();
                 _isCursed = true;
-                return;
             }
             else
             {
@@ -74,6 +74,14 @@ namespace Gato.Gameplay
                 currentTargetObject = collision.gameObject;
             }
 
+            isTarget = !isTarget;
+            if(isTarget)
+            {
+               // ActivateCurse(_isCursed);
+                OnCurseTriggered?.Invoke();
+                return;
+            }
+            
             OnObjectTriggered?.Invoke();
         }
 

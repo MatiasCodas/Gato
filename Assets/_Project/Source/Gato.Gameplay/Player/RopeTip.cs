@@ -59,7 +59,12 @@ namespace Gato.Gameplay
             rigidbody2D.velocity = Vector2.zero;
             PoolTongue.ActivateJoints(transform);
             Debug.Log(cursed);
-            if (cursed) collision.gameObject.SendMessage("Curse1");
+            if (cursed) collision.gameObject.SendMessage("Curse1", gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            Destroy(transform.parent.gameObject);
         }
     }
 }
