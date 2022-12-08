@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2fd17a6e3b054ef43aabd7bf6a57cefd, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.50746745, g: 0.09996435, b: 0.735849, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -108,6 +108,8 @@ MonoBehaviour:
   ropeSpeed: 10
   currentAttachedBody: {fileID: 0}
   PoolTongue: {fileID: 6372259319196734301}
+  CurseProjectile: {fileID: 0}
+  cursed: 0
   hand: {fileID: 21300000, guid: 6eb211ce8a1652f45bcbff4e89c96328, type: 3}
   fist: {fileID: 21300000, guid: 2fd17a6e3b054ef43aabd7bf6a57cefd, type: 3}
 --- !u!58 &8474168053369713351
@@ -291,8 +293,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.8018868, g: 0.64145, b: 0.23073156, a: 1}
-      key1: {r: 1, g: 0.80392164, b: 0.3019608, a: 1}
+      key0: {r: 0.5058824, g: 0.24313727, b: 0.3529412, a: 1}
+      key1: {r: 0.73333335, g: 0.39607847, b: 0.62352943, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -426,7 +428,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.074186325, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.75294125, g: 0.6039216, b: 0.32156864, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -449,6 +451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 50
+  _isCursed: 0
   timerToDestroy: 1
 --- !u!61 &-1308334231131028443
 BoxCollider2D:
