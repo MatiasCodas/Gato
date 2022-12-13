@@ -24,6 +24,8 @@ namespace Gato.Gameplay
         public CurseProjectile CurseProjectile;
         public bool cursed;
 
+        private Transform parentTransform;
+
         public Sprite hand;
         public Sprite fist;
 
@@ -34,20 +36,30 @@ namespace Gato.Gameplay
             sprite = GetComponent<SpriteRenderer>();
             rigidbody2D = GetComponent<Rigidbody2D>();
             spring = GetComponent<SpringJoint2D>();
-            target = globalTarget;
+            parentTransform = transform.parent.transform;
+            transform.position = parentTransform.position;
         }
 
 
         private void Update()
         {
-            if (isGettingLonger)
+            sprite.sprite = fist;
+            if (!isGettingLonger) return;
+            if(globalTarget == null)
             {
-                sprite.sprite = hand;
-                transform.up = Vector3.Normalize(target.position - transform.position);
-                rigidbody2D.velocity = Vector3.Normalize(target.position - transform.position) * ropeSpeed;
+                OnHold();
                 return;
             }
-            sprite.sprite = fist;
+            if (target == null) target = globalTarget; 
+            sprite.sprite = hand;
+            transform.up = Vector3.Normalize(target.position - transform.position);
+            rigidbody2D.velocity = Vector3.Normalize(target.position - transform.position) * ropeSpeed;
+        }
+
+        private void OnHold()
+        {
+            rigidbody2D.MoveRotation(Time.time * 365);
+
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

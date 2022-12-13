@@ -14,30 +14,34 @@ namespace Gato.Gameplay
         public GameObject projectile;
         public ObjectBoolean activate;
         public bool shot;
-        private HingeJoint2D hinge;
+        public HingeJoint2D hinge;
         public GameObject ropePoolGameObject;
         private RopePoolAndLineHandler ropePoolScript;
         private Rigidbody2D rb2d;
         GameObject firstJoint;
         public RopeTip ropeTip;
-
+        private static bool isNotRope = false;
 
         private void Start()
         {
-            hinge = GetComponent<HingeJoint2D>();
+            //hinge = GetComponent<HingeJoint2D>();
             rb2d = GetComponent<Rigidbody2D>();
             ropePoolScript = ropePoolGameObject.GetComponent<RopePoolAndLineHandler>();
             shot = false;
         }
 
 
-        private void ShootRope(Transform target)
+        private void ShootRope()
         {
             shot = true;
+            RopeTip.globalTarget = null;
             ropeTip.currentAttachedBody = hinge.connectedBody.gameObject;
             ropeTip.gameObject.SetActive(true);
             ropeTip.transform.position = transform.localPosition;
             ropeTip.isGettingLonger = true;
+            ActiveCurse = null;
+            ActiveCurseTransform = null;
+            alreadyActive = true;
         }
 
         private void OnDisable()
@@ -51,18 +55,17 @@ namespace Gato.Gameplay
             if (alreadyActive) return;
             hinge.enabled = true;
             hinge.connectedBody = affectedByCurse.GetComponent<Rigidbody2D>();
-            if (ActiveCurse == null)
+            isNotRope = !isNotRope;
+            if (ActiveCurse == null && !isNotRope)
             {
+                RopeTip.globalTarget = transform;
                 ActiveCurse = this;
                 ActiveCurseTransform = transform;
                 return;
             }
-            RopeTip.globalTarget = ActiveCurseTransform;
             ropeTip.cursed = isCursed;
-            ShootRope(ActiveCurseTransform);
-            ActiveCurse = null;
-            ActiveCurseTransform = null;
-            alreadyActive = true;
+            ShootRope();
+            
         }
 
         private void OnDestroy()

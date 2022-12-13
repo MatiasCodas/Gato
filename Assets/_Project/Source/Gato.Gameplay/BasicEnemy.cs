@@ -45,7 +45,6 @@ namespace Gato.Gameplay
         private void FaceDirection()//placeholder for  until we get some animations
         {
             Vector2 dir = Vector2.ClampMagnitude(nextPosition - (Vector2)transform.position, 1) *100;
-            Debug.Log(dir);
 
             if (Mathf.Abs(dir.x) >= Mathf.Abs(dir.y))
             {

@@ -21,6 +21,7 @@ namespace Gato.Gameplay
         private Vector2 _direction;
         private CurseRopeShooter _ropeShooter;
         private static bool isTarget = true;
+        private static GameObject currentTargetObject;
 
         public float timerToDestroy;
 
@@ -31,6 +32,7 @@ namespace Gato.Gameplay
             _isMoving = true;
             _direction = direction;
             _ropeShooter = gameObject.GetComponent<CurseRopeShooter>();
+            _collisionObject = null;
         }
 
         public void ActivateCurse(bool cursed)
@@ -55,7 +57,7 @@ namespace Gato.Gameplay
 
             transform.Translate(_direction * _movementSpeed * Time.deltaTime);
         }
-        private static GameObject currentTargetObject;
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Player")) return;
@@ -68,21 +70,18 @@ namespace Gato.Gameplay
             {
                 _isCursed = true;
             }
-            else
-            {
-
-                currentTargetObject = collision.gameObject;
-            }
+        
 
             isTarget = !isTarget;
+            ActivateCurse(_isCursed);
+            /*
             if(isTarget)
             {
-               // ActivateCurse(_isCursed);
                 OnCurseTriggered?.Invoke();
                 return;
             }
             
-            OnObjectTriggered?.Invoke();
+            OnObjectTriggered?.Invoke();*/
         }
 
         private IEnumerator SetTimer(bool both)
@@ -90,7 +89,7 @@ namespace Gato.Gameplay
 
             yield return new WaitForSeconds(timerToDestroy);
             if (!_isMoving && !both) yield break;
-            if (both && currentTargetObject != null)
+            if (both && _collisionObject != null)
             {
                 Destroy(currentTargetObject);
             }

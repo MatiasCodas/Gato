@@ -515,6 +515,7 @@ MonoBehaviour:
   projectile: {fileID: 3530115098601723569}
   activate: {fileID: 11400000, guid: 13793d8508146b24bb95cc54efdb14a7, type: 2}
   shot: 0
+  hinge: {fileID: 2015051606954381330}
   ropePoolGameObject: {fileID: 3787673955607526423}
   ropeTip: {fileID: 4387377546241008471}
 --- !u!233 &2015051606954381330
