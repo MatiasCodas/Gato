@@ -9,6 +9,7 @@ namespace Gato.Gameplay
         private float _movementSpeed;
 
         private IRangedWeapon _rangedWeapon;
+        private Rigidbody2D _rigidbody2d;
 
         public ServiceLocator OwningLocator { get; set; }
 
@@ -16,11 +17,12 @@ namespace Gato.Gameplay
         {
             ServiceLocator.Shared.Set<IPlayerControlService>(this);
             _rangedWeapon = gameObject.GetComponent<IRangedWeapon>();
+            _rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
         }
 
         public void Move(Vector2 direction)
         {
-            transform.Translate(direction * _movementSpeed);
+           _rigidbody2d.velocity = (direction * _movementSpeed);
         }
 
         public void ShootWeapon(Vector2 direction)

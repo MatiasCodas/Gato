@@ -12,6 +12,9 @@ namespace Gato.Gameplay
         private int _animHorizHash;
 
         [SerializeField]
+        private Rigidbody2D _rigidbody2D;
+
+        [SerializeField]
         private Animator _animator;
 
         public void Awake()
@@ -22,8 +25,8 @@ namespace Gato.Gameplay
 
         public void FixedUpdate()
         {
-            _animator.SetFloat(_animVertHash, Input.GetAxis("Vertical"));
-            _animator.SetFloat(_animHorizHash, Input.GetAxis("Horizontal"));
+            _animator.SetFloat(_animVertHash, Mathf.Clamp(_rigidbody2D.velocity.y, -1, 1));
+            _animator.SetFloat(_animHorizHash, Mathf.Clamp(_rigidbody2D.velocity.x, -1, 1));
         }
     }
 }

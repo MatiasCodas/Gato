@@ -6571,7 +6571,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 80
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -7370,6 +7370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b344846971ef143919ee68ceee4eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rigidbody2D: {fileID: 2081841288}
   _animator: {fileID: 2081841280}
 --- !u!114 &2081841286
 MonoBehaviour:
@@ -7383,7 +7384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7886bee9a1d200419ffaaf21fa0a634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 5
+  _movementSpeed: 7
 --- !u!114 &2081841287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7407,7 +7408,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2081841279}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
