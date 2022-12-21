@@ -12,6 +12,7 @@ namespace Gato.Gameplay
 
         public event TargetHitHandler OnObjectTriggered;
 
+
         [SerializeField]
         private float _movementSpeed = 3f;
 
@@ -20,19 +21,21 @@ namespace Gato.Gameplay
         private GameObject _collisionObject;
         private Vector2 _direction;
         private CurseRopeShooter _ropeShooter;
+        private LineRenderer _line;
         private static bool isTarget = true;
-        private static GameObject currentTargetObject;
+        public GameObject currentTargetObject;
+        private float timeActive;
 
         public float timerToDestroy;
 
         
-
         public void Setup(Vector2 direction)
         {
             _isMoving = true;
             _direction = direction;
             _ropeShooter = gameObject.GetComponent<CurseRopeShooter>();
             _collisionObject = null;
+            _line = GetComponent<LineRenderer>();
         }
 
         public void ActivateCurse(bool cursed)
@@ -49,18 +52,29 @@ namespace Gato.Gameplay
 
         private void FixedUpdate()
         {
-            StartCoroutine(SetTimer(false));
+            //StartCoroutine(SetTimer(false));
+            
+            RaycastHit2D ray2D = Physics2D.Raycast(transform.position, currentTargetObject.transform.position - transform.position);
+            Debug.DrawRay(transform.position, currentTargetObject.transform.position - transform.position);
+            LineUpdate();
             if (!_isMoving)
             {
                 return;
             }
 
-            transform.Translate(_direction * _movementSpeed * Time.deltaTime);
+            timeActive += Time.deltaTime;
+            Vector2 backForce = Vector2.ClampMagnitude(currentTargetObject.transform.position - transform.position, 1) * timeActive;
+            transform.Translate((_direction * _movementSpeed * Time.deltaTime) + backForce);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Player")) return;
+            if (collision.CompareTag("Player"))
+            {
+                Debug.Log("bateu em vc");
+                Destroy(gameObject);
+                return;
+            }
             if (!_isMoving) return;
             transform.parent = collision.transform;
             _isMoving = false;
@@ -84,6 +98,12 @@ namespace Gato.Gameplay
             OnObjectTriggered?.Invoke();*/
         }
 
+        private void LineUpdate()
+        {
+            _line.positionCount = 2;
+            _line.SetPosition(0, transform.position);
+            _line.SetPosition(1, currentTargetObject.transform.position);
+        }
         private IEnumerator SetTimer(bool both)
         {
 

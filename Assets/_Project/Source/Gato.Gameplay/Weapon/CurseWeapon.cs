@@ -25,10 +25,11 @@ namespace Gato.Gameplay
                 return;
             }
 
-            CurseProjectile instance = Instantiate(_projectilePrefab, gameObject.transform.position, Quaternion.identity);
+            CurseProjectile instance = Instantiate(_projectilePrefab, (Vector2)gameObject.transform.position + direction *3, Quaternion.identity);
             instance.Setup(direction);
             instance.OnCurseTriggered += HandleCurseTriggered;
             instance.OnObjectTriggered += HandleObjectTriggered;
+            instance.currentTargetObject = gameObject;
             _projectilePool.Add(instance);
 
             WeaponCooldown();
