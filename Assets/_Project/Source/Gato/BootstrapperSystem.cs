@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Gato.Core;
+using UnityEngine;
 
 namespace Gato
 {
@@ -9,12 +10,12 @@ namespace Gato
 
         public override async void LateSetup()
         {
-            /*IUIService uiService = ServiceLocator.Shared.Get<IUIService>();
+            IUIService uiService = ServiceLocator.Shared.Get<IUIService>();
 
             if (uiService != null)
             {
-                await uiService.OpenScreenAsync(_firstScreenData, true, LoadingType.Splash);
-            }*/
+                await uiService.OpenScreenAsync(_firstScreenData, true);
+            }
         }
     }
 }
