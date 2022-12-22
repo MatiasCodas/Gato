@@ -29,7 +29,7 @@ namespace Gato.Gameplay
             instance.Setup(direction);
             instance.OnCurseTriggered += HandleCurseTriggered;
             instance.OnObjectTriggered += HandleObjectTriggered;
-            instance.currentTargetObject = gameObject;
+            instance.connectedToRope.Add(gameObject);
             _projectilePool.Add(instance);
 
             WeaponCooldown();

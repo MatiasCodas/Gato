@@ -23,7 +23,8 @@ namespace Gato.Gameplay
         private CurseRopeShooter _ropeShooter;
         private LineRenderer _line;
         private static bool isTarget = true;
-        public GameObject currentTargetObject;
+        //public GameObject currentTargetObject;
+        public List<GameObject> connectedToRope;
         private float timeActive;
 
         public float timerToDestroy;
@@ -36,6 +37,12 @@ namespace Gato.Gameplay
             _ropeShooter = gameObject.GetComponent<CurseRopeShooter>();
             _collisionObject = null;
             _line = GetComponent<LineRenderer>();
+        }
+
+        private void Awake()
+        {
+
+           // connectedToRope.Add(currentTargetObject);
         }
 
         public void ActivateCurse(bool cursed)
@@ -53,9 +60,8 @@ namespace Gato.Gameplay
         private void FixedUpdate()
         {
             //StartCoroutine(SetTimer(false));
-            
-            RaycastHit2D ray2D = Physics2D.Raycast(transform.position, currentTargetObject.transform.position - transform.position);
-            Debug.DrawRay(transform.position, currentTargetObject.transform.position - transform.position);
+
+            LineCollisions();
             LineUpdate();
             if (!_isMoving)
             {
@@ -63,7 +69,7 @@ namespace Gato.Gameplay
             }
 
             timeActive += Time.deltaTime;
-            Vector2 backForce = Vector2.ClampMagnitude(currentTargetObject.transform.position - transform.position, 1) * timeActive;
+            Vector2 backForce = Vector2.ClampMagnitude(connectedToRope[0].transform.position - transform.position, 1) * timeActive;
             transform.Translate((_direction * _movementSpeed * Time.deltaTime) + backForce);
         }
 
@@ -71,7 +77,6 @@ namespace Gato.Gameplay
         {
             if (collision.CompareTag("Player"))
             {
-                Debug.Log("bateu em vc");
                 Destroy(gameObject);
                 return;
             }
@@ -98,11 +103,29 @@ namespace Gato.Gameplay
             OnObjectTriggered?.Invoke();*/
         }
 
+        private void LineCollisions()//this is not working, I'm trying
+        {
+            RaycastHit2D ray2D = Physics2D.Raycast(transform.position, connectedToRope[0].transform.position - transform.position, Mathf.Infinity, LayerMask.GetMask("RopeTip"));
+            Debug.DrawRay(transform.position, connectedToRope[0].transform.position - transform.position);
+
+            if (ray2D.collider.CompareTag("Player")) return;
+            if (ray2D.collider == gameObject) return;
+            for (int i = 0; i < connectedToRope.Count; i++)
+            {
+                if (ray2D.collider == connectedToRope[i]) return;
+            }
+            Debug.Log(ray2D.collider.name);
+            connectedToRope.Add(ray2D.collider.gameObject);
+
+        }
         private void LineUpdate()
         {
-            _line.positionCount = 2;
+            _line.positionCount = connectedToRope.Count+1;
             _line.SetPosition(0, transform.position);
-            _line.SetPosition(1, currentTargetObject.transform.position);
+            for (int i = 1; i < connectedToRope.Count+1; i++)
+            {
+                _line.SetPosition(i, connectedToRope[i-1].transform.position);
+            }
         }
         private IEnumerator SetTimer(bool both)
         {
@@ -111,7 +134,7 @@ namespace Gato.Gameplay
             if (!_isMoving && !both) yield break;
             if (both && _collisionObject != null)
             {
-                Destroy(currentTargetObject);
+                Destroy(connectedToRope[0]);
             }
             Destroy(gameObject);
         }

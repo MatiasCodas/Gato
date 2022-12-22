@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 50
   _isCursed: 0
-  currentTargetObject: {fileID: 0}
+  connectedToRope: []
   timerToDestroy: 1
 --- !u!61 &-1308334231131028443
 BoxCollider2D:
@@ -224,8 +224,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.5058824, g: 0.24313727, b: 0.3529412, a: 1}
-      key1: {r: 0.73333335, g: 0.39607847, b: 0.62352943, a: 1}
+      key0: {r: 0.6226415, g: 0.10808115, b: 0.43026975, a: 1}
+      key1: {r: 0.6226415, g: 0.10808115, b: 0.43026975, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
