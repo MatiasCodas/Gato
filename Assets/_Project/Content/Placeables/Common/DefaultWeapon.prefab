@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 50
-  _isCursed: 0
+  _ropeShooter: {fileID: 0}
   connectedToRope: []
   timerToDestroy: 1
 --- !u!61 &-1308334231131028443
@@ -203,7 +203,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.1198349
+        value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -212,7 +212,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.12734556
+        value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0

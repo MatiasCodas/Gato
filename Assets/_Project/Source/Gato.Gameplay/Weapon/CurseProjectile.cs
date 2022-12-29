@@ -17,10 +17,10 @@ namespace Gato.Gameplay
         private float _movementSpeed = 3f;
 
         private bool _isMoving;
-        public bool _isCursed;
+        public static bool _isCursed;
         private GameObject _collisionObject;
         private Vector2 _direction;
-        private CurseRopeShooter _ropeShooter;
+        public CurseRopeShooter _ropeShooter;
         private LineRenderer _line;
         private static bool isTarget = true;
         //public GameObject currentTargetObject;
@@ -34,7 +34,7 @@ namespace Gato.Gameplay
         {
             _isMoving = true;
             _direction = direction;
-            _ropeShooter = gameObject.GetComponent<CurseRopeShooter>();
+            //_ropeShooter = gameObject.GetComponent<CurseRopeShooter>();
             _collisionObject = null;
             _line = GetComponent<LineRenderer>();
         }
@@ -47,14 +47,9 @@ namespace Gato.Gameplay
 
         public void ActivateCurse(bool cursed)
         {
-            _ropeShooter.TargetHit(_collisionObject, _isCursed);
+           // _ropeShooter.TargetHit(_collisionObject, _isCursed);
             
-            if(_isCursed)
-            {
-               // StartCoroutine( SetTimer(true));
-                _isCursed = false;
-
-            }
+            
         }
 
         private void FixedUpdate()
@@ -84,7 +79,8 @@ namespace Gato.Gameplay
             transform.parent = collision.transform;
             _isMoving = false;
             _collisionObject = collision.gameObject;
-            
+
+            if (_isCursed) collision.SendMessage("Curse1", gameObject);
             if (collision.gameObject.name == "Curse")
             {
                 _isCursed = true;
@@ -105,14 +101,14 @@ namespace Gato.Gameplay
 
         private void LineCollisions()//this is not working, I'm trying
         {
-            RaycastHit2D ray2D = Physics2D.Raycast(transform.position, connectedToRope[0].transform.position - transform.position, Mathf.Infinity, LayerMask.GetMask("RopeTip"));
+            RaycastHit2D ray2D = Physics2D.Raycast(transform.position, connectedToRope[0].transform.position - transform.position, Mathf.Infinity, 5);
             Debug.DrawRay(transform.position, connectedToRope[0].transform.position - transform.position);
 
             if (ray2D.collider.CompareTag("Player")) return;
             if (ray2D.collider == gameObject) return;
             for (int i = 0; i < connectedToRope.Count; i++)
             {
-                if (ray2D.collider == connectedToRope[i]) return;
+                if (ray2D.collider.gameObject == connectedToRope[i]) return;
             }
             Debug.Log(ray2D.collider.name);
             connectedToRope.Add(ray2D.collider.gameObject);
