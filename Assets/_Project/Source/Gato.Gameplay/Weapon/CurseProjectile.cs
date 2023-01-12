@@ -23,7 +23,6 @@ namespace Gato.Gameplay
         public CurseRopeShooter _ropeShooter;
         private LineRenderer _line;
         private static bool isTarget = true;
-        //public GameObject currentTargetObject;
         public List<GameObject> connectedToRope;
         private float timeActive;
         private int layerMask;
@@ -35,7 +34,6 @@ namespace Gato.Gameplay
         {
             _isMoving = true;
             _direction = direction;
-            //_ropeShooter = gameObject.GetComponent<CurseRopeShooter>();
             _collisionObject = null;
             _line = GetComponent<LineRenderer>();
             layerMask = LayerMask.GetMask("Default");
@@ -44,22 +42,18 @@ namespace Gato.Gameplay
 
         public void ActivateCurse(bool cursed)
         {
-           // _ropeShooter.TargetHit(_collisionObject, _isCursed);
             
             
         }
 
         private void FixedUpdate()
         {
-            //StartCoroutine(SetTimer(false));
-
             LineCollisions();
             LineUpdate();
             if (!_isMoving)
             {
                 return;
             }
-
             timeActive += Time.deltaTime;
             Vector2 backForce = Vector2.ClampMagnitude(connectedToRope[connectedToRope.Count-2].transform.position - transform.position, 1) * timeActive;
             transform.Translate((_direction * _movementSpeed * Time.deltaTime) + backForce);
@@ -96,19 +90,42 @@ namespace Gato.Gameplay
             OnObjectTriggered?.Invoke();*/
         }
 
+        //private Vector2 target;
+
+        private int lineIndex = 0;
         private void LineCollisions()//this is almost working, I'm trying
         {
-            Vector2 target = connectedToRope[connectedToRope.Count - 2].transform.position;
-            RaycastHit2D ray2D = Physics2D.Raycast(transform.position, target - (Vector2)transform.position, Vector2.Distance(target, transform.position), layerMask);
-            Debug.DrawRay(transform.position, target-(Vector2)transform.position, ray2D.collider != null ? Color.blue : Color.red);
-            if (ray2D.collider == null) return;
+            Vector2 rayShooter = connectedToRope[lineIndex + 1].transform.position;
+            Vector2 target = connectedToRope[lineIndex].transform.position;
+            RaycastHit2D ray2D = Physics2D.Raycast(rayShooter, target - rayShooter, Vector2.Distance(target, rayShooter), layerMask);
+            Debug.DrawRay(rayShooter, target - rayShooter, ray2D.collider != null ? Color.blue : Color.red);
+            if (ray2D.collider == null)
+            {
+                if (lineIndex <= 0)
+                {
+                    lineIndex = connectedToRope.Count - 2;
+                    return;
+                }
+                lineIndex--;
+                LineCollisions();
+                return;
+            }
+            
+            ray2D.collider.gameObject.layer = 7;
+            Debug.Log(ray2D.collider.name);
+            connectedToRope.Insert(lineIndex+1, ray2D.collider.gameObject);
+
+            if (ray2D.collider.name == "Curse") _isCursed = true;
+            if (_isCursed) ray2D.collider.SendMessage("Curse1", gameObject);
+        }
+        
+
+        private void OnDestroy()
+        {
             for (int i = 0; i < connectedToRope.Count; i++)
             {
-                if (ray2D.collider.gameObject == connectedToRope[i]) return;
+                connectedToRope[i].layer = 0;
             }
-            Debug.Log(ray2D.collider.name);
-            connectedToRope.Insert(connectedToRope.Count-1, ray2D.collider.gameObject);
-           
         }
         private void LineUpdate()
         {
