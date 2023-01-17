@@ -28,7 +28,7 @@ namespace Gato.Gameplay
         private int layerMask;
 
         public float timerToDestroy;
-
+        public bool goBack = false;
         
         public void Setup(Vector2 direction)
         {
@@ -46,12 +46,21 @@ namespace Gato.Gameplay
             
         }
 
+        private void Update() // gambiarra, favor trocar os inputs pro inputmanager depois
+        {
+            if(Input.GetKeyDown(KeyCode.Q))
+            {
+                goBack = true;
+            }
+        }
+
         private void FixedUpdate()
         {
             LineCollisions();
             LineUpdate();
-            if (!_isMoving)
+            if (!_isMoving && !goBack)
             {
+                timeActive = 0;
                 return;
             }
             timeActive += Time.deltaTime;
@@ -64,6 +73,13 @@ namespace Gato.Gameplay
             if (collision.CompareTag("Player"))
             {
                 Destroy(gameObject);
+                return;
+            }
+            if(goBack)
+            {
+                if (collision.gameObject == connectedToRope[connectedToRope.Count - 2]) connectedToRope.RemoveAt(connectedToRope.Count - 2);
+                lineIndex--;
+                Debug.Log("removed one");
                 return;
             }
             if (!_isMoving) return;
@@ -88,6 +104,13 @@ namespace Gato.Gameplay
             }
             
             OnObjectTriggered?.Invoke();*/
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (!goBack) return;
+            if (collision.gameObject.layer != 7) return;
+            collision.gameObject.layer = 0;
         }
 
         //private Vector2 target;
