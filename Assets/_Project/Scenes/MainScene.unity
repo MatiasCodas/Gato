@@ -7384,7 +7384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7886bee9a1d200419ffaaf21fa0a634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 7
+  _playerStats: {fileID: 11400000, guid: 02287128bc6c28641b81d60579b35b02, type: 2}
 --- !u!114 &2081841287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7398,7 +7398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxProjectileAvailable: 10
-  _cooldownTime: 2000
+  _playerStats: {fileID: 11400000, guid: 02287128bc6c28641b81d60579b35b02, type: 2}
   _projectilePrefab: {fileID: 1364707071902809101, guid: 8f539a993dc3f8a4a80be778a26ae741, type: 3}
 --- !u!50 &2081841288
 Rigidbody2D:

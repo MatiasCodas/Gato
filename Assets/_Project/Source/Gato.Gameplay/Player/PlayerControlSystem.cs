@@ -6,7 +6,7 @@ namespace Gato.Gameplay
     internal class PlayerControlSystem : MonoSystem, IPlayerControlService
     {
         [SerializeField]
-        private float _movementSpeed;
+        private PlayerStats _playerStats;
 
         private IRangedWeapon _rangedWeapon;
         private Rigidbody2D _rigidbody2d;
@@ -22,7 +22,7 @@ namespace Gato.Gameplay
 
         public void Move(Vector2 direction)
         {
-           _rigidbody2d.velocity = (direction * _movementSpeed);
+           _rigidbody2d.velocity = (direction * _playerStats.MovementSpeed);
         }
 
         public void ShootWeapon(Vector2 direction)

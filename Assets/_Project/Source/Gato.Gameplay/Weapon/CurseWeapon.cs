@@ -9,7 +9,7 @@ namespace Gato.Gameplay
         [SerializeField]
         private int _maxProjectileAvailable = 2;
         [SerializeField]
-        private int _cooldownTime = 1000;
+        private PlayerStats _playerStats;
         [SerializeField]
         private CurseProjectile _projectilePrefab;
 
@@ -41,7 +41,7 @@ namespace Gato.Gameplay
         {
             _inCooldown = true;
 
-            await UniTask.Delay(_cooldownTime);
+            await UniTask.Delay((int)(_playerStats.RopeCooldown * 1000));
 
             _inCooldown = false;
         }
