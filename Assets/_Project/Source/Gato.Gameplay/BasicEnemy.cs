@@ -76,7 +76,8 @@ namespace Gato.Gameplay
 
             yield return new WaitForSeconds(timeToDie);
             Destroy(gameObject);
-            Destroy(rope);
+            CurseProjectile.goAllBack = true;
+           // Destroy(rope);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -88,6 +89,7 @@ namespace Gato.Gameplay
             }
             
         }
+
 
     }
 }

@@ -19,27 +19,29 @@ namespace Gato.Gameplay
         private PlayerStats _playerStats;
 
         private bool _isMoving;
-        public static bool _isCursed;
-        private GameObject _collisionObject;
+        public static bool IsCursed;
         private Vector2 _direction;
-        public CurseRopeShooter _ropeShooter;
+        public CurseRopeShooter RopeShooter;
         private LineRenderer _line;
-        private static bool isTarget = true;
-        public List<GameObject> connectedToRope;
-        private int layerMask;
-        private float timeActive;
+        private static bool _isTarget = true;
+        public List<GameObject> ConnectedToRope;
+        private List<Vector2> _connectedRelativePosition;
+        private Transform _connectedFinalTarget;
+        private int _layerMask;
+        private float _timeActive;
 
-        public float timerToDestroy;
-        private float timeGoingBack;
-        public bool goBack = false;
+        public float TimerToDestroy;
+        private float _timeGoingBack;
+        public bool GoBack = false;
+        public static bool goAllBack = false;
         
         public void Setup(Vector2 direction)
         {
             _isMoving = true;
             _direction = direction;
-            _collisionObject = null;
             _line = GetComponent<LineRenderer>();
-            layerMask = LayerMask.GetMask("Default");
+            _layerMask = LayerMask.GetMask("Default");
+
         }
 
 
@@ -51,12 +53,33 @@ namespace Gato.Gameplay
 
         private void Update() // gambiarra, favor trocar os inputs pro inputmanager depois
         {
-            if(Input.GetKeyDown(KeyCode.Q) || timeActive > _playerStats.RopeTime || LineSize() >= _playerStats.RopeSize)
+            
+            if(Input.GetKeyDown(KeyCode.Q) || _timeActive > _playerStats.RopeTime || LineSize() >= _playerStats.RopeSize || goAllBack)
             {
-                goBack = true;
+                GoBack = true;
+                goAllBack = false;
             }
             if (!_isMoving)
-                timeActive += Time.deltaTime;
+            {
+                _timeActive += Time.deltaTime;
+                if (_connectedFinalTarget == null)
+                {
+                    GoBack = true;
+
+                }
+            }
+            if (!GoBack)
+            {
+                try
+                {
+                    transform.position = Vector3.Lerp(transform.position, _connectedFinalTarget.position, 0.1f);
+                }
+                catch
+                {
+                    Debug.Log("You got an error but it's not a big deal so I'm doing this chill message");
+                }
+            }
+           
 
         }
 
@@ -64,14 +87,14 @@ namespace Gato.Gameplay
         {
             LineCollisions();
             LineUpdate();
-            if (!_isMoving && !goBack)
+            if (!_isMoving && !GoBack)
             {
-                timeGoingBack = 1.5f;
+                _timeGoingBack = 1.5f;
                 return;
             }
-            timeGoingBack += Time.deltaTime;
-            Vector2 backForce = Vector2.ClampMagnitude(connectedToRope[connectedToRope.Count-2].transform.position - transform.position, 1) * timeGoingBack;
-            transform.Translate((_direction * _movementSpeed * Time.deltaTime) + backForce);
+            _timeGoingBack += Time.deltaTime;
+            Vector2 backForce = Vector2.ClampMagnitude(ConnectedToRope[^2].transform.position - transform.position, 1) * _timeGoingBack;
+            transform.Translate((_movementSpeed * Time.deltaTime * _direction) + backForce);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -81,30 +104,30 @@ namespace Gato.Gameplay
                 Destroy(gameObject);
                 return;
             }
-            if(goBack)
+            if(GoBack)
             {
-                if (collision.gameObject == connectedToRope[connectedToRope.Count - 2])
+                if (collision.gameObject == ConnectedToRope[^2])
                 {
-                    connectedToRope.RemoveAt(connectedToRope.Count - 2);
-                    lineIndex--;
+                    ConnectedToRope.RemoveAt(ConnectedToRope.Count - 2);
+                    _lineIndex--;
                     Debug.Log("removed one");
                 }
                 return;
             }
             if (!_isMoving) return;
-            transform.parent = collision.transform;
+            //transform.parent = collision.transform;
             _isMoving = false;
-            _collisionObject = collision.gameObject;
+            _connectedFinalTarget = collision.transform;
 
-            if (_isCursed) collision.SendMessage("Curse1", gameObject);
+            if (IsCursed) collision.SendMessage("Curse1", gameObject);
             if (collision.gameObject.name == "Curse")
             {
-                _isCursed = true;
+                IsCursed = true;
             }
         
 
-            isTarget = !isTarget;
-            ActivateCurse(_isCursed);
+            _isTarget = !_isTarget;
+            ActivateCurse(IsCursed);
             /*
             if(isTarget)
             {
@@ -117,37 +140,42 @@ namespace Gato.Gameplay
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (!goBack) return;
+            if (collision.gameObject.name == "Curse") IsCursed = false;
+            if(_connectedFinalTarget == null) GoBack = true;
+            if (!GoBack) return;
             if (collision.gameObject.layer != 7) return;
             collision.gameObject.layer = 0;
+            
+            
         }
 
         //private Vector2 target;
 
-        private int lineIndex = 0;
+        private int _lineIndex = 0;
         private void LineCollisions()//this is almost working, I'm trying
         {
-            Vector2 rayShooter = connectedToRope[lineIndex + 1].transform.position;
-            Vector2 target = connectedToRope[lineIndex].transform.position;
-            RaycastHit2D ray2D = Physics2D.Raycast(rayShooter, target - rayShooter, Vector2.Distance(target, rayShooter), layerMask);
+            Vector2 rayShooter = ConnectedToRope[_lineIndex + 1].transform.position;
+            Vector2 target = ConnectedToRope[_lineIndex].transform.position;
+            RaycastHit2D ray2D = Physics2D.Raycast(rayShooter, target - rayShooter, Vector2.Distance(target, rayShooter), _layerMask);
             Debug.DrawRay(rayShooter, target - rayShooter, ray2D.collider != null ? Color.blue : Color.red);
             if (ray2D.collider == null)
             {
-                if (lineIndex <= 0)
+                if (_lineIndex <= 0)
                 {
-                    lineIndex = connectedToRope.Count - 2;
+                    _lineIndex = ConnectedToRope.Count - 2;
                     return;
                 }
-                lineIndex--;
+                _lineIndex--;
                 LineCollisions();
                 return;
             }
-            if (ray2D.collider.name == "Curse") _isCursed = true;
-            if (_isCursed) ray2D.collider.SendMessage("Curse1", gameObject);
-            if (goBack) return;
+            if (ray2D.collider.name == "Curse") IsCursed = true;
+            if (IsCursed) ray2D.collider.SendMessage("Curse1", gameObject);
+            if (GoBack) return;
             ray2D.collider.gameObject.layer = 7;
             Debug.Log(ray2D.collider.name);
-            connectedToRope.Insert(lineIndex+1, ray2D.collider.gameObject);
+            ConnectedToRope.Insert(_lineIndex+1, ray2D.collider.gameObject);
+          //  _connectedRelativePosition.Insert(_lineIndex + 1, ray2D.collider.transform);
 
             
         }
@@ -155,9 +183,15 @@ namespace Gato.Gameplay
         private float LineSize()
         {
             float pointDistance = 0;
-            for (int i = 1; i < connectedToRope.Count; i++)
+            for (int i = 1; i < ConnectedToRope.Count; i++)
             {
-               pointDistance += Vector2.Distance( connectedToRope[i-1].transform.position, connectedToRope[i].transform.position);
+                if(ConnectedToRope[i] == null)
+                {
+                    ConnectedToRope.RemoveAt(i);
+                    _lineIndex = ConnectedToRope.Count - 2;
+                    return pointDistance;
+                }
+                pointDistance += Vector2.Distance(ConnectedToRope[i - 1].transform.position, ConnectedToRope[i].transform.position);
             }
             return pointDistance;
         }
@@ -165,20 +199,21 @@ namespace Gato.Gameplay
 
         private void OnDestroy()
         {
-            for (int i = 0; i < connectedToRope.Count; i++)
+            for (int i = 0; i < ConnectedToRope.Count; i++)
             {
-                connectedToRope[i].layer = 0;
+                ConnectedToRope[i].layer = 0;
             }
         }
         private void LineUpdate()
         {
-            _line.positionCount = connectedToRope.Count;
+            _line.positionCount = ConnectedToRope.Count;
             //_line.SetPosition(0, transform.position);
-            for (int i = 0; i < connectedToRope.Count; i++)
+            for (int i = 0; i < ConnectedToRope.Count; i++)
             {
-                _line.SetPosition(i, connectedToRope[i].transform.position);
+                _line.SetPosition(i, ConnectedToRope[i].transform.position);
             }
         }
+        /*
         private IEnumerator SetTimer(bool both)
         {
 
@@ -190,5 +225,6 @@ namespace Gato.Gameplay
             }
             Destroy(gameObject);
         }
+        */
     }
 }

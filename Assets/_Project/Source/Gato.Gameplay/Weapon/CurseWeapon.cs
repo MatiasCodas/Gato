@@ -29,8 +29,8 @@ namespace Gato.Gameplay
             instance.Setup(direction);
             instance.OnCurseTriggered += HandleCurseTriggered;
             instance.OnObjectTriggered += HandleObjectTriggered;
-            instance.GetComponent<CurseProjectile>().connectedToRope.Add(gameObject);
-            instance.GetComponent<CurseProjectile>().connectedToRope.Add(instance.gameObject);
+            instance.GetComponent<CurseProjectile>().ConnectedToRope.Add(gameObject);
+            instance.GetComponent<CurseProjectile>().ConnectedToRope.Add(instance.gameObject);
             //instance.GetComponent<CurseProjectile>().playerObject = gameObject;
             _projectilePool.Add(instance);
 
