@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.75294125, g: 0.6039216, b: 0.32156864, a: 1}
+  m_Color: {r: 0.73333335, g: 0.39607847, b: 0.62352943, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,10 +102,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 50
   _playerStats: {fileID: 11400000, guid: 02287128bc6c28641b81d60579b35b02, type: 2}
-  _ropeShooter: {fileID: 0}
-  connectedToRope: []
-  timerToDestroy: 1
-  goBack: 0
+  RopeShooter: {fileID: 0}
+  ConnectedToRope: []
+  TimerToDestroy: 0
+  GoBack: 0
 --- !u!61 &-1308334231131028443
 BoxCollider2D:
   m_ObjectHideFlags: 0
