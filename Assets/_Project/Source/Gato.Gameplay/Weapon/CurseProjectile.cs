@@ -20,6 +20,7 @@ namespace Gato.Gameplay
 
         private bool _isMoving;
         public static bool IsCursed;
+        private bool _sentCurse;
         private Vector2 _direction;
         public CurseRopeShooter RopeShooter;
         private LineRenderer _line;
@@ -83,6 +84,7 @@ namespace Gato.Gameplay
         private void FixedUpdate()
         {
             LineCollisions();
+            if (IsCursed) SendNewCurseToAll();
             if (!_isMoving && !GoBack)
             {
                 _timeGoingBack = 1.5f;
@@ -92,6 +94,7 @@ namespace Gato.Gameplay
             if (GoBack && _timeGoingBack > 5) LineArrayRemove(ConnectedToRope.Count - 2);
             Vector2 backForce =  Vector2.ClampMagnitude(ConnectedToRope[^2].transform.position - transform.position, 1) * _timeGoingBack;
             transform.Translate((_movementSpeed * Time.deltaTime * _direction) + backForce);
+            
         }
 
 
@@ -107,12 +110,13 @@ namespace Gato.Gameplay
                 ShouldLoopLineCollision();
                 return;
             }
-            if (ray2D.collider.name == "Curse") IsCursed = true;
+            if (ray2D.collider.name == "Curse") IsCursed = true; ;
             if (IsCursed) ray2D.collider.SendMessage("Curse1", gameObject);
             if (GoBack && _connectedFinalTarget != null ) return;
             ray2D.collider.gameObject.layer = 7;
             ConnectedToRope.Insert(_lineIndex + 1, ray2D.collider.gameObject);
         }
+
 
         private void LineUpdate()
         {
@@ -120,6 +124,16 @@ namespace Gato.Gameplay
             for (int i = 0; i < ConnectedToRope.Count; i++)
             {
                 _line.SetPosition(i, ConnectedToRope[i].transform.position);
+            }
+        }
+
+        private void SendNewCurseToAll()
+        {
+            if (_sentCurse) return;
+            _sentCurse = true;
+            for (int i = 0; i < ConnectedToRope.Count; i++)
+            {
+                ConnectedToRope[i].transform.SendMessage("Curse1", gameObject);
             }
         }
         #endregion
@@ -192,7 +206,7 @@ namespace Gato.Gameplay
         
 
             _isTarget = !_isTarget;
-            ActivateCurse(IsCursed);
+           // ActivateCurse(IsCursed);
             /*
             if(isTarget)
             {
@@ -205,7 +219,11 @@ namespace Gato.Gameplay
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.name == "Curse") IsCursed = false;
+            if (collision.gameObject.name == "Curse")
+            {
+                IsCursed = false;
+                _sentCurse = false;
+            }
             if(_connectedFinalTarget == null) GoBack = true;
             if (!GoBack) return;
             if (collision.gameObject.layer != 7) return;
