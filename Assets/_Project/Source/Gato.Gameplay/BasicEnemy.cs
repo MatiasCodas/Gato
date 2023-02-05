@@ -28,6 +28,7 @@ namespace Gato.Gameplay
             sprite = GetComponent<SpriteRenderer>();
             nextPosition = transform.position;
             cursed = false;
+            target = PlayerControlSystem.Player.gameObject;
         }
 
         private void FixedUpdate()
@@ -75,9 +76,15 @@ namespace Gato.Gameplay
         {
 
             yield return new WaitForSeconds(timeToDie);
-            Destroy(gameObject);
             CurseProjectile.goAllBack = true;
+            Destroy(gameObject);
+            
            // Destroy(rope);
+        }
+
+        private void OnDestroy()
+        {
+            BattleManager.Instance.EnemyDestroyed();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

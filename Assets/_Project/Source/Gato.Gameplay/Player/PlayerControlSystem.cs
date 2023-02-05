@@ -7,6 +7,7 @@ namespace Gato.Gameplay
     {
         [SerializeField]
         private PlayerStats _playerStats;
+        public static PlayerControlSystem Player;
 
         private IRangedWeapon _rangedWeapon;
         private Rigidbody2D _rigidbody2d;
@@ -18,6 +19,7 @@ namespace Gato.Gameplay
             ServiceLocator.Shared.Set<IPlayerControlService>(this);
             _rangedWeapon = gameObject.GetComponent<IRangedWeapon>();
             _rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
+            Player = this;
         }
 
         public void Move(Vector2 direction)
