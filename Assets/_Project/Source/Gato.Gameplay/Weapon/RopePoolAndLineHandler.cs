@@ -36,7 +36,9 @@ namespace Gato.Gameplay
 
         private void Update()
         {
-           // ShowLine();
+
+            currentRopeDist = (int)Vector3.Distance(hand.position, transform.position);
+            //ShowLine();
         }
 
         private void FixedUpdate()
@@ -52,11 +54,12 @@ namespace Gato.Gameplay
 
         private void ShowLine()
         {
-            currentRopeDist = (int)Vector3.Distance(hand.position, transform.position);
             if (currentRopeDist <= 1f) return;
             if (RopeJoints <= 0)
             {
+                
                 line.positionCount = currentRopeDist+1;
+                
                 for (int i = 0; i < line.positionCount; i++)
                 {
                     line.SetPosition(i, Vector3.Lerp(transform.position, hand.position, (float)i/(line.positionCount-1)));
