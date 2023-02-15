@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8624125270280504717}
   - component: {fileID: 8624125270280504714}
+  - component: {fileID: 7140583258463337226}
   - component: {fileID: 1364707071902809101}
   - component: {fileID: -1308334231131028443}
   - component: {fileID: 5965649354770061061}
   - component: {fileID: 7867490558807415707}
+  - component: {fileID: 311640007949510047}
   m_Layer: 2
   m_Name: DefaultWeapon
   m_TagString: Untagged
@@ -88,6 +90,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7140583258463337226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8624125270280504712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f711f50922711fa4ba8f6c4acf265311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RopeJoints: 0
+  RopeJointsPool: []
+  totalDistance: 0
+  chainJointPrefab: {fileID: 7388936715939031520, guid: 6bafeac78e3cebe4d972bc7886e31158, type: 3}
+  poolSize: 10
+  targetRB: {fileID: 0}
+  hand: {fileID: 0}
 --- !u!114 &1364707071902809101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,3 +282,23 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!231 &311640007949510047
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8624125270280504712}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 0.005
+  m_DampingRatio: 0
+  m_Frequency: 1

@@ -29,15 +29,14 @@ namespace Gato.Gameplay
             jointRB = null;
             CreateJoints();
             RopeJoints = 0;
-
-            handScript = hand.GetComponent<RopeTip>();
-            handJoint = hand.GetComponent<SpringJoint2D>();
+            //handScript = hand.GetComponent<RopeTip>();
+           // handJoint = hand.GetComponent<SpringJoint2D>();
         }
 
 
         private void Update()
         {
-            ShowLine();
+           // ShowLine();
         }
 
         private void FixedUpdate()
@@ -101,6 +100,7 @@ namespace Gato.Gameplay
                 RopeJointsPool[i].transform.position = Vector3.Lerp(transform.position, hand.position, (float)i/currentRopeDist);
                 RopeJointsPool[i].SetActive(true);
                 RopeJoints++;
+                continue;
                 if (i == currentRopeDist - 1)
                 {
                     handJoint.connectedBody = RopeJointsPool[i].GetComponent<Rigidbody2D>();

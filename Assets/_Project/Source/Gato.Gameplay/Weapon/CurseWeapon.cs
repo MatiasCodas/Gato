@@ -30,6 +30,7 @@ namespace Gato.Gameplay
             instance.OnCurseTriggered += HandleCurseTriggered;
             instance.OnObjectTriggered += HandleObjectTriggered;
             instance.GetComponent<CurseProjectile>().ConnectedToRope.Add(gameObject);
+            instance.GetComponent<RopePoolAndLineHandler>().hand = transform;
             instance.GetComponent<CurseProjectile>().ConnectedToRope.Add(instance.gameObject);
             //instance.GetComponent<CurseProjectile>().playerObject = gameObject;
             _projectilePool.Add(instance);

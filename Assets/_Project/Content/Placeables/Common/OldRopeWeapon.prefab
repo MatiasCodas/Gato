@@ -451,8 +451,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 50
-  _isCursed: 0
-  timerToDestroy: 1
+  _playerStats: {fileID: 11400000, guid: 02287128bc6c28641b81d60579b35b02, type: 2}
+  RopeShooter: {fileID: 0}
+  ConnectedToRope: []
+  TimerToDestroy: 0
+  GoBack: 0
 --- !u!61 &-1308334231131028443
 BoxCollider2D:
   m_ObjectHideFlags: 0

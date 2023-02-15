@@ -42,7 +42,8 @@ namespace Gato.Gameplay
             _isMoving = true;
             _direction = direction;
             _line = GetComponent<LineRenderer>();
-            _layerMask = LayerMask.GetMask("Default");
+            _layerMask = LayerMask.GetMask("Roped");
+           // GetComponent<RopePoolAndLineHandler>().targetRB = ConnectedToRope[0].gameObject.GetComponent<Rigidbody2D>();
 
         }
 
@@ -180,6 +181,7 @@ namespace Gato.Gameplay
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            transform.SendMessage("ActivateJoints", transform);
             if (collision.CompareTag("Player"))
             {
                 Destroy(gameObject);
