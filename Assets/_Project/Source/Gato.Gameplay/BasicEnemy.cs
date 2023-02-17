@@ -6,76 +6,98 @@ namespace Gato.Gameplay
 {
     public class BasicEnemy : MonoBehaviour
     {
-        public float timeToDie = 3;
-        public GameObject target;
-        public float speed = 1;
+        public float TimeToDie = 3;
+        public GameObject Target;
+        public float Speed = 1;
 
-        public Sprite left;
-        public Sprite right;
-        public Sprite up;
-        public Sprite down;
-        private bool cursed;
+        public Sprite Left;
+        public Sprite Right;
+        public Sprite Up;
+        public Sprite Down;
+        private bool _cursed;
+        [HideInInspector]
+        public Rigidbody2D RB2D;
+        [HideInInspector]
+        public SpriteRenderer Sprite;
+        [HideInInspector]
+        public Vector2 PreviousPosition;
+        [HideInInspector]
+        public Vector2 NextPosition;
+        [HideInInspector]
+        public int MovementState;
 
-        private Rigidbody2D rigidbody2D;
-        private SpriteRenderer sprite;
-
-        private Vector2 previousPosition;
-        private Vector2 nextPosition;
-
+        #region Base stuff to start any code inheriting this
         private void Start()
         {
-            rigidbody2D = GetComponent<Rigidbody2D>();
-            sprite = GetComponent<SpriteRenderer>();
-            nextPosition = transform.position;
-            cursed = false;
-            target = PlayerControlSystem.Player.gameObject;
+            BasicStart();
         }
+       
 
         private void FixedUpdate()
         {
-            nextPosition = (Vector2)transform.position + Vector2.ClampMagnitude(target.transform.position - transform.position, speed);
-            rigidbody2D.MovePosition(nextPosition);
+            BasicMovement();
             FaceDirection();
+            
         }
         private void Update()
         {
-            if (!cursed) return;
-            sprite.color = Color.magenta;
+            BasicUpdate();
+        }
+        #endregion
+        public void BasicStart()
+        {
+            RB2D = GetComponent<Rigidbody2D>();
+            Sprite = GetComponent<SpriteRenderer>();
+            NextPosition = transform.position;
+            _cursed = false;
+            Target = PlayerControlSystem.Player.gameObject;
         }
 
-        private void FaceDirection()//placeholder for  until we get some animations
+        public void BasicUpdate()
         {
-            Vector2 dir = Vector2.ClampMagnitude(nextPosition - (Vector2)transform.position, 1) *100;
+            if (!_cursed) return;
+            Sprite.color = Color.magenta;
+        }
+
+        public void BasicMovement()
+        {
+            NextPosition = (Vector2)transform.position + Vector2.ClampMagnitude(Target.transform.position - transform.position, Speed);
+            RB2D.MovePosition(NextPosition);
+        }
+        public void FaceDirection()//placeholder for  until we get some animations
+        {
+            
+            Vector2 dir = Vector2.ClampMagnitude(NextPosition - (Vector2)transform.position, 1) *100;
 
             if (Mathf.Abs(dir.x) >= Mathf.Abs(dir.y))
             {
                 if (dir.x >= 0)
                 {
-                    sprite.sprite = right;
+                    Sprite.sprite = Right;
                     return;
                 }
-                sprite.sprite = left;
+                Sprite.sprite = Left;
                 return;
             }
             if (dir.y >= 0)
             {
-                sprite.sprite = up;
+                Sprite.sprite = Up;
                 return;
             }
-            sprite.sprite = down;
+            Sprite.sprite = Down;
 
         }
 
         private void Curse1(GameObject rope)
         {
-            cursed = true;
+            _cursed = true;
             StartCoroutine(TimerToDie(rope));
         }
 
         private IEnumerator TimerToDie(GameObject rope)
         {
 
-            yield return new WaitForSeconds(timeToDie);
+            yield return new WaitForSeconds(TimeToDie);
             CurseProjectile.goAllBack = true;
             Destroy(gameObject);
             

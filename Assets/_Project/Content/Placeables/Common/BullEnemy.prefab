@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 2501532263888041371}
   - component: {fileID: 2501532263888041370}
   - component: {fileID: 2501532263888041381}
-  - component: {fileID: 2501532263888041382}
+  - component: {fileID: 6087038223657697273}
   m_Layer: 0
   m_Name: BullEnemy
   m_TagString: Untagged
@@ -209,7 +209,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &2501532263888041382
+--- !u!114 &6087038223657697273
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,13 +218,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 2501532263888041369}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfa085e1f9e7f2f41ba16d67ca0a552f, type: 3}
+  m_Script: {fileID: 11500000, guid: cb407bffbdb16764f99b6a801f9b6765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToDie: 3
-  target: {fileID: 0}
-  speed: 0.005
-  left: {fileID: 21300000, guid: cde6d0540f094194ca197970532fdfb4, type: 3}
-  right: {fileID: 21300000, guid: 3f7bdee32807de54591a26cbc4326b11, type: 3}
-  up: {fileID: 21300000, guid: 4983e76845558974b9cd3cbf7a8c9b98, type: 3}
-  down: {fileID: 21300000, guid: 29d21837c4fd2d64cb1bd615880f7fc6, type: 3}
+  TimeToDie: 3
+  Target: {fileID: 0}
+  Speed: 0.02
+  Left: {fileID: 21300000, guid: cde6d0540f094194ca197970532fdfb4, type: 3}
+  Right: {fileID: 21300000, guid: 3f7bdee32807de54591a26cbc4326b11, type: 3}
+  Up: {fileID: 21300000, guid: 4983e76845558974b9cd3cbf7a8c9b98, type: 3}
+  Down: {fileID: 21300000, guid: 29d21837c4fd2d64cb1bd615880f7fc6, type: 3}
+  RB2D: {fileID: 0}
+  Sprite: {fileID: 0}
+  PreviousPosition: {x: 0, y: 0}
+  NextPosition: {x: 0, y: 0}
+  MovementState: 0
+  DashSpeed: 50
+  TelegraphTime: 2
+  DistanceToAggro: 5
+  ChargeTime: 2
+  RestTime: 4
