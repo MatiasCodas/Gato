@@ -7,7 +7,11 @@ namespace Gato.Gameplay
     {
         [SerializeField]
         private KeyCode _shootWeaponKeyCode;
+        [SerializeField]
+        private KeyCode _dashKeyCode;
 
         public KeyCode ShootWeaponKeyCode => _shootWeaponKeyCode;
+
+        public KeyCode DashKeyCode => _dashKeyCode;
     }
 }

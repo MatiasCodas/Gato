@@ -89,9 +89,8 @@ namespace Gato.Gameplay
                 _activeEnemies.Add(instance);
                 _unbundledSpawn.RemoveAt(randomPosition);
             }
+
             GetSpawnPositions();
-            Debug.Log(_unbundledSpawn.Count);
-            Debug.Log(SpawnPositions.Count);
         }
 
 

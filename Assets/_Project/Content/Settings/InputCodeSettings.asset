@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: InputCodeSettings
   m_EditorClassIdentifier: 
   _shootWeaponKeyCode: 32
+  _dashKeyCode: 304

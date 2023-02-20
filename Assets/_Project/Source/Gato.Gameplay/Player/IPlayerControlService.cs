@@ -7,6 +7,8 @@ namespace Gato.Gameplay
     {
         void Move(Vector2 direction);
 
+        void Dash(Vector2 direction);
+
         void ShootWeapon(Vector2 direction);
     }
 }

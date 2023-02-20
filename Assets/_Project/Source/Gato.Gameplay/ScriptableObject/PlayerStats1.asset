@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: PlayerStats1
   m_EditorClassIdentifier: 
   MovementSpeed: 7
+  DashSpeed: 500
+  DashCooldown: 2
   RopeTime: 20
   RopeSize: 10
   RopeCooldown: 2

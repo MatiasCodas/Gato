@@ -8,6 +8,8 @@ namespace Gato.Gameplay
     public class PlayerStats : ScriptableObject
     {
         public float MovementSpeed;
+        public float DashSpeed;
+        public float DashCooldown;
         public float RopeTime;
         public float RopeSize;
         public float RopeCooldown;

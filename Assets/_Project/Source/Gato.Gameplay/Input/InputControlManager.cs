@@ -11,6 +11,7 @@ namespace Gato.Gameplay
         [SerializeField]
         private InputCodeSettings _inputSettings;
 
+        private Vector2 _direction;
         private Vector2 _directionWeapon = new Vector2(0, -1);
         private IPlayerControlService _playerControlSystem;
 
@@ -21,18 +22,24 @@ namespace Gato.Gameplay
                 return;
             }
         }
+
         public void FixedUpdate()
         {
-            Vector2 direction = new Vector2(Input.GetAxis(HorizontalAxisName), Input.GetAxis(VerticalAxisName));
+            _direction = new Vector2(Input.GetAxis(HorizontalAxisName), Input.GetAxis(VerticalAxisName));
 
-            if (direction != Vector2.zero)
+            if (Input.GetKey(_inputSettings.DashKeyCode))
             {
-                _playerControlSystem.Move(direction);
+                Debug.Log("INPUT");
+                _playerControlSystem.Dash(_direction);
 
-                if (direction.x > 0.5f || direction.y > 0.5f || direction.x < -0.5f || direction.y < -0.5f)
-                {
-                    _directionWeapon = direction;
-                }
+                return;
+            }
+
+            _playerControlSystem.Move(_direction);
+
+            if (_direction.x > 0.5f || _direction.y > 0.5f || _direction.x < -0.5f || _direction.y < -0.5f)
+            {
+                _directionWeapon = _direction;
             }
         }
         public override void Tick(float deltaTime)
@@ -41,8 +48,6 @@ namespace Gato.Gameplay
             {
                 _playerControlSystem = ServiceLocator.Shared.Get<IPlayerControlService>();
             }
-
-            
 
             if (Input.GetKey(_inputSettings.ShootWeaponKeyCode))
             {
