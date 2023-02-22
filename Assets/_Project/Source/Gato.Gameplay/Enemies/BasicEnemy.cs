@@ -8,7 +8,7 @@ namespace Gato.Gameplay
     {
         public float TimeToDie = 3;
         public GameObject Target;
-        public float Speed = 1;
+        public float Speed = 0.02f;
 
         public Sprite Left;
         public Sprite Right;
