@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 
 namespace Gato.Gameplay
@@ -16,8 +14,10 @@ namespace Gato.Gameplay
         public List<Transform> SpawnPositions;
         private List<Vector2> _unbundledSpawn;
         private List<GameObject> _activeEnemies;
+        private BoxCollider2D _collider2D;
         public float WaveSize;
         public float SpawnTime;
+        private bool _activated = false;
 
 
         [Header( "HUD info")]
@@ -27,10 +27,18 @@ namespace Gato.Gameplay
         private void Start()
         {
             Instance = this;
+            //_collider2D = GetComponent<BoxCollider2D>();
+            _activeEnemies = new List<GameObject>();
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (!collision.gameObject.CompareTag("Player") || _activated) return;
+            _activated = true;
+            Instance = this;
             StartCoroutine(SpawnNew());
             BattleStats.StartAtTime = 0;
             GetSpawnPositions();
-            _activeEnemies = new List<GameObject>();
         }
 
         private void Update()
