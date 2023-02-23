@@ -20,6 +20,7 @@ namespace Gato.Gameplay
 
         private bool _isMoving;
         public static bool IsCursed;
+        public static bool IsBlessed;
         private bool _sentCurse;
         private Vector2 _direction;
         public CurseRopeShooter RopeShooter;
@@ -200,10 +201,18 @@ namespace Gato.Gameplay
             _isMoving = false;
             _connectedFinalTarget = collision.transform;
 
-            if (IsCursed) collision.SendMessage("Curse1", gameObject);
-            if (collision.gameObject.name == "Curse")
+            switch (collision.gameObject.tag)
             {
-                IsCursed = true;
+                default:
+                    if (IsCursed) collision.SendMessage("Curse1", gameObject);
+                    if (IsBlessed) collision.SendMessage("Bless");
+                    break;
+                case "Curse":
+                    IsCursed = true;
+                    break;
+                case "Blessing":
+                    IsBlessed = true;
+                    break;
             }
         
 
@@ -221,10 +230,17 @@ namespace Gato.Gameplay
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.name == "Curse")
+            switch (collision.gameObject.tag)
             {
-                IsCursed = false;
-                _sentCurse = false;
+                case "Curse":
+                    IsCursed = false;
+                    _sentCurse = false;
+                    break;
+                case "Blessing":
+                    IsBlessed = false;
+                    break;
+                default:
+                    break;
             }
             if(_connectedFinalTarget == null) GoBack = true;
             if (!GoBack) return;
