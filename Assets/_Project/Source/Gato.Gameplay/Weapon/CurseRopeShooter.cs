@@ -52,10 +52,15 @@ namespace Gato.Gameplay
 
         public void TargetHit(GameObject affectedByCurse, bool isCursed)
         {
-            if (alreadyActive) return;
+            if (alreadyActive)
+            {
+                return;
+            }
+
             hinge.enabled = true;
             hinge.connectedBody = affectedByCurse.GetComponent<Rigidbody2D>();
             isNotRope = !isNotRope;
+
             if (ActiveCurse == null && !isNotRope)
             {
                 RopeTip.globalTarget = transform;
@@ -63,9 +68,9 @@ namespace Gato.Gameplay
                 ActiveCurseTransform = transform;
                 return;
             }
+
             ropeTip.cursed = isCursed;
             ShootRope();
-            
         }
 
         private void OnDestroy()

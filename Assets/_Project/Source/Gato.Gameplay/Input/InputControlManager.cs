@@ -25,6 +25,11 @@ namespace Gato.Gameplay
 
         public void FixedUpdate()
         {
+            if (!ServiceLocator.Shared.TryGet(out _playerControlSystem))
+            {
+                return;
+            }
+
             _direction = new Vector2(Input.GetAxis(HorizontalAxisName), Input.GetAxis(VerticalAxisName));
 
             if (Input.GetKey(_inputSettings.DashKeyCode))

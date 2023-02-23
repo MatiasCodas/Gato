@@ -64,14 +64,30 @@ namespace Gato.Gameplay
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject == currentAttachedBody) return;
-            if (!isGettingLonger) return;
+            if (collision.gameObject == currentAttachedBody)
+            {
+                return;
+            }
+
+            if (!isGettingLonger)
+            {
+                return;
+            }
+
             collision.gameObject.AddComponent<HingeJoint2D>().connectedBody = rigidbody2D;
             isGettingLonger = false;
             rigidbody2D.velocity = Vector2.zero;
             PoolTongue.ActivateJoints(transform);
-            Debug.Log(cursed);
-            if (cursed) collision.gameObject.SendMessage("Curse1", gameObject);
+
+            if (cursed)
+            {
+                BasicEnemy basicEnemy = collision.gameObject.GetComponent<BasicEnemy>();
+
+                if (basicEnemy != null)
+                {
+                    basicEnemy.Curse(gameObject);
+                }
+            }
         }
 
         private void OnDestroy()

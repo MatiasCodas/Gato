@@ -49,7 +49,7 @@ namespace Gato.Gameplay
 
         private void ActivateCurse()
         {
-            foreach(CurseProjectile projectile in _projectilePool)
+            foreach (CurseProjectile projectile in _projectilePool)
             {
                 projectile.ActivateCurse(_hasHitCurse);
             }

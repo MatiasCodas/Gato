@@ -12,12 +12,12 @@ namespace Gato.Gameplay
 
         public event TargetHitHandler OnObjectTriggered;
 
-
         [SerializeField]
         private float _movementSpeed = 3f;
         [SerializeField]
         private PlayerStats _playerStats;
 
+        private Rigidbody2D _rigidbody2D;
         private bool _isMoving;
         public static bool IsCursed;
         public static bool IsBlessed;
@@ -35,70 +35,90 @@ namespace Gato.Gameplay
 
         public float TimerToDestroy;
         private float _timeGoingBack;
-        public bool GoBack = false;
+        private bool _goBack = false;
         public static bool goAllBack = false;
         
         public void Setup(Vector2 direction)
         {
+            _rigidbody2D = GetComponent<Rigidbody2D>();
             _isMoving = true;
             _direction = direction;
             _line = GetComponent<LineRenderer>();
             _layerMask = LayerMask.GetMask("Roped");
-           // GetComponent<RopePoolAndLineHandler>().targetRB = ConnectedToRope[0].gameObject.GetComponent<Rigidbody2D>();
-
         }
-
 
         public void ActivateCurse(bool cursed)
         {
-            
-            
         }
 
-        private void Update() 
+        private void Update()
         {
-            try { LineUpdate(); }
-            catch { 
-                LineIndexReset();
-                GoBack = true;
+            try
+            {
+                LineUpdate();
             }
+            catch
+            {
+                LineIndexReset();
+                _goBack = true;
+            }
+
             // gambiarra, favor trocar os inputs pro inputmanager depois
             // very nested also, sounds like a good place to refactor
             if (Input.GetKeyDown(KeyCode.Q) || _timeActive > _playerStats.RopeTime || LineSize() >= _playerStats.RopeSize || goAllBack)
             {
-                GoBack = true;
+                _goBack = true;
                 goAllBack = false;
             }
+
             if (!_isMoving)
             {
                 _timeActive += Time.deltaTime;
-                GoBack = _connectedFinalTarget == null ? true : GoBack;
+                _goBack = _connectedFinalTarget == null ? true : _goBack;
             }
-            if (GoBack) return;
 
-            try{ transform.position = Vector3.Lerp(transform.position, _connectedFinalTarget.position, 0.1f);}
-            catch { Debug.Log("You got an error but it's not a big deal so I'm doing this chill message");} //this error doesn't do much so I wanted a cooler error message
+            if (_goBack)
+            {
+                return;
+            }
 
-
-
+            try
+            {
+                // transform.position = Vector3.Lerp(transform.position, _connectedFinalTarget.position, 0.1f);
+            }
+            catch
+            {
+                //this error doesn't do much so I wanted a cooler error message
+                Debug.Log("You got an error but it's not a big deal so I'm doing this chill message");
+            } 
         }
 
         private void FixedUpdate()
         {
             LineCollisions();
-            if (IsCursed) SendNewCurseToAll();
-            if (!_isMoving && !GoBack)
+
+            if (IsCursed)
+            {
+                SendNewCurseToAll();
+            }
+
+            if (!_isMoving && !_goBack)
             {
                 _timeGoingBack = 1.5f;
+            
                 return;
             }
+
             _timeGoingBack += Time.deltaTime;
-            if (GoBack && _timeGoingBack > 5) LineArrayRemove(ConnectedToRope.Count - 2);
+
+            if (_goBack && _timeGoingBack > 5)
+            {
+                LineArrayRemove(ConnectedToRope.Count - 2);
+            }
+
             Vector2 backForce =  Vector2.ClampMagnitude(ConnectedToRope[^2].transform.position - transform.position, 1) * _timeGoingBack;
             transform.Translate((_movementSpeed * Time.deltaTime * _direction) + backForce);
-            
         }
-
 
         #region Main Line functions
         private void LineCollisions()
@@ -107,14 +127,34 @@ namespace Gato.Gameplay
             Vector2 target = ConnectedToRope[_lineIndex].transform.position;
             RaycastHit2D ray2D = Physics2D.Raycast(rayShooter, target - rayShooter, Vector2.Distance(target, rayShooter), _layerMask);
             Debug.DrawRay(rayShooter, target - rayShooter, ray2D.collider != null ? Color.blue : Color.red);
+            
             if (ray2D.collider == null)
             {
                 ShouldLoopLineCollision();
+                
                 return;
             }
-            if (ray2D.collider.name == "Curse") IsCursed = true; ;
-            if (IsCursed) ray2D.collider.SendMessage("Curse1", gameObject);
-            if (GoBack && _connectedFinalTarget != null ) return;
+
+            if (ray2D.collider.name == "Curse")
+            {
+                IsCursed = true;
+            }
+
+            if (IsCursed)
+            {
+                BasicEnemy basicEnemy = ray2D.collider.gameObject.GetComponent<BasicEnemy>();
+
+                if (basicEnemy != null)
+                {
+                    basicEnemy.Curse(gameObject);
+                }
+            }
+
+            if (_goBack && _connectedFinalTarget != null)
+            {
+                return;
+            }
+
             ray2D.collider.gameObject.layer = 7;
             ConnectedToRope.Insert(_lineIndex + 1, ray2D.collider.gameObject);
         }
@@ -123,6 +163,7 @@ namespace Gato.Gameplay
         private void LineUpdate()
         {
             _line.positionCount = ConnectedToRope.Count;
+
             for (int i = 0; i < ConnectedToRope.Count; i++)
             {
                 _line.SetPosition(i, ConnectedToRope[i].transform.position);
@@ -131,12 +172,12 @@ namespace Gato.Gameplay
 
         private void SendNewCurseToAll()
         {
-            if (_sentCurse) return;
-            _sentCurse = true;
-            for (int i = 0; i < ConnectedToRope.Count; i++)
+            if (_sentCurse)
             {
-                ConnectedToRope[i].transform.SendMessage("Curse1", gameObject);
+                return;
             }
+
+            _sentCurse = true;
         }
         #endregion
 
@@ -147,10 +188,12 @@ namespace Gato.Gameplay
             ConnectedToRope.RemoveAt(index);
             LineIndexReset();
         }
+
         private void LineIndexReset()//When the line points may get off sync you should call for this
         {
             _lineIndex = ConnectedToRope.Count - 2;
         }
+
         private void ShouldLoopLineCollision()
         {
             if (_lineIndex <= 0)
@@ -158,10 +201,10 @@ namespace Gato.Gameplay
                 LineIndexReset();
                 return;
             }
+
             _lineIndex--;
             LineCollisions();
         }
-
 
         private float LineSize()
         {
@@ -171,10 +214,13 @@ namespace Gato.Gameplay
                 if (ConnectedToRope[i] == null)
                 {
                     LineArrayRemove(i);
+
                     continue;
                 }
+
                 pointDistance += Vector2.Distance(ConnectedToRope[i - 1].transform.position, ConnectedToRope[i].transform.position);
             }
+
             return pointDistance;
         }
 
@@ -186,18 +232,25 @@ namespace Gato.Gameplay
             if (collision.CompareTag("Player"))
             {
                 Destroy(gameObject);
+            
                 return;
             }
-            if(GoBack)
+
+            if(_goBack)
             {
                 if (collision.gameObject == ConnectedToRope[^2])
                 {
                     LineArrayRemove(ConnectedToRope.Count -2);
                 }
+
                 return;
             }
-            if (!_isMoving) return;
-            //transform.parent = collision.transform;
+
+            if (!_isMoving)
+            {
+                return;
+            }
+
             _isMoving = false;
             _connectedFinalTarget = collision.transform;
 
@@ -214,18 +267,8 @@ namespace Gato.Gameplay
                     IsBlessed = true;
                     break;
             }
-        
 
             _isTarget = !_isTarget;
-           // ActivateCurse(IsCursed);
-            /*
-            if(isTarget)
-            {
-                OnCurseTriggered?.Invoke();
-                return;
-            }
-            
-            OnObjectTriggered?.Invoke();*/
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -242,18 +285,24 @@ namespace Gato.Gameplay
                 default:
                     break;
             }
-            if(_connectedFinalTarget == null) GoBack = true;
-            if (!GoBack) return;
-            if (collision.gameObject.layer != 7) return;
+
+            if (_connectedFinalTarget == null)
+            {
+                _goBack = true;
+            }
+
+            if (!_goBack)
+            {
+                return;
+            }
+
+            if (collision.gameObject.layer != 7)
+            {
+                return;
+            }
+
             collision.gameObject.layer = 0;
-            
-            
         }
-
-
-
-
-
 
         private void OnDestroy()
         {
@@ -262,6 +311,10 @@ namespace Gato.Gameplay
                 ConnectedToRope[i].layer = 0;
             }
         }
-        
+
+        private void RopeComeBack()
+        {
+            _rigidbody2D.gameObject.SetActive(false);
+        }
     }
 }
