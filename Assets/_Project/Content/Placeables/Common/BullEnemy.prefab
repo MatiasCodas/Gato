@@ -113,7 +113,7 @@ Transform:
   m_GameObject: {fileID: 2501532263888041369}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.87, y: 3.3573909, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2501532263371328887}
@@ -235,6 +235,6 @@ MonoBehaviour:
   MovementState: 0
   DashSpeed: 50
   TelegraphTime: 2
-  DistanceToAggro: 5
+  DistanceToAggro: 3
   ChargeTime: 2
   RestTime: 4
