@@ -29,7 +29,6 @@ namespace Gato.Gameplay
         public Sprite hand;
         public Sprite fist;
 
-
         private void Start()
         {
             poolTongue = GetComponentInParent<RopePoolAndLineHandler>();
@@ -40,17 +39,26 @@ namespace Gato.Gameplay
             transform.position = parentTransform.position;
         }
 
-
         private void Update()
         {
             sprite.sprite = fist;
-            if (!isGettingLonger) return;
+
+            if (!isGettingLonger)
+            {
+                return;
+            }
+
             if(globalTarget == null)
             {
                 OnHold();
                 return;
             }
-            if (target == null) target = globalTarget; 
+
+            if (target == null)
+            {
+                target = globalTarget;
+            }
+
             sprite.sprite = hand;
             transform.up = Vector3.Normalize(target.position - transform.position);
             rigidbody2D.velocity = Vector3.Normalize(target.position - transform.position) * ropeSpeed;
@@ -77,7 +85,7 @@ namespace Gato.Gameplay
             collision.gameObject.AddComponent<HingeJoint2D>().connectedBody = rigidbody2D;
             isGettingLonger = false;
             rigidbody2D.velocity = Vector2.zero;
-            PoolTongue.ActivateJoints(transform);
+            PoolTongue.ActivateJoints();
 
             if (cursed)
             {

@@ -19,6 +19,5 @@ namespace Gato.Gameplay
             collider2D.enabled = false;
             explosion.SetActive(true);
         }
-
     }
 }

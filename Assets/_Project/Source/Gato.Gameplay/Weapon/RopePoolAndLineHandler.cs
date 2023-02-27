@@ -6,98 +6,65 @@ namespace Gato.Gameplay
 {
     public class RopePoolAndLineHandler : MonoBehaviour
     {
-        public int RopeJoints;
-        public List<GameObject> RopeJointsPool = new List<GameObject>();
-        public float totalDistance;
+        private int RopeJoints;
         private LineRenderer line;
         public GameObject chainJointPrefab;
-        public int poolSize;
-        public Rigidbody2D targetRB;
-        public Transform hand;
-        private HingeJoint2D handJoint;
+        public int ropeJointsSize;
+        private Rigidbody2D _playerRigidBody;
+        private Rigidbody2D _projectileRigidBody;
+        private HingeJoint2D _playerHinge;
         private int currentRopeDist;
+        private int _oldRopeDist;
+        private List<Rigidbody2D> RopeJointsPool = new List<Rigidbody2D>();
 
         //Variáveis pra CreatJoints()
-        private GameObject theJoint;
-        private SpringJoint2D hinge;
-        private Rigidbody2D jointRB;
 
-        private void Awake()
+        public void Setup(Rigidbody2D playerRigidBody, Rigidbody2D projectileRigidBody)
         {
+            _playerRigidBody = playerRigidBody;
+            _playerHinge = _playerRigidBody.GetComponent<HingeJoint2D>();
+            _projectileRigidBody = projectileRigidBody;
             line = GetComponent<LineRenderer>();
-            jointRB = null;
             CreateJoints();
             RopeJoints = 0;
         }
 
         private void Update()
         {
-            currentRopeDist = (int)Vector3.Distance(hand.position, transform.position);
-        }
-
-        private void FixedUpdate()
-        {
-            Vector3 previousPosition = RopeJointsPool[0].transform.position;
-            foreach (GameObject joint in RopeJointsPool)
+            currentRopeDist = (int)Vector3.Distance(_playerRigidBody.transform.position, _projectileRigidBody.transform.position) * 2;
+            if ((currentRopeDist - _oldRopeDist) > 1)
             {
-                previousPosition = joint.transform.position;
-                totalDistance += Vector3.Distance(joint.transform.position, previousPosition);
-            }
-        }
-
-        private void ShowLine()
-        {
-            if (currentRopeDist <= 1f)
-            {
-                return;
+                ActivateJoints();
             }
 
-            if (RopeJoints <= 0)
-            {
-                
-                line.positionCount = currentRopeDist+1;
-                
-                for (int i = 0; i < line.positionCount; i++)
-                {
-                    line.SetPosition(i, Vector3.Lerp(transform.position, hand.position, (float)i/(line.positionCount-1)));
-                }
-                
-                return;
-            }
-
-            line.positionCount = RopeJoints+1;
-            line.SetPosition(0, transform.position);
-
-            for (int i = 1; i < RopeJoints; i++)
-            {
-                line.SetPosition(i, RopeJointsPool[i].transform.position);
-            }
-
-            line.SetPosition(RopeJoints, hand.position);
+            _oldRopeDist = currentRopeDist;
         }
 
         private void CreateJoints()
         {
-            for (int i = 0; i < poolSize; i++)
+            Rigidbody2D previousJoint = null;
+
+            for (int i = 0; i < ropeJointsSize; i++)
             {
-                theJoint = Instantiate(chainJointPrefab, Vector3.zero, Quaternion.identity, transform);
-                hinge = theJoint.GetComponent<SpringJoint2D>();
-                hinge.connectedBody = jointRB;
+                GameObject instance = Instantiate(chainJointPrefab, Vector3.zero, Quaternion.identity, transform);
+                HingeJoint2D hinge = instance.GetComponent<HingeJoint2D>();
 
                 if (i == 0)
                 {
-                    hinge.connectedBody = targetRB;
-                    hinge.autoConfigureDistance = false;
-                    hinge.distance = 0.005f;
+                    hinge.connectedBody = _projectileRigidBody;
+                }
+                else
+                {
+                    hinge.connectedBody = previousJoint;
                 }
 
-                jointRB = theJoint.GetComponent<Rigidbody2D>();
-                theJoint.SetActive(false);
-                RopeJointsPool.Add(theJoint);
+                previousJoint = instance.GetComponent<Rigidbody2D>();
+                instance.SetActive(false);
+                RopeJointsPool.Add(previousJoint);
             }
         }
 
-        public void ActivateJoints(Transform targetHand)
+        public void ActivateJoints()
         {
             for (int i = 0; i < currentRopeDist; i++)
             {
@@ -106,17 +73,22 @@ namespace Gato.Gameplay
                     return;
                 }
 
-                RopeJointsPool[i].transform.position = Vector3.Lerp(transform.position, hand.position, (float)i/currentRopeDist);
-                RopeJointsPool[i].SetActive(true);
+                RopeJointsPool[i].transform.position = Vector3.Lerp(transform.position, _playerRigidBody.transform.position, (float)i/currentRopeDist);
+                RopeJointsPool[i].gameObject.SetActive(true);
                 RopeJoints++;
 
-                continue;
 
                 if (i == currentRopeDist - 1)
                 {
-                    handJoint.connectedBody = RopeJointsPool[i].GetComponent<Rigidbody2D>();
-                    handJoint.enabled = true;
-                    handJoint.enableCollision = true;
+                    HingeJoint2D hingeBody = RopeJointsPool[i].GetComponent<HingeJoint2D>();
+                    // handJoint.connectedBody = hingeBody;
+                    hingeBody.enabled = true;
+                    _playerHinge.connectedBody = hingeBody.GetComponent<Rigidbody2D>();
+                }
+
+                if (i >= currentRopeDist)
+                {
+                    RopeJointsPool[i].gameObject.SetActive(false);
                 }
             }
         }
@@ -130,7 +102,7 @@ namespace Gato.Gameplay
 
             for (int i = 0; i < RopeJoints; i++)
             {
-                RopeJointsPool[i].SetActive(false);
+                RopeJointsPool[i].gameObject.SetActive(false);
                 RopeJointsPool[i].transform.localPosition = Vector3.zero;
             }
 
@@ -139,7 +111,11 @@ namespace Gato.Gameplay
 
         private void OnDestroy()
         {
-            if (RopeJointsPool[0].gameObject == null) return;
+            if (RopeJointsPool[0].gameObject == null)
+            {
+                return;
+            }
+
             RopeJointsPool.Clear();
             RopeJoints = 0;
         }

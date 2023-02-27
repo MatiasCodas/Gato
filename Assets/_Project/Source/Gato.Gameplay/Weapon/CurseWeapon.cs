@@ -30,9 +30,12 @@ namespace Gato.Gameplay
             instance.OnCurseTriggered += HandleCurseTriggered;
             instance.OnObjectTriggered += HandleObjectTriggered;
             instance.GetComponent<CurseProjectile>().ConnectedToRope.Add(gameObject);
-            instance.GetComponent<RopePoolAndLineHandler>().hand = transform;
             instance.GetComponent<CurseProjectile>().ConnectedToRope.Add(instance.gameObject);
-            //instance.GetComponent<CurseProjectile>().playerObject = gameObject;
+
+            Rigidbody2D playerRigidBody = GetComponent<Rigidbody2D>();
+            Rigidbody2D projectileRigidBody = instance.GetComponent<Rigidbody2D>();
+            RopePoolAndLineHandler ropePool = instance.GetComponent<RopePoolAndLineHandler>();
+            ropePool.Setup(playerRigidBody, projectileRigidBody);
             _projectilePool.Add(instance);
 
             WeaponCooldown();

@@ -62,7 +62,6 @@ namespace Gato.Gameplay
             {
                 StartCoroutine(SpawnNew());
             }
-
         }
 
         private void GetSpawnPositions()
@@ -92,7 +91,5 @@ namespace Gato.Gameplay
 
             GetSpawnPositions();
         }
-
-
     }
 }
