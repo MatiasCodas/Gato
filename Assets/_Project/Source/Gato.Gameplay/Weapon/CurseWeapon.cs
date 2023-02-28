@@ -26,7 +26,7 @@ namespace Gato.Gameplay
             }
 
             CurseProjectile instance = Instantiate(_projectilePrefab, (Vector2)gameObject.transform.position + direction *3, Quaternion.identity);
-            instance.Setup(direction, _hasHitCurse);
+            instance.Setup(direction, _hasHitCurse, gameObject);
             instance.OnCurseTriggered += HandleCurseTriggered;
             instance.OnObjectTriggered += HandleObjectTriggered;
             instance.GetComponent<CurseProjectile>().ConnectedToRope.Add(gameObject);

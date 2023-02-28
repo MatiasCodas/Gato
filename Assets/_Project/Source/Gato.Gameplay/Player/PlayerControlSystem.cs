@@ -55,7 +55,6 @@ namespace Gato.Gameplay
 
         private async UniTask DashAsync(Vector2 direction)
         {
-            Debug.Log("DashAASync");
             _canDash = false;
             _canWalk = false;
 

@@ -29,6 +29,19 @@ namespace Gato.Gameplay
             RopeJoints = 0;
         }
 
+        public void ComeBack()
+        {
+            _playerHinge.connectedBody = null;
+
+            foreach (Rigidbody2D rb in RopeJointsPool)
+            {
+                HingeJoint2D hinge = rb.GetComponent<HingeJoint2D>();
+                hinge.connectedBody = null;     
+                rb.isKinematic = true;
+
+            }
+        }
+
         private void Update()
         {
             currentRopeDist = (int)Vector3.Distance(_playerRigidBody.transform.position, _projectileRigidBody.transform.position) * 2;
@@ -85,6 +98,7 @@ namespace Gato.Gameplay
                     // handJoint.connectedBody = hingeBody;
                     hingeBody.enabled = true;
                     _playerHinge.connectedBody = hingeBody.GetComponent<Rigidbody2D>();
+                    _playerHinge.enabled = true;
                 }
 
                 if (i >= currentRopeDist)

@@ -34,7 +34,6 @@ namespace Gato.Gameplay
 
             if (Input.GetKey(_inputSettings.DashKeyCode))
             {
-                Debug.Log("INPUT");
                 _playerControlSystem.Dash(_direction);
 
                 return;

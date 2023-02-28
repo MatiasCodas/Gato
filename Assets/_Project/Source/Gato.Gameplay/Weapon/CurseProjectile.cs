@@ -37,15 +37,17 @@ namespace Gato.Gameplay
         private int _layerMask;
         private float _timeActive;
         private int _lineIndex = 0;
+        private GameObject _player;
 
         public float TimerToDestroy;
         private float _timeGoingBack;
         private bool _goBack = false;
         public static bool goAllBack = false;
-        
-        public void Setup(Vector2 direction, bool isCurseActive)
+
+        public void Setup(Vector2 direction, bool isCurseActive, GameObject player)
         {
             Debug.Log(isCurseActive);
+            _player = player;
             _isCursed = isCurseActive;
             _hingeJoint = GetComponent<HingeJoint2D>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -80,8 +82,9 @@ namespace Gato.Gameplay
             // very nested also, sounds like a good place to refactor
             if (Input.GetKeyDown(KeyCode.Q) || _timeActive > _playerStats.RopeTime || LineSize() >= _playerStats.RopeSize || goAllBack)
             {
-                _goBack = true;
-                goAllBack = false;
+                // _goBack = true;
+                //goAllBack = false;
+                RopeComeBack();
             }
 
             if (!_isMoving)
@@ -243,7 +246,6 @@ namespace Gato.Gameplay
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            Debug.LogError(collision.gameObject.name);
             if (collision.gameObject.CompareTag("Rope"))
             {
                 return;
@@ -251,9 +253,9 @@ namespace Gato.Gameplay
 
             _rope.ActivateJoints();
             // transform.SendMessage("ActivateJoints", transform);
-            if (collision.gameObject.CompareTag("Player"))
+            if (collision.gameObject.CompareTag("Player") && _goBack)
             {
-                // Destroy(gameObject);
+                Destroy(gameObject);
             
                 return;
             }
@@ -375,10 +377,15 @@ namespace Gato.Gameplay
 
         private void RopeComeBack()
         {
-            _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-            _hingeJoint.connectedBody = null;
-            _rigidbody2D.gameObject.SetActive(false);
-
+            Destroy(gameObject);
+            return;
+            // _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+            Debug.Log("COMEBACK");
+            //_hingeJoint.connectedBody = null;
+            // _rigidbody2D.MovePosition(_player.transform.position);
+            // _hingeJoint.connectedBody = null;
+            // _rigidbody2D.gameObject.SetActive(false);
+            // _rope.ComeBack();
             for (int i = 0; i < ConnectedToRope.Count; i ++)
             {
                 //Destroy(ConnectedToRope[i]);
