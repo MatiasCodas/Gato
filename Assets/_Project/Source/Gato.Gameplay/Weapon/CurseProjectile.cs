@@ -17,8 +17,10 @@ namespace Gato.Gameplay
         [SerializeField]
         private PlayerStats _playerStats;
 
+        private BasicEnemy _enemyHit;
         private HingeJoint2D _hingeJoint;
         private Rigidbody2D _rigidbody2D;
+        private DistanceJoint2D _distanceJoint2D;
         private RopePoolAndLineHandler _rope;
         private bool _isMoving;
         private bool _isCursed;
@@ -41,8 +43,10 @@ namespace Gato.Gameplay
         private bool _goBack = false;
         public static bool goAllBack = false;
         
-        public void Setup(Vector2 direction)
+        public void Setup(Vector2 direction, bool isCurseActive)
         {
+            Debug.Log(isCurseActive);
+            _isCursed = isCurseActive;
             _hingeJoint = GetComponent<HingeJoint2D>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _rope = GetComponent<RopePoolAndLineHandler>();
@@ -54,6 +58,10 @@ namespace Gato.Gameplay
 
         public void ActivateCurse(bool cursed)
         {
+            if (_enemyHit != null)
+            {
+                _enemyHit.Curse(gameObject);
+            }
         }
 
         private void Update()
@@ -233,13 +241,19 @@ namespace Gato.Gameplay
 
         #endregion
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
+            Debug.LogError(collision.gameObject.name);
+            if (collision.gameObject.CompareTag("Rope"))
+            {
+                return;
+            }
+
             _rope.ActivateJoints();
             // transform.SendMessage("ActivateJoints", transform);
-            if (collision.CompareTag("Player"))
+            if (collision.gameObject.CompareTag("Player"))
             {
-                Destroy(gameObject);
+                // Destroy(gameObject);
             
                 return;
             }
@@ -264,27 +278,32 @@ namespace Gato.Gameplay
             _isMoving = false;
             _connectedFinalTarget = collision.transform;
 
-            if (collision.TryGetComponent<Rigidbody2D>(out Rigidbody2D hitRigidBody))
+            if (collision.gameObject.TryGetComponent<Rigidbody2D>(out Rigidbody2D hitRigidBody))
             {
                 _rigidbody2D.bodyType = RigidbodyType2D.Static;
                 _hingeJoint.connectedBody = hitRigidBody;
             }
 
-            Debug.Log("IS CURSED " + _isCursed);
+            _enemyHit = collision.gameObject.GetComponent<BasicEnemy>();
 
-            if (_isCursed)
+            if (_enemyHit != null)
             {
-                BasicEnemy basicEnemy = collision.gameObject.GetComponent<BasicEnemy>();
-
-                Debug.Log("IS basicEnemy " + basicEnemy != null);
-                if (basicEnemy != null)
+                if (_isCursed)
                 {
-                    basicEnemy.Curse(gameObject);
+                    _enemyHit.Curse(gameObject);
+
+                    return;
+                }
+                else
+                {
+                    OnObjectTriggered?.Invoke();
                 }
             }
 
             if (collision.gameObject.name == "Curse")
             {
+                OnCurseTriggered?.Invoke();
+                // _isCursed = true;
                 Debug.Log("CURSE");
                 _isCursed = true;
             switch (collision.gameObject.tag)
@@ -304,11 +323,16 @@ namespace Gato.Gameplay
             _isTarget = !_isTarget;
         }
 
-        private void OnTriggerExit2D(Collider2D collision)
+        private void OnCollisionExit2D(Collider2D collision)
         {
+            if (collision.gameObject.CompareTag("Rope"))
+            {
+                return;
+            }
+
+            if (collision.gameObject.name == "Curse")
             switch (collision.gameObject.tag)
             {
-                Debug.Log("EXIT");
                 // _isCursed = false;
                 _sentCurse = false;
                 case "Curse":

@@ -55,6 +55,7 @@ namespace Gato.Gameplay
                 }
                 else
                 {
+                    instance.transform.SetParent(previousJoint.transform);
                     hinge.connectedBody = previousJoint;
                 }
 

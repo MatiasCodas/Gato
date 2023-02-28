@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Curse
   - Blessing
+  - Rope
   layers:
   - Default
   - TransparentFX

@@ -20,13 +20,13 @@ namespace Gato.Gameplay
 
         public void ThrowWeapon(Vector2 direction)
         {
-            if (_inCooldown ||_projectilePool.Count >= _maxProjectileAvailable)
+            if (_inCooldown/* ||_projectilePool.Count >= _maxProjectileAvailable */)
             {
                 return;
             }
 
             CurseProjectile instance = Instantiate(_projectilePrefab, (Vector2)gameObject.transform.position + direction *3, Quaternion.identity);
-            instance.Setup(direction);
+            instance.Setup(direction, _hasHitCurse);
             instance.OnCurseTriggered += HandleCurseTriggered;
             instance.OnObjectTriggered += HandleObjectTriggered;
             instance.GetComponent<CurseProjectile>().ConnectedToRope.Add(gameObject);
@@ -54,6 +54,7 @@ namespace Gato.Gameplay
         {
             foreach (CurseProjectile projectile in _projectilePool)
             {
+                Debug.Log("ACTIVE");
                 projectile.ActivateCurse(_hasHitCurse);
             }
 
