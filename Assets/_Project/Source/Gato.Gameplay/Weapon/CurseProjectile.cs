@@ -46,7 +46,6 @@ namespace Gato.Gameplay
 
         public void Setup(Vector2 direction, bool isCurseActive, GameObject player)
         {
-            Debug.Log(isCurseActive);
             _player = player;
             _isCursed = isCurseActive;
             _hingeJoint = GetComponent<HingeJoint2D>();
@@ -154,7 +153,6 @@ namespace Gato.Gameplay
 
             if (ray2D.collider.name == "Curse")
             {
-                Debug.Log("IS CURSED");
                 _isCursed = true;
             }
 
@@ -252,7 +250,6 @@ namespace Gato.Gameplay
             }
 
             _rope.ActivateJoints();
-            // transform.SendMessage("ActivateJoints", transform);
             if (collision.gameObject.CompareTag("Player") && _goBack)
             {
                 Destroy(gameObject);
@@ -263,19 +260,9 @@ namespace Gato.Gameplay
             if(_goBack)
             {
                 RopeComeBack();
-                /* if (collision.gameObject == ConnectedToRope[^2])
-                {
-                    LineArrayRemove(ConnectedToRope.Count -2);
-                }*/
 
                 return;
             }
-
-            /* if (!_isMoving)
-            {
-                Debug.Log("IS _isMoving");
-                return;
-            } */
 
             _isMoving = false;
             _connectedFinalTarget = collision.transform;
@@ -302,20 +289,15 @@ namespace Gato.Gameplay
                 }
             }
 
-            if (collision.gameObject.name == "Curse")
-            {
-                OnCurseTriggered?.Invoke();
-                // _isCursed = true;
-                Debug.Log("CURSE");
-                _isCursed = true;
             switch (collision.gameObject.tag)
             {
                 default:
-                    if (IsCursed) collision.SendMessage("Curse1", gameObject);
-                    if (IsBlessed) collision.SendMessage("Bless");
+                    if (IsCursed) OnCurseTriggered?.Invoke();
+                    if (IsBlessed) collision.gameObject.SendMessage("Bless");
                     break;
                 case "Curse":
                     IsCursed = true;
+                    OnCurseTriggered?.Invoke();
                     break;
                 case "Blessing":
                     IsBlessed = true;
@@ -332,11 +314,11 @@ namespace Gato.Gameplay
                 return;
             }
 
-            if (collision.gameObject.name == "Curse")
-            switch (collision.gameObject.tag)
-            {
                 // _isCursed = false;
                 _sentCurse = false;
+            //if (collision.gameObject.name == "Curse")
+            switch (collision.gameObject.tag)
+            {
                 case "Curse":
                     IsCursed = false;
                     _sentCurse = false;

@@ -44,7 +44,7 @@ namespace Gato.Gameplay
 
         private void Update()
         {
-            currentRopeDist = (int)Vector3.Distance(_playerRigidBody.transform.position, _projectileRigidBody.transform.position) * 2;
+            currentRopeDist = (int)Vector3.Distance(_playerRigidBody.transform.position, _projectileRigidBody.transform.position) * 6;
             if ((currentRopeDist - _oldRopeDist) > 1)
             {
                 ActivateJoints();
@@ -57,7 +57,7 @@ namespace Gato.Gameplay
         {
             Rigidbody2D previousJoint = null;
 
-            for (int i = 0; i < ropeJointsSize; i++)
+            for (int i = 0; i < ropeJointsSize * 4; i++)
             {
                 GameObject instance = Instantiate(chainJointPrefab, Vector3.zero, Quaternion.identity, transform);
                 HingeJoint2D hinge = instance.GetComponent<HingeJoint2D>();
@@ -80,14 +80,15 @@ namespace Gato.Gameplay
 
         public void ActivateJoints()
         {
-            for (int i = 0; i < currentRopeDist; i++)
+            for (int i = 0; i <= currentRopeDist; i++)
             {
                 if (i > RopeJointsPool.Count - 1)
                 {
                     return;
                 }
 
-                RopeJointsPool[i].transform.position = Vector3.Lerp(transform.position, _playerRigidBody.transform.position, (float)i/currentRopeDist);
+
+                RopeJointsPool[i].transform.position = Vector3.Lerp(transform.position, _playerHinge.transform.position, (float)i /currentRopeDist);
                 RopeJointsPool[i].gameObject.SetActive(true);
                 RopeJoints++;
 

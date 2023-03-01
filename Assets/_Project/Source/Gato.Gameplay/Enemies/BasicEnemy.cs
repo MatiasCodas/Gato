@@ -64,6 +64,7 @@ namespace Gato.Gameplay
             NextPosition = (Vector2)transform.position + Vector2.ClampMagnitude(Target.transform.position - transform.position, Speed);
             RB2D.MovePosition(NextPosition);
         }
+
         public void FaceDirection()//placeholder for  until we get some animations
         {
             
@@ -88,7 +89,7 @@ namespace Gato.Gameplay
 
         }
 
-        private void Curse1(GameObject rope)
+        public void Curse(GameObject rope)
         {
             _cursed = true;
             StartCoroutine(TimerToDie(rope));
