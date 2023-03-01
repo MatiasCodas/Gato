@@ -293,7 +293,7 @@ namespace Gato.Gameplay
             {
                 default:
                     if (IsCursed) OnCurseTriggered?.Invoke();
-                    if (IsBlessed) collision.gameObject.SendMessage("Bless");
+                    if (IsBlessed) collision.gameObject.SendMessageUpwards("Bless");
                     break;
                 case "Curse":
                     IsCursed = true;
