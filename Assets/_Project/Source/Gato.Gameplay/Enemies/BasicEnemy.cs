@@ -115,11 +115,8 @@ namespace Gato.Gameplay
             if(collision.gameObject.name == "Player")
             {
                 Destroy(collision.gameObject);
-
             }
             
         }
-
-
     }
 }

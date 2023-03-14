@@ -32,19 +32,20 @@ namespace Gato.Gameplay
 
             _direction = new Vector2(Input.GetAxis(HorizontalAxisName), Input.GetAxis(VerticalAxisName));
 
-            if (Input.GetKey(_inputSettings.DashKeyCode))
+            if (Input.GetKey(_inputSettings.DashKeyCode) && _directionWeapon != Vector2.zero)
             {
-                _playerControlSystem.Dash(_direction);
+                _playerControlSystem.Dash(_directionWeapon);
 
                 return;
             }
 
             _playerControlSystem.Move(_direction);
-
-            if (_direction.x > 0.5f || _direction.y > 0.5f || _direction.x < -0.5f || _direction.y < -0.5f)
+            _directionWeapon = _direction != Vector2.zero ?_direction : _directionWeapon;
+            _directionWeapon.Normalize();
+            /*if (_direction.x > 0.5f || _direction.y > 0.5f || _direction.x < -0.5f || _direction.y < -0.5f)
             {
                 _directionWeapon = _direction;
-            }
+            }*/
         }
         public override void Tick(float deltaTime)
         {
@@ -53,8 +54,9 @@ namespace Gato.Gameplay
                 _playerControlSystem = ServiceLocator.Shared.Get<IPlayerControlService>();
             }
 
-            if (Input.GetKey(_inputSettings.ShootWeaponKeyCode))
+            if (Input.GetKeyDown(_inputSettings.ShootWeaponKeyCode) && _directionWeapon != Vector2.zero)
             {
+                Debug.LogError(_directionWeapon);
                 _playerControlSystem.ShootWeapon(_directionWeapon);
             }
         }

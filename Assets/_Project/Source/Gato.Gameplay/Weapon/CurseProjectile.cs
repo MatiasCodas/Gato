@@ -12,6 +12,8 @@ namespace Gato.Gameplay
 
         public event TargetHitHandler OnObjectTriggered;
 
+        public event TargetHitHandler OnRopeDestroy;
+
         [SerializeField]
         private float _movementSpeed = 3f;
         [SerializeField]
@@ -79,7 +81,7 @@ namespace Gato.Gameplay
 
             // gambiarra, favor trocar os inputs pro inputmanager depois
             // very nested also, sounds like a good place to refactor
-            if (Input.GetKeyDown(KeyCode.Q) || _timeActive > _playerStats.RopeTime || LineSize() >= _playerStats.RopeSize || goAllBack)
+            if (Input.GetKeyDown(KeyCode.Q) || _timeActive > _playerStats.RopeTime /*|| LineSize() >= _playerStats.RopeSize*/ || goAllBack)
             {
                 // _goBack = true;
                 //goAllBack = false;
@@ -134,6 +136,7 @@ namespace Gato.Gameplay
 
             Vector2 backForce =  Vector2.ClampMagnitude(ConnectedToRope[^2].transform.position - transform.position, 1) * _timeGoingBack;
             transform.Translate((_movementSpeed * Time.deltaTime * _direction) + backForce);
+            //_rigidbody2D.MovePosition((Vector2)transform.position + (_direction * 100) * Time.fixedDeltaTime);
         }
 
         #region Main Line functions
@@ -359,10 +362,11 @@ namespace Gato.Gameplay
 
         private void RopeComeBack()
         {
+            Debug.Log("COMEBACK");
+            OnRopeDestroy?.Invoke();
             Destroy(gameObject);
             return;
             // _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-            Debug.Log("COMEBACK");
             //_hingeJoint.connectedBody = null;
             // _rigidbody2D.MovePosition(_player.transform.position);
             // _hingeJoint.connectedBody = null;

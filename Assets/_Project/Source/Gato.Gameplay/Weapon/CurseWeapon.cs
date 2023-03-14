@@ -18,17 +18,25 @@ namespace Gato.Gameplay
         private bool _inCooldown;
         private List<CurseProjectile> _projectilePool = new List<CurseProjectile>();
 
+        public void Awake()
+        {
+            Debug.LogError("AWAKE");
+            _inCooldown = false;
+        }
+
         public void ThrowWeapon(Vector2 direction)
         {
-            if (_inCooldown/* ||_projectilePool.Count >= _maxProjectileAvailable */)
+            if (_inCooldown ||_projectilePool.Count >= _maxProjectileAvailable)
             {
                 return;
             }
 
-            CurseProjectile instance = Instantiate(_projectilePrefab, (Vector2)gameObject.transform.position + direction * 3, Quaternion.identity);
+            Debug.LogError(direction);
+            CurseProjectile instance = Instantiate(_projectilePrefab, (Vector2)gameObject.transform.position + direction, Quaternion.identity);
             instance.Setup(direction, _hasHitCurse, gameObject);
             instance.OnCurseTriggered += HandleCurseTriggered;
             instance.OnObjectTriggered += HandleObjectTriggered;
+            instance.OnRopeDestroy += HandleRopeDestroy;
             instance.GetComponent<CurseProjectile>().ConnectedToRope.Add(gameObject);
             instance.GetComponent<CurseProjectile>().ConnectedToRope.Add(instance.gameObject);
 
@@ -80,6 +88,19 @@ namespace Gato.Gameplay
             if (_hasHitCurse)
             {
                 ActivateCurse();
+            }
+        }
+
+        private void HandleRopeDestroy()
+        {
+            List<CurseProjectile> projectilePool = _projectilePool;
+            _projectilePool.Clear();
+            foreach(CurseProjectile curseProjectile in projectilePool)
+            {
+                if (curseProjectile != null)
+                {
+                    _projectilePool.Add(curseProjectile);
+                }
             }
         }
     }

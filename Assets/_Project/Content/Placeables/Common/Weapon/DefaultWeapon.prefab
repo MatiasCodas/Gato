@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chainJointPrefab: {fileID: 7388936715939031520, guid: 6bafeac78e3cebe4d972bc7886e31158, type: 3}
-  ropeJointsSize: 15
+  ropeJointsSize: 40
 --- !u!114 &1364707071902809101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fda48dba1bab02a4091bd3cc128b9720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 50
+  _movementSpeed: 25
   _playerStats: {fileID: 11400000, guid: 02287128bc6c28641b81d60579b35b02, type: 2}
   RopeShooter: {fileID: 0}
   ConnectedToRope: []
@@ -183,9 +183,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0

@@ -17,4 +17,4 @@ MonoBehaviour:
   DashCooldown: 2
   RopeTime: 20
   RopeSize: 10
-  RopeCooldown: 2
+  RopeCooldown: 0.5

@@ -57,7 +57,7 @@ namespace Gato.Gameplay
         {
             Rigidbody2D previousJoint = null;
 
-            for (int i = 0; i < ropeJointsSize * 4; i++)
+            for (int i = 0; i < ropeJointsSize; i++)
             {
                 GameObject instance = Instantiate(chainJointPrefab, Vector3.zero, Quaternion.identity, transform);
                 HingeJoint2D hinge = instance.GetComponent<HingeJoint2D>();
