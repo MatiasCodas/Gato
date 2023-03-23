@@ -395,6 +395,93 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242866170}
   m_CullTransparentMesh: 1
+--- !u!1 &274450087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 274450088}
+  - component: {fileID: 274450089}
+  m_Layer: 0
+  m_Name: PathfinderPath
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &274450088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274450087}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1925962785}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &274450089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274450087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAACwn+svcOgEeQIAADMFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMzoWxCRDTW+sQ0kMSJrSTiy/CWmMNsuTRR4Bk+O9dyTZ2qS+It/t23z6t/UW4NDXkVum15uxZMSDfR8SfybdRH3yCE90rueWf0OW8c2ZLn0RDzhu1XCEee5pRFVjN8x9yL3xyhKCTvFC6WrE9pMpYg3BBhQEMaWU9WyL0NSIn/BkvPeWMp+m9P33iaRmNLnjMQVrQfep0Mo/wuZsnLSNeTpb+SeKW2PCczAWtamB+iJ5+H0+mnj9btPRZMkkCQeKgbW408cVzJQQ3rU5iz3XwIaW1cTglJjBOce4gLp7M5oiUwPel9SqH/NeiMGBbXzQ9P3CNDjaFyU/V2FpRc2hkflDhfKvpfBGENUWf/4uP4xAutKqeur5x5HvYkueHN3rOqbED34fww0B7cOtIxYHuBLyXIF/UWisnGQatdp7qDEwf+r/X0dIS8kOPN1JvQFf39nfX3F2yn+ESpj+lgle7YP6sAbZCBcvDboDG6/mFgsPmmLYEol7FHwO/6X64Ym3gkWtjMdROKb28nXLap5JV8MxP42yqtIQAt6JrkFTY8wbL2NsrvIkN2t5EHql/mdrmbax7R24oAe7zo+gmtFHH62WZUh2fwZSvzgouoRftAy/oU6qkbDZs6ElH2zpd0HxA2zvO/l0tstjReDdLFrPdNIciWoyTxR3kCZ1HNF7GbH5Hwu5xiXNSsWmEtvbgrcm+uMQ9674xo7Wmddh2pulxzT8rNbCcy0Jtcw0gX5sKV+GgsQm+mmzFOBq0BWu5DPdNvjIiVH4All0LZWHS1clqmvVVMlLzD2U9kpE0fFQy4uHrLm80fHA4+uZdsQu5/AVQSwMEFAAACAgAALCf6zSiWX9tAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tJJZUqJhkomFmUmSUXJqmoGZroWZcWqyRaKpQaKhpWGKqbFSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAALCf6y9w6AR5AgAAMwUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAALCf6zSiWX9tAAAAeAAAAAkAJAAAAAAAAAAAAAAAxgIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAAB+AwAAAAA=
+    upgradeData: 
+    file_cachedStartup: {fileID: 0}
+    data_cachedStartup: 
+    cacheStartup: 0
+  showNavGraphs: 1
+  showUnwalkableNodes: 1
+  debugMode: 0
+  debugFloor: 0
+  debugRoof: 1
+  manualDebugFloorRoof: 0
+  showSearchTree: 0
+  unwalkableNodeDebugSize: 0.3
+  logPathResults: 1
+  maxNearestNodeDistance: 100
+  scanOnStartup: 1
+  fullGetNearestSearch: 0
+  prioritizeGraphs: 0
+  prioritizeGraphsLimit: 1
+  colorSettings:
+    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
+    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
+    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
+    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
+    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
+    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
+    _AreaColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+  tagNames: []
+  heuristic: 2
+  heuristicScale: 1
+  threadCount: 1
+  maxFrameTime: 1
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: 0.2
+  euclideanEmbedding:
+    mode: 0
+    seed: 0
+    pivotPointRoot: {fileID: 0}
+    spreadOutCount: 1
+  showGraphs: 1
 --- !u!1 &291779401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,7 +1741,7 @@ GameObject:
   - component: {fileID: 771171156}
   - component: {fileID: 771171155}
   - component: {fileID: 771171154}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tilemap_Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14598,6 +14685,7 @@ Transform:
   m_Children:
   - {fileID: 982619060}
   - {fileID: 771171153}
+  - {fileID: 274450088}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

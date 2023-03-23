@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 namespace Gato.Gameplay
 {
@@ -14,9 +15,13 @@ namespace Gato.Gameplay
         private bool _angry;
         private bool _tired;
 
+        public AIDestinationSetter DestinationSetter;
+        public AIPath AIPath;
+
         private void Start()
         {
             BasicStart();
+            DestinationSetter.target = Target.transform;
         }
 
 
@@ -28,19 +33,22 @@ namespace Gato.Gameplay
                 case 0:
                     if (_angry) return;
                     LookingAtTarget();
-                    BasicMovement();
+                    //BasicMovement();
+                    AIPath.enabled = true;
                     break;
 
                 case 1:
                     Telegraph();
+                    AIPath.enabled = false;
                     break;
 
                 case 2:
                     Dash();
+                    AIPath.enabled = false;
                     break;
 
             }
-            
+            NextPosition = (Vector2)transform.position + Vector2.ClampMagnitude(Target.transform.position - transform.position, Speed);
             FaceDirection();
         }
         private void Update()
