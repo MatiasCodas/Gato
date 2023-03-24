@@ -45,8 +45,13 @@ namespace Gato.Gameplay
             _rigidbody2d.MovePosition(_rigidbody2d.position + (direction * _playerStats.MovementSpeed) * Time.fixedDeltaTime);
         }
 
-        public void ShootWeapon(Vector2 direction)
+        public void ShootWeapon()
         {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = mousePos - (Vector2)transform.position;
+            direction = direction.normalized;
+            Debug.Log(direction);
+
             _rangedWeapon.ThrowWeapon(direction);
         }
 
