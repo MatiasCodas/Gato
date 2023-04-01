@@ -32,9 +32,9 @@ namespace Gato.Gameplay
 
             _direction = new Vector2(Input.GetAxis(HorizontalAxisName), Input.GetAxis(VerticalAxisName));
 
-            if (Input.GetKey(_inputSettings.DashKeyCode) && _directionWeapon != Vector2.zero)
+            if (Input.GetKeyDown(_inputSettings.DashKeyCode) && _direction != Vector2.zero)
             {
-                _playerControlSystem.Dash(_directionWeapon);
+                _playerControlSystem.Dash(_direction);
 
                 return;
             }

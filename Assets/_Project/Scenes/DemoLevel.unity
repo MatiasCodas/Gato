@@ -1014,8 +1014,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: A corda pode transmitir efeitos
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 687b9a758ffa42942a1804f75fe01103, type: 2}
-  m_sharedMaterial: {fileID: -515122494923197374, guid: 687b9a758ffa42942a1804f75fe01103, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1649,8 +1649,8 @@ MonoBehaviour:
 
     Shift - Dash'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 687b9a758ffa42942a1804f75fe01103, type: 2}
-  m_sharedMaterial: {fileID: -515122494923197374, guid: 687b9a758ffa42942a1804f75fe01103, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12410,8 +12410,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Espa\xE7o - Atirar corda\nQ - Puxar corda"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 687b9a758ffa42942a1804f75fe01103, type: 2}
-  m_sharedMaterial: {fileID: -515122494923197374, guid: 687b9a758ffa42942a1804f75fe01103, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13741,8 +13741,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: MELUSINA
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 687b9a758ffa42942a1804f75fe01103, type: 2}
-  m_sharedMaterial: {fileID: -515122494923197374, guid: 687b9a758ffa42942a1804f75fe01103, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14592,7 +14592,7 @@ Camera:
   far clip plane: 1000
   field of view: 80
   orthographic: 1
-  orthographic size: 4.05
+  orthographic size: 6
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

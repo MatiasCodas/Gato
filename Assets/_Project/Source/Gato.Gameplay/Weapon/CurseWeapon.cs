@@ -37,8 +37,6 @@ namespace Gato.Gameplay
             instance.OnCurseTriggered += HandleCurseTriggered;
             instance.OnObjectTriggered += HandleObjectTriggered;
             instance.OnRopeDestroy += HandleRopeDestroy;
-            instance.GetComponent<CurseProjectile>().ConnectedToRope.Add(gameObject);
-            instance.GetComponent<CurseProjectile>().ConnectedToRope.Add(instance.gameObject);
 
             Rigidbody2D playerRigidBody = GetComponent<Rigidbody2D>();
             Rigidbody2D projectileRigidBody = instance.GetComponent<Rigidbody2D>();

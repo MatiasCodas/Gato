@@ -59,10 +59,9 @@ namespace Gato.Gameplay
         {
             _canDash = false;
             _canWalk = false;
-
-            _rigidbody2d.velocity = (direction * _playerStats.DashSpeed);
-            await UniTask.Delay((int)(0.5 * 1000));
-
+            _rigidbody2d.velocity = (direction.normalized * _playerStats.DashSpeed);
+            await UniTask.Delay((int)(_playerStats.DashTime * 1000));
+            _rigidbody2d.velocity = Vector2.zero;
             _canWalk = true;
 
             await UniTask.Delay((int)(_playerStats.DashCooldown * 1000));

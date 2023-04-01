@@ -57,6 +57,8 @@ namespace Gato.Gameplay
             _direction = direction;
             _line = GetComponent<LineRenderer>();
             _layerMask = LayerMask.GetMask("Roped");
+            ConnectedToRope.Add(player);
+            ConnectedToRope.Add(gameObject);
         }
 
         public void ActivateCurse(bool cursed)
@@ -81,8 +83,9 @@ namespace Gato.Gameplay
 
             // gambiarra, favor trocar os inputs pro inputmanager depois
             // very nested also, sounds like a good place to refactor
-            if (Input.GetKeyDown(KeyCode.Q) || _timeActive > _playerStats.RopeTime /*|| LineSize() >= _playerStats.RopeSize*/ || goAllBack)
+            if (Input.GetKeyDown(KeyCode.Mouse1) || _timeActive > _playerStats.RopeTime || LineSize() >= _playerStats.RopeSize || goAllBack)
             {
+                Debug.Log(LineSize());
                 // _goBack = true;
                 //goAllBack = false;
                 RopeComeBack();
@@ -228,6 +231,11 @@ namespace Gato.Gameplay
         private float LineSize()
         {
             float pointDistance = 0;
+
+            pointDistance = Vector2.Distance(ConnectedToRope[0].transform.position, ConnectedToRope[ConnectedToRope.Count-1].transform.position);
+
+            //more specific code for the rope distance but isn't working for some reason (probably rounding up the float)
+            /*
             for (int i = 1; i < ConnectedToRope.Count; i++)
             {
                 if (ConnectedToRope[i] == null)
@@ -239,7 +247,7 @@ namespace Gato.Gameplay
 
                 pointDistance += Vector2.Distance(ConnectedToRope[i - 1].transform.position, ConnectedToRope[i].transform.position);
             }
-
+            */
             return pointDistance;
         }
 

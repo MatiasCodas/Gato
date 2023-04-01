@@ -10,6 +10,7 @@ namespace Gato.Gameplay
         public float MovementSpeed;
         public float DashSpeed;
         public float DashCooldown;
+        public float DashTime;
         public float RopeTime;
         public float RopeSize;
         public float RopeCooldown;
