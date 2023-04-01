@@ -12,6 +12,8 @@ namespace Gato.Gameplay
         private PlayerStats _playerStats;
         [SerializeField]
         private CurseProjectile _projectilePrefab;
+        [SerializeField]
+        private GameObject _aim;
 
         private bool _hasHitCurse;
         private bool _hasHitObj;
@@ -22,6 +24,11 @@ namespace Gato.Gameplay
         {
             Debug.LogError("AWAKE");
             _inCooldown = false;
+        }
+        private void Update()
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            _aim.transform.LookAt(mousePos,Vector3.forward);
         }
 
         public void ThrowWeapon(Vector2 direction)

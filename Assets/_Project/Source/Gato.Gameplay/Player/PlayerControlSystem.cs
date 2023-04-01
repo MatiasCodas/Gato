@@ -27,6 +27,7 @@ namespace Gato.Gameplay
 
         public void Dash(Vector2 direction)
         {
+
             if (!_canDash)
             {
                 return;
@@ -34,6 +35,8 @@ namespace Gato.Gameplay
 
             DashAsync(direction);
         }
+
+        
 
         public void Move(Vector2 direction)
         {

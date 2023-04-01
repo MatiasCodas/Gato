@@ -15,6 +15,8 @@ namespace Gato.Gameplay
         private Vector2 _directionWeapon = new Vector2(0, -1);
         private IPlayerControlService _playerControlSystem;
 
+        private bool _dashHalfPress; //Variável criada pra evitar do player só deixar o dash pressionado e dar vários dashes
+
         public override void Setup()
         {
             if (!ServiceLocator.Shared.TryGet(out _playerControlSystem))
@@ -32,14 +34,17 @@ namespace Gato.Gameplay
 
             _direction = new Vector2(Input.GetAxis(HorizontalAxisName), Input.GetAxis(VerticalAxisName));
 
-            if (Input.GetKeyDown(_inputSettings.DashKeyCode) && _direction != Vector2.zero)
-            {
-                _playerControlSystem.Dash(_direction);
-
+            
+            _playerControlSystem.Move(_direction);
+            if (!Input.GetKey(_inputSettings.DashKeyCode)) { 
+                _dashHalfPress = false;
                 return;
             }
 
-            _playerControlSystem.Move(_direction);
+            if (_direction == Vector2.zero || _dashHalfPress) return;
+            _playerControlSystem.Dash(_direction);
+            _dashHalfPress = true;
+
         }
 
         public override void Tick(float deltaTime)
