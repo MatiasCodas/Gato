@@ -99,7 +99,7 @@ namespace Gato.Gameplay
         {
 
             yield return new WaitForSeconds(TimeToDie);
-            CurseProjectile.goAllBack = true;
+            CurseProjectile.GoAllBack = true;
             Destroy(gameObject);
             
            // Destroy(rope);

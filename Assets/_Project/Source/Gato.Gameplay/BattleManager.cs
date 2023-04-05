@@ -60,7 +60,12 @@ namespace Gato.Gameplay
 
             if (_activeEnemies.Count <= 1)
             {
+                if(WaveSize > 0)
                 StartCoroutine(SpawnNew());
+                else
+                {
+                    FinishedArea();
+                }
             }
         }
 
@@ -88,8 +93,14 @@ namespace Gato.Gameplay
                 _activeEnemies.Add(instance);
                 _unbundledSpawn.RemoveAt(randomPosition);
             }
-
+            WaveSize -= _activeEnemies.Count;
             GetSpawnPositions();
+        }
+
+        private void FinishedArea()
+        {
+
+
         }
     }
 }

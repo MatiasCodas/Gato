@@ -33,7 +33,7 @@ namespace Gato.Gameplay
         private void Update()
         {
             TryToColorize();
-            SetState();
+            if(Blessed)SetState();
         }
 
         private void TryToColorize()
@@ -64,8 +64,12 @@ namespace Gato.Gameplay
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!Blessed || !collision.CompareTag("Player")) return;
+            if (!collision.CompareTag("Player")) return;
             Open = true;
+        }
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (!Blessed) Open = false;
         }
 
     }

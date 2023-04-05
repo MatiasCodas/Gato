@@ -44,7 +44,7 @@ namespace Gato.Gameplay
         public float TimerToDestroy;
         private float _timeGoingBack;
         private bool _goBack = false;
-        public static bool goAllBack = false;
+        public static bool GoAllBack = false;
 
         public void Setup(Vector2 direction, bool isCurseActive, GameObject player)
         {
@@ -83,7 +83,7 @@ namespace Gato.Gameplay
 
             // gambiarra, favor trocar os inputs pro inputmanager depois
             // very nested also, sounds like a good place to refactor
-            if (Input.GetKeyDown(KeyCode.Mouse1) || _timeActive > _playerStats.RopeTime || LineSize() >= _playerStats.RopeSize || goAllBack)
+            if (Input.GetKeyDown(KeyCode.Mouse1) || _timeActive > _playerStats.RopeTime || LineSize() >= _playerStats.RopeSize || GoAllBack)
             {
                 Debug.Log(LineSize());
                 // _goBack = true;
@@ -101,16 +101,6 @@ namespace Gato.Gameplay
             {
                 return;
             }
-
-            try
-            {
-                // transform.position = Vector3.Lerp(transform.position, _connectedFinalTarget.position, 0.1f);
-            }
-            catch
-            {
-                //this error doesn't do much so I wanted a cooler error message
-                Debug.Log("You got an error but it's not a big deal so I'm doing this chill message");
-            } 
         }
 
         private void FixedUpdate()
@@ -372,6 +362,7 @@ namespace Gato.Gameplay
         {
             Debug.Log("COMEBACK");
             OnRopeDestroy?.Invoke();
+            GoAllBack = false;
             Destroy(gameObject);
             return;
             // _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
