@@ -22,7 +22,6 @@ namespace Gato.Gameplay
 
         public void Awake()
         {
-            Debug.LogError("AWAKE");
             _inCooldown = false;
         }
         private void Update()
