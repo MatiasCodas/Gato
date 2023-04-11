@@ -13,12 +13,15 @@ namespace Gato.Gameplay
 
         public List<Transform> SpawnPositions;
         private List<Vector2> _unbundledSpawn;
+        [SerializeField]
         private List<GameObject> _activeEnemies;
         private BoxCollider2D _collider2D;
         public float WaveSize;
         public float SpawnTime;
         private bool _activated = false;
 
+        public GameObject BlessingPrefab;
+        public GameObject[] Curses;
 
         [Header( "HUD info")]
         public BattleStats BattleStats;
@@ -29,6 +32,11 @@ namespace Gato.Gameplay
             Instance = this;
             //_collider2D = GetComponent<BoxCollider2D>();
             _activeEnemies = new List<GameObject>();
+
+            foreach (GameObject item in Curses)
+            {
+                item.SetActive(true);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -99,8 +107,19 @@ namespace Gato.Gameplay
 
         private void FinishedArea()
         {
+            
+            foreach (GameObject item in Curses)
+            {
+                Instantiate(BlessingPrefab, item.transform.position, Quaternion.identity, transform).transform.parent = transform.parent;
+                Destroy(item);
+            }
+            Destroy(gameObject);
+        }
 
-
+        private IEnumerator SelfDestruct()
+        {
+            yield return new WaitForSeconds(1);
+            
         }
     }
 }

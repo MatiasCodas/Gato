@@ -148,6 +148,8 @@ MonoBehaviour:
   - {fileID: 8032483936202640902}
   WaveSize: 2
   SpawnTime: 1
+  BlessingPrefab: {fileID: 1805360586432797081, guid: cb414d308b1ba3b44ab2b422574488da, type: 3}
+  Curses: []
   BattleStats: {fileID: 11400000, guid: c05dea6161ee46f4d92b736a5f29fe58, type: 2}
 --- !u!61 &8032483938135342866
 BoxCollider2D:
