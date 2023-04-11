@@ -53,7 +53,6 @@ namespace Gato.Gameplay
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = mousePos - (Vector2)transform.position;
             direction = direction.normalized;
-            Debug.Log(direction);
 
             _rangedWeapon.ThrowWeapon(direction);
         }

@@ -26,7 +26,7 @@ namespace Gato.Gameplay
         private RopePoolAndLineHandler _rope;
         private bool _isMoving;
         private bool _isCursed;
-        public static bool IsCursed;
+        public bool IsCursed;
         public static bool IsBlessed;
         private bool _sentCurse;
         private Vector2 _direction;
@@ -85,7 +85,6 @@ namespace Gato.Gameplay
             // very nested also, sounds like a good place to refactor
             if (Input.GetKeyDown(KeyCode.Mouse1) || _timeActive > _playerStats.RopeTime || LineSize() >= _playerStats.RopeSize || GoAllBack)
             {
-                Debug.Log(LineSize());
                 // _goBack = true;
                 //goAllBack = false;
                 RopeComeBack();
@@ -360,7 +359,6 @@ namespace Gato.Gameplay
 
         private void RopeComeBack()
         {
-            Debug.Log("COMEBACK");
             OnRopeDestroy?.Invoke();
             GoAllBack = false;
             Destroy(gameObject);

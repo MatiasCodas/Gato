@@ -23,6 +23,7 @@ namespace Gato.UI
             }
 
             _tutorialService.SetTutorialData(_data);
+            gameObject.SetActive(false);
         }
     }
 }

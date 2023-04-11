@@ -37,7 +37,7 @@ namespace Gato.Gameplay
                 return;
             }
 
-            Debug.LogError(direction);
+            _hasHitCurse = false;
             CurseProjectile instance = Instantiate(_projectilePrefab, (Vector2)gameObject.transform.position + direction, Quaternion.identity);
             instance.Setup(direction, _hasHitCurse, gameObject);
             instance.OnCurseTriggered += HandleCurseTriggered;
