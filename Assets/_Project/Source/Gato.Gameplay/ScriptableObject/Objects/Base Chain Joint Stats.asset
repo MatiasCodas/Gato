@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Base Chain Joint Stats
   m_EditorClassIdentifier: 
   shotSpeed: 0.005
-  distanceMultiplier: 3
+  distanceMultiplier: 0.005

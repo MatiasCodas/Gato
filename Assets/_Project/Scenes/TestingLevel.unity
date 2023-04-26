@@ -4173,6 +4173,56 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3796829957738570119, guid: 4834a426ddf2ab34288e7b858fe01502, type: 3}
   m_PrefabInstance: {fileID: 1292973881}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &893251335
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 893251337}
+  - component: {fileID: 893251336}
+  m_Layer: 0
+  m_Name: DebugObjectSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &893251336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893251335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a793c0ac345a6c446828fbf8b609ef5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TotemCurse: {fileID: 0}
+  TotemBless: {fileID: 0}
+  EnemyBull: {fileID: 0}
+  EnemyMosquito: {fileID: 0}
+  EnemyHover: {fileID: 0}
+  Door: {fileID: 0}
+--- !u!4 &893251337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893251335}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.045101, y: 9.022055, z: 2.9304848}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &921345796
 GameObject:
   m_ObjectHideFlags: 0
