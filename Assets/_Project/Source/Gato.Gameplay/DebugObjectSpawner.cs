@@ -17,11 +17,27 @@ namespace Gato.Gameplay
         {
             if(Input.GetKeyDown(KeyCode.Alpha1))
             {
-                Instantiate(TotemCurse, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity, null);
+                Instantiate(TotemCurse, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity, null);
             }
-            if(Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                Instantiate(TotemBless, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity, null);
+                Instantiate(TotemBless, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity, null);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                Instantiate(EnemyBull, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity, null);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                Instantiate(EnemyMosquito, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity, null);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                Instantiate(EnemyHover, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity, null);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                Instantiate(Door, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity, null);
             }
         }
     }

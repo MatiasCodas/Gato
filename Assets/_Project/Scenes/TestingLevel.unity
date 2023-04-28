@@ -4202,12 +4202,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a793c0ac345a6c446828fbf8b609ef5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TotemCurse: {fileID: 0}
-  TotemBless: {fileID: 0}
-  EnemyBull: {fileID: 0}
-  EnemyMosquito: {fileID: 0}
-  EnemyHover: {fileID: 0}
-  Door: {fileID: 0}
+  TotemCurse: {fileID: 3796829957738570119, guid: 4834a426ddf2ab34288e7b858fe01502, type: 3}
+  TotemBless: {fileID: 1805360586432797081, guid: cb414d308b1ba3b44ab2b422574488da, type: 3}
+  EnemyBull: {fileID: 2501532263888041369, guid: 30a2ba42f283bdf43993d782be42148e, type: 3}
+  EnemyMosquito: {fileID: 2501532263888041369, guid: 6383591ef32bd994dbd62907ec8f077c, type: 3}
+  EnemyHover: {fileID: 2501532263888041369, guid: 04e893ed1519b0843baa24515a7e7f0b, type: 3}
+  Door: {fileID: 4828677171331469795, guid: 7cb3d5901c9801d45ad72451b8fcf33d, type: 3}
 --- !u!4 &893251337
 Transform:
   m_ObjectHideFlags: 0
@@ -15869,14 +15869,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3796829957738570116, guid: 4834a426ddf2ab34288e7b858fe01502, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3796829957738570116, guid: 4834a426ddf2ab34288e7b858fe01502, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3796829957738570116, guid: 4834a426ddf2ab34288e7b858fe01502, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -16642,18 +16634,6 @@ PrefabInstance:
     - target: {fileID: 4828677171331469792, guid: 7cb3d5901c9801d45ad72451b8fcf33d, type: 3}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828677171331469792, guid: 7cb3d5901c9801d45ad72451b8fcf33d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4.0799856
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828677171331469792, guid: 7cb3d5901c9801d45ad72451b8fcf33d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.50503
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828677171331469792, guid: 7cb3d5901c9801d45ad72451b8fcf33d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.50503
       objectReference: {fileID: 0}
     - target: {fileID: 4828677171331469792, guid: 7cb3d5901c9801d45ad72451b8fcf33d, type: 3}
       propertyPath: m_LocalPosition.x
