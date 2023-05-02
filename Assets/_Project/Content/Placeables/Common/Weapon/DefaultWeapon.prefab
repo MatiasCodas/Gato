@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d6783e7765168c34bae5ce449a9cdf10, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9c63fe51d9b6950448e6c6f0e273fe8d, type: 3}
   m_Color: {r: 0.73333335, g: 0.39607847, b: 0.62352943, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -118,6 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 25
   _playerStats: {fileID: 11400000, guid: 02287128bc6c28641b81d60579b35b02, type: 2}
+  IsCursed: 0
   RopeShooter: {fileID: 0}
   ConnectedToRope: []
   TimerToDestroy: 0
@@ -173,7 +174,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8624125270280504712}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

@@ -167,6 +167,10 @@ namespace Gato.Gameplay
             }
 
             ray2D.collider.gameObject.layer = 7;
+            for (int i = 0; i < ConnectedToRope.Count-1; i++)
+            {
+                if (ray2D.collider.gameObject == ConnectedToRope[i].gameObject) return;
+            }
             ConnectedToRope.Insert(_lineIndex + 1, ray2D.collider.gameObject);
         }
 

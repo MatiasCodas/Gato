@@ -51,6 +51,7 @@ namespace Gato.Gameplay
             }
 
             _oldRopeDist = currentRopeDist;
+            ShowLine();
         }
 
         private void CreateJoints()
@@ -80,6 +81,7 @@ namespace Gato.Gameplay
 
         public void ActivateJoints()
         {
+            ClearJoints();
             for (int i = 0; i <= currentRopeDist; i++)
             {
                 if (i > RopeJointsPool.Count - 1)
@@ -107,6 +109,7 @@ namespace Gato.Gameplay
                     RopeJointsPool[i].gameObject.SetActive(false);
                 }
             }
+
         }
 
         public void ClearJoints()
@@ -123,6 +126,47 @@ namespace Gato.Gameplay
             }
 
             RopeJoints = 0;
+        }
+
+        private void ShowLine()
+        {
+            if (currentRopeDist <= 1f)
+            {
+                return;
+            }
+            /*
+            if (RopeJoints <= 0)
+            {
+
+               // line.positionCount = currentRopeDist + 1;
+
+                for (int i = 0; i < line.positionCount; i++)
+                {
+                    line.SetPosition(i, Vector3.Lerp(transform.position, _projectileRigidBody.position, (float)i / (line.positionCount - 1)));
+                }
+
+                return;
+            }
+            */
+            line.positionCount = RopeJoints+1;
+            line.SetPosition(0, transform.position);
+
+            for (int i = 1; i < RopeJoints; i++)
+            {
+                line.SetPosition(i, RopeJointsPool[i].transform.position);
+            }
+
+            line.SetPosition(RopeJoints, _projectileRigidBody.position);
+
+
+
+            //debug counting
+            int activeRJP = 0;
+            for (int i = 0; i < RopeJointsPool.Count -1; i++)
+            {
+                if (RopeJointsPool[i].gameObject.activeSelf) activeRJP++;
+            }
+            Debug.Log("There's " + RopeJoints + " Ropejoints and " + activeRJP + "RopeJointsPool");
         }
 
         private void OnDestroy()
