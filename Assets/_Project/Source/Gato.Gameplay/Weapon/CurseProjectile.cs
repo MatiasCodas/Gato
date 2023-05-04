@@ -31,7 +31,7 @@ namespace Gato.Gameplay
         private bool _sentCurse;
         private Vector2 _direction;
         public CurseRopeShooter RopeShooter;
-        private LineRenderer _line;
+      //  private LineRenderer _line;
         private static bool _isTarget = true;
         public List<GameObject> ConnectedToRope;
         private List<Vector2> _connectedRelativePosition;
@@ -55,7 +55,7 @@ namespace Gato.Gameplay
             _rope = GetComponent<RopePoolAndLineHandler>();
             _isMoving = true;
             _direction = direction;
-            _line = GetComponent<LineRenderer>();
+         //   _line = GetComponent<LineRenderer>();
             _layerMask = LayerMask.GetMask("Roped");
             ConnectedToRope.Add(player);
             ConnectedToRope.Add(gameObject);
@@ -71,15 +71,6 @@ namespace Gato.Gameplay
 
         private void Update()
         {
-            try
-            {
-                LineUpdate();
-            }
-            catch
-            {
-                LineIndexReset();
-                _goBack = true;
-            }
 
             // gambiarra, favor trocar os inputs pro inputmanager depois
             // very nested also, sounds like a good place to refactor
@@ -122,12 +113,12 @@ namespace Gato.Gameplay
 
             if (_goBack && _timeGoingBack > 5)
             {
-                RopeComeBack();
+                RopeComeBack(); 
                 //LineArrayRemove(ConnectedToRope.Count - 2);
             }
 
-            Vector2 backForce =  Vector2.ClampMagnitude(ConnectedToRope[^2].transform.position - transform.position, 1) * _timeGoingBack;
-            transform.Translate((_movementSpeed * Time.deltaTime * _direction) + backForce);
+            // Vector2 backForce =  Vector2.ClampMagnitude(ConnectedToRope[^2].transform.position - transform.position, 1) * _timeGoingBack;
+            transform.Translate((_movementSpeed * Time.deltaTime * _direction));//+ backForce);
             //_rigidbody2D.MovePosition((Vector2)transform.position + (_direction * 100) * Time.fixedDeltaTime);
         }
 
@@ -171,19 +162,9 @@ namespace Gato.Gameplay
             {
                 if (ray2D.collider.gameObject == ConnectedToRope[i].gameObject) return;
             }
-            ConnectedToRope.Insert(_lineIndex + 1, ray2D.collider.gameObject);
+            //ConnectedToRope.Insert(_lineIndex + 1, ray2D.collider.gameObject);
         }
 
-
-        private void LineUpdate()
-        {
-            _line.positionCount = ConnectedToRope.Count;
-
-            for (int i = 0; i < ConnectedToRope.Count; i++)
-            {
-                _line.SetPosition(i, ConnectedToRope[i].transform.position);
-            }
-        }
 
         private void SendNewCurseToAll()
         {

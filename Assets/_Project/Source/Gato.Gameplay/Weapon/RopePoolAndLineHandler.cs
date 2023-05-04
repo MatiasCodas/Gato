@@ -134,24 +134,9 @@ namespace Gato.Gameplay
             {
                 return;
             }
-            /*
-            if (RopeJoints <= 0)
-            {
+            line.positionCount = RopeJoints-1;
 
-               // line.positionCount = currentRopeDist + 1;
-
-                for (int i = 0; i < line.positionCount; i++)
-                {
-                    line.SetPosition(i, Vector3.Lerp(transform.position, _projectileRigidBody.position, (float)i / (line.positionCount - 1)));
-                }
-
-                return;
-            }
-            */
-            line.positionCount = RopeJoints+1;
-            line.SetPosition(0, transform.position);
-
-            for (int i = 1; i < RopeJoints; i++)
+            for (int i = 0; i < RopeJoints; i++)
             {
                 line.SetPosition(i, RopeJointsPool[i].transform.position);
             }
