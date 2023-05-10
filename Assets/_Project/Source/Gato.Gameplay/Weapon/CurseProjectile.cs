@@ -76,8 +76,6 @@ namespace Gato.Gameplay
             // very nested also, sounds like a good place to refactor
             if (Input.GetKeyDown(KeyCode.Mouse1) || _timeActive > _playerStats.RopeTime || LineSize() >= _playerStats.RopeSize || GoAllBack)
             {
-                // _goBack = true;
-                //goAllBack = false;
                 RopeComeBack();
             }
 
@@ -113,13 +111,10 @@ namespace Gato.Gameplay
 
             if (_goBack && _timeGoingBack > 5)
             {
-                RopeComeBack(); 
-                //LineArrayRemove(ConnectedToRope.Count - 2);
+                RopeComeBack();
             }
-
-            // Vector2 backForce =  Vector2.ClampMagnitude(ConnectedToRope[^2].transform.position - transform.position, 1) * _timeGoingBack;
+            Directionator();
             transform.Translate((_movementSpeed * Time.deltaTime * _direction));//+ backForce);
-            //_rigidbody2D.MovePosition((Vector2)transform.position + (_direction * 100) * Time.fixedDeltaTime);
         }
 
         #region Main Line functions
@@ -162,7 +157,6 @@ namespace Gato.Gameplay
             {
                 if (ray2D.collider.gameObject == ConnectedToRope[i].gameObject) return;
             }
-            //ConnectedToRope.Insert(_lineIndex + 1, ray2D.collider.gameObject);
         }
 
 
@@ -334,12 +328,22 @@ namespace Gato.Gameplay
             collision.gameObject.layer = 0;
         }
 
-        private void OnDestroy()
+        private Transform _target = null;
+        
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            /* for (int i = 0; i < ConnectedToRope.Count; i++)
+            if (_target == null || Vector2.Distance(collision.transform.position, transform.position) < Vector2.Distance(_target.position, transform.position))
             {
-                ConnectedToRope[i].layer = 0;
-            } */ 
+                _target = collision.transform;
+            }
+         
+        }
+
+        private void Directionator()
+        {
+            if (_target == null) return;
+            _direction = Vector3.Lerp(_direction,Vector3.ClampMagnitude(_target.position-transform.position, 1) , 0.3f);
+            Debug.Log(_target.name);
         }
 
         private void RopeComeBack()
