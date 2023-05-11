@@ -17,7 +17,7 @@ namespace Gato.Gameplay
 
         public ServiceLocator OwningLocator { get; set; }
 
-        public override void LateSetup()
+        public override void Setup()
         {
             ServiceLocator.Shared.Set<IPlayerControlService>(this);
             _rangedWeapon = gameObject.GetComponent<IRangedWeapon>();
@@ -45,7 +45,7 @@ namespace Gato.Gameplay
                 return;
             }
 
-            _rigidbody2d.MovePosition(_rigidbody2d.position + (direction * _playerStats.MovementSpeed) * Time.fixedDeltaTime);
+            _rigidbody2d.MovePosition(_rigidbody2d.position + (direction * _playerStats.MovementSpeed * Time.fixedDeltaTime));
         }
 
         public void ShootWeapon()
@@ -55,6 +55,11 @@ namespace Gato.Gameplay
             direction = direction.normalized;
 
             _rangedWeapon.ThrowWeapon(direction);
+        }
+
+        public PlayerStats FetchPlayerStats()
+        {
+            return _playerStats;
         }
 
         private async UniTask DashAsync(Vector2 direction)
