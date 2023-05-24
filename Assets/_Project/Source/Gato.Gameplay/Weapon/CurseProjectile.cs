@@ -20,10 +20,10 @@ namespace Gato.Gameplay
         private PlayerStats _playerStats;
 
         private BasicEnemy _enemyHit;
-        private HingeJoint2D _hingeJoint;
+        public HingeJoint2D HingeJoint;
         private Rigidbody2D _rigidbody2D;
         private DistanceJoint2D _distanceJoint2D;
-        private RopePoolAndLineHandler _rope;
+        public RopePoolAndLineHandler Rope;
         private bool _isMoving;
         private bool _isCursed;
         public bool IsCursed;
@@ -50,9 +50,9 @@ namespace Gato.Gameplay
         {
             _player = player;
             _isCursed = isCurseActive;
-            _hingeJoint = GetComponent<HingeJoint2D>();
+            HingeJoint = GetComponent<HingeJoint2D>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
-            _rope = GetComponent<RopePoolAndLineHandler>();
+            Rope = GetComponent<RopePoolAndLineHandler>();
             _isMoving = true;
             _direction = direction;
          //   _line = GetComponent<LineRenderer>();
@@ -228,7 +228,7 @@ namespace Gato.Gameplay
                 return;
             }
 
-            _rope.ActivateJoints();
+            Rope.ActivateJoints();
             if (collision.gameObject.CompareTag("Player") && _goBack)
             {
                 Destroy(gameObject);
@@ -249,7 +249,7 @@ namespace Gato.Gameplay
             if (collision.gameObject.TryGetComponent<Rigidbody2D>(out Rigidbody2D hitRigidBody))
             {
                 _rigidbody2D.bodyType = RigidbodyType2D.Static;
-                _hingeJoint.connectedBody = hitRigidBody;
+                HingeJoint.connectedBody = hitRigidBody;
             }
 
             _enemyHit = collision.gameObject.GetComponent<BasicEnemy>();

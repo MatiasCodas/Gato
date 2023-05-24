@@ -50,6 +50,13 @@ namespace Gato.Gameplay
             ropePool.Setup(playerRigidBody, projectileRigidBody);
             _projectilePool.Add(instance);
 
+            if(_projectilePool.Count % 2 != 1)
+            {
+                instance.Rope.Deactivate();
+                _projectilePool[_projectilePool.Count - 2].Rope.FirstHinge = instance.HingeJoint;
+                _projectilePool[_projectilePool.Count - 2].Rope.ActivateJoints();
+            }
+
             WeaponCooldown();
         }
 
