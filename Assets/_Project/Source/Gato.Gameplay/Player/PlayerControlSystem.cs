@@ -12,6 +12,7 @@ namespace Gato.Gameplay
 
         private bool _canDash = true;
         private bool _canWalk = true;
+        private bool _isDashing = false;
         private IRangedWeapon _rangedWeapon;
         private Rigidbody2D _rigidbody2d;
 
@@ -27,7 +28,6 @@ namespace Gato.Gameplay
 
         public void Dash(Vector2 direction)
         {
-
             if (!_canDash)
             {
                 return;
@@ -50,6 +50,11 @@ namespace Gato.Gameplay
 
         public void ShootWeapon()
         {
+            if (_isDashing)
+            {
+                return;
+            }
+
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = mousePos - (Vector2)transform.position;
             direction = direction.normalized;
@@ -64,12 +69,16 @@ namespace Gato.Gameplay
 
         private async UniTask DashAsync(Vector2 direction)
         {
+            _isDashing = true;
             _canDash = false;
             _canWalk = false;
             _rigidbody2d.velocity = (direction.normalized * _playerStats.DashSpeed);
             await UniTask.Delay((int)(_playerStats.DashTime * 1000));
             _rigidbody2d.velocity = Vector2.zero;
             _canWalk = true;
+
+            await UniTask.Delay(250);
+            _isDashing = false;
 
             await UniTask.Delay((int)(_playerStats.DashCooldown * 1000));
 
