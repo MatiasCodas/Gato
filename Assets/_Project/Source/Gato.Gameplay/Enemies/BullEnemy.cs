@@ -7,11 +7,8 @@ namespace Gato.Gameplay
 {
     public class BullEnemy : BasicEnemy
     {
-        public float DashSpeed;
-        public float TelegraphTime;
-        public float DistanceToAggro;
-        public float ChargeTime;
-        public float RestTime;
+        [SerializeField]
+        private BullStats _bullStats;
         private bool _angry;
         private bool _tired;
 
@@ -48,7 +45,7 @@ namespace Gato.Gameplay
                     break;
 
             }
-            NextPosition = (Vector2)transform.position + Vector2.ClampMagnitude(Target.transform.position - transform.position, Speed);
+            NextPosition = (Vector2)transform.position + Vector2.ClampMagnitude(Target.transform.position - transform.position, _stats.Speed);
             FaceDirection();
         }
         private void Update()
@@ -59,7 +56,7 @@ namespace Gato.Gameplay
         private void LookingAtTarget()
         {
             if (_tired) return;
-            if(Vector2.Distance( Target.transform.position, transform.position) < DistanceToAggro && !_angry)
+            if(Vector2.Distance( Target.transform.position, transform.position) < _bullStats.DistanceToAggro && !_angry)
             {
                 MovementState = 1;
                 _angry = true;
@@ -74,7 +71,7 @@ namespace Gato.Gameplay
         }
         private IEnumerator ChargingUp()
         {
-            yield return new WaitForSeconds(TelegraphTime);
+            yield return new WaitForSeconds(_bullStats.TelegraphTime);
             MovementState = 2;
         }
 
@@ -82,7 +79,7 @@ namespace Gato.Gameplay
         {
             if (!_angry) return;
             Sprite.color = Color.white;
-            RB2D.AddForce(DashSpeed * Vector2.ClampMagnitude((Target.transform.position - transform.position), 10));
+            RB2D.AddForce(_bullStats.DashSpeed * Vector2.ClampMagnitude((Target.transform.position - transform.position), 10));
             MovementState = 0;
             StartCoroutine(Dashing());
             StartCoroutine(Cooldown());
@@ -90,12 +87,12 @@ namespace Gato.Gameplay
 
         private IEnumerator Dashing()
         {
-            yield return new WaitForSeconds(ChargeTime);
+            yield return new WaitForSeconds(_bullStats.ChargeTime);
             _angry = false;
         }
         private IEnumerator Cooldown()
         {
-            yield return new WaitForSeconds(RestTime);
+            yield return new WaitForSeconds(_bullStats.RestTime);
             _tired = false;
         }
     }

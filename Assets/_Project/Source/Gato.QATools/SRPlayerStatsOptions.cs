@@ -6,11 +6,11 @@ using System.ComponentModel;
 
 namespace Gato.QATools
 {
-    public class SRPlayerStatsOptions : ISROption
+    public class SRPlayerStatsOptions
     {
         private PlayerStats _playerStats;
 
-        public void Initialize()
+        internal void Initialize()
         {
             IPlayerControlService playerControlSystem = ServiceLocator.Shared.Get<IPlayerControlService>();
             _playerStats = playerControlSystem.FetchPlayerStats();
@@ -63,6 +63,13 @@ namespace Gato.QATools
         {
             get => _playerStats.RopeCooldown;
             set => _playerStats.RopeCooldown = value;
+        }
+
+        [Category("PlayerStats")]
+        public float ProjectileSpeed
+        {
+            get => _playerStats.ProjectileSpeed;
+            set => _playerStats.ProjectileSpeed = value;
         }
     }
 }

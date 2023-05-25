@@ -6,9 +6,9 @@ namespace Gato.Gameplay
 {
     public class BasicEnemy : MonoBehaviour
     {
-        public float TimeToDie = 3;
+        [SerializeField]
+        protected BasicEnemyStats _stats;
         public GameObject Target;
-        public float Speed = 0.02f;
 
         public Sprite Left;
         public Sprite Right;
@@ -61,7 +61,7 @@ namespace Gato.Gameplay
 
         public void BasicMovement()
         {
-            NextPosition = (Vector2)transform.position + Vector2.ClampMagnitude(Target.transform.position - transform.position, Speed);
+            NextPosition = (Vector2)transform.position + Vector2.ClampMagnitude(Target.transform.position - transform.position, _stats.Speed);
             RB2D.MovePosition(NextPosition);
         }
 
@@ -98,7 +98,7 @@ namespace Gato.Gameplay
         private IEnumerator TimerToDie(GameObject rope)
         {
 
-            yield return new WaitForSeconds(TimeToDie);
+            yield return new WaitForSeconds(_stats.TimeToDie);
             CurseProjectile.GoAllBack = true;
             Destroy(gameObject);
             

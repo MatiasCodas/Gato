@@ -221,9 +221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f27404d2db75f3e4cb4cacd638ef7af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeToDie: 3
+  _stats: {fileID: 11400000, guid: a87ab8d274e818743a8876d8a2dc4f25, type: 2}
   Target: {fileID: 0}
-  Speed: 0.02
   Left: {fileID: 21300000, guid: cde6d0540f094194ca197970532fdfb4, type: 3}
   Right: {fileID: 21300000, guid: 3f7bdee32807de54591a26cbc4326b11, type: 3}
   Up: {fileID: 21300000, guid: 4983e76845558974b9cd3cbf7a8c9b98, type: 3}
@@ -233,5 +232,4 @@ MonoBehaviour:
   PreviousPosition: {x: 0, y: 0}
   NextPosition: {x: 0, y: 0}
   MovementState: 0
-  MovementVariation: 0.1
-  ShakeStrength: 0.02
+  _straferStats: {fileID: 11400000, guid: 1dd18d5795857a747b49d293e27fffc1, type: 2}

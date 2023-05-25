@@ -224,9 +224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb407bffbdb16764f99b6a801f9b6765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeToDie: 3
+  _stats: {fileID: 11400000, guid: a87ab8d274e818743a8876d8a2dc4f25, type: 2}
   Target: {fileID: 0}
-  Speed: 0.02
   Left: {fileID: 21300000, guid: cde6d0540f094194ca197970532fdfb4, type: 3}
   Right: {fileID: 21300000, guid: 3f7bdee32807de54591a26cbc4326b11, type: 3}
   Up: {fileID: 21300000, guid: 4983e76845558974b9cd3cbf7a8c9b98, type: 3}
@@ -236,11 +235,7 @@ MonoBehaviour:
   PreviousPosition: {x: 0, y: 0}
   NextPosition: {x: 0, y: 0}
   MovementState: 0
-  DashSpeed: 50
-  TelegraphTime: 2
-  DistanceToAggro: 3
-  ChargeTime: 2
-  RestTime: 4
+  _bullStats: {fileID: 11400000, guid: f99a19a1d8a773d40b1651cacadfded7, type: 2}
   DestinationSetter: {fileID: 1959738188034270897}
   AIPath: {fileID: 4067232263759231680}
 --- !u!114 &5354433976405163427

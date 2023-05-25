@@ -15,8 +15,6 @@ namespace Gato.Gameplay
         public event TargetHitHandler OnRopeDestroy;
 
         [SerializeField]
-        private float _movementSpeed = 3f;
-        [SerializeField]
         private PlayerStats _playerStats;
 
         private BasicEnemy _enemyHit;
@@ -114,7 +112,7 @@ namespace Gato.Gameplay
                 RopeComeBack();
             }
             Directionator();
-            transform.Translate((_movementSpeed * Time.deltaTime * _direction));//+ backForce);
+            transform.Translate((_playerStats.ProjectileSpeed * Time.deltaTime * _direction));//+ backForce);
         }
 
         #region Main Line functions

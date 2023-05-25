@@ -13,5 +13,6 @@ using UnityEngine;
         public float RopeTime;
         public float RopeSize;
         public float RopeCooldown;
+        public float ProjectileSpeed;
     }
 

@@ -6,8 +6,8 @@ namespace Gato.Gameplay
 {
     public class StraferEnemy : BasicEnemy
     {
-        public float MovementVariation;
-        public float ShakeStrength;
+        [SerializeField]
+        private StraferStats _straferStats;
         private bool _angry;
         private bool _tired;
         private Vector2 _variationMomentum;
@@ -39,10 +39,10 @@ namespace Gato.Gameplay
 
         private void StrafeMovement()
         {
-            Vector2 perpendicularMovement = Vector2.Perpendicular( Vector2.ClampMagnitude(Target.transform.position - transform.position, Speed));
+            Vector2 perpendicularMovement = Vector2.Perpendicular( Vector2.ClampMagnitude(Target.transform.position - transform.position, _stats.Speed));
             NextPosition = (Vector2)transform.position + (_clockwise ? perpendicularMovement : -perpendicularMovement);
             
-            _variationMomentum = Vector2.ClampMagnitude(_variationMomentum + NextPosition, MovementVariation);
+            _variationMomentum = Vector2.ClampMagnitude(_variationMomentum + NextPosition, _straferStats.MovementVariation);
            // NextPosition = new Vector2(NextPosition.x + _variationMomentum.x, NextPosition.y + _variationMomentum.y);
             RB2D.MovePosition(NextPosition);
             //RB2D.MovePosition(randomized * Time.deltaTime);
