@@ -1470,6 +1470,54 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &617913275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 617913277}
+  - component: {fileID: 617913276}
+  m_Layer: 0
+  m_Name: QAToolsSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &617913276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617913275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d8cd78317984748adf1dc6b671a045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _basicEnemyStats: {fileID: 11400000, guid: a87ab8d274e818743a8876d8a2dc4f25, type: 2}
+  _bullStats: {fileID: 11400000, guid: f99a19a1d8a773d40b1651cacadfded7, type: 2}
+  _straferStats: {fileID: 11400000, guid: 1dd18d5795857a747b49d293e27fffc1, type: 2}
+  _mosquitoStats: {fileID: 11400000, guid: a37987a737d07734b8ffb0a5916e6c6f, type: 2}
+--- !u!4 &617913277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617913275}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &623300529
 GameObject:
   m_ObjectHideFlags: 0
@@ -16386,7 +16434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1494938306
 Transform:
   m_ObjectHideFlags: 0
@@ -18218,7 +18266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1001 &4350306919127610261
 PrefabInstance:
   m_ObjectHideFlags: 0
