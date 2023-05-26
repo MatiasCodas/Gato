@@ -28,6 +28,7 @@ namespace Gato.Gameplay
             line = GetComponent<LineRenderer>();
             CreateJoints();
             RopeJoints = 0;
+            currentRopeDist = 1;
         }
 
         public void ComeBack()
@@ -46,12 +47,13 @@ namespace Gato.Gameplay
         private void Update()
         {
             if (!_isActive) return;
-            currentRopeDist = (int)Vector3.Distance(_playerRigidBody.transform.position, _projectileRigidBody.transform.position) * 6;
-            if ((currentRopeDist - _oldRopeDist) > 1)
+            currentRopeDist = (int)Vector3.Distance(FirstHinge.transform.position, _projectileRigidBody.transform.position) * 6;
+            
+            if ((currentRopeDist - _oldRopeDist) > 0.1f)
             {
                 ActivateJoints();
             }
-
+            
             _oldRopeDist = currentRopeDist;
             ShowLine();
         }
@@ -96,7 +98,7 @@ namespace Gato.Gameplay
                 RopeJointsPool[i].gameObject.SetActive(true);
                 RopeJoints++;
 
-
+                /*
                 if (i == currentRopeDist - 1)
                 {
                     HingeJoint2D hingeBody = RopeJointsPool[i].GetComponent<HingeJoint2D>();
@@ -105,7 +107,7 @@ namespace Gato.Gameplay
                     FirstHinge.connectedBody = hingeBody.GetComponent<Rigidbody2D>();
                     FirstHinge.enabled = true;
                 }
-
+                */
                 if (i >= currentRopeDist)
                 {
                     RopeJointsPool[i].gameObject.SetActive(false);
@@ -138,13 +140,13 @@ namespace Gato.Gameplay
             }
             line.positionCount = RopeJoints-1;
 
-            for (int i = 0; i < RopeJoints; i++)
+            RopeJointsPool[RopeJoints-1].MovePosition(FirstHinge.transform.position);
+            for (int i = 0; i < line.positionCount-1; i++)
             {
                 line.SetPosition(i, RopeJointsPool[i].transform.position);
             }
 
-            line.SetPosition(RopeJoints, _projectileRigidBody.position);
-
+            line.SetPosition(line.positionCount-1, FirstHinge.transform.position);
 
 
         }
@@ -154,6 +156,8 @@ namespace Gato.Gameplay
             _isActive = false;
             ClearJoints();
             line.enabled = false;
+            FirstHinge.connectedBody = null;
+            FirstHinge.enabled = false;
         }
         private void OnDestroy()
         {

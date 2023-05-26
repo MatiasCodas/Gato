@@ -19,15 +19,19 @@ namespace Gato.Gameplay
         private bool _hasHitObj;
         private bool _inCooldown;
         private List<CurseProjectile> _projectilePool = new List<CurseProjectile>();
+        private HingeJoint2D _hinge;
 
         public void Awake()
         {
             _inCooldown = false;
+            _hinge = GetComponent<HingeJoint2D>();
         }
         private void Update()
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            _aim.transform.LookAt(mousePos,Vector3.forward);
+            _aim.transform.LookAt(mousePos, Vector3.forward);
+
+            
         }
 
         public void ThrowWeapon(Vector2 direction)
@@ -53,10 +57,12 @@ namespace Gato.Gameplay
             if(_projectilePool.Count % 2 != 1)
             {
                 instance.Rope.Deactivate();
+                
                 _projectilePool[_projectilePool.Count - 2].Rope.FirstHinge = instance.HingeJoint;
                 _projectilePool[_projectilePool.Count - 2].Rope.ActivateJoints();
+                _hinge.connectedBody = null;
+                _hinge.enabled = false;
             }
-
             WeaponCooldown();
         }
 

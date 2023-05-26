@@ -19,4 +19,4 @@ MonoBehaviour:
   RopeTime: 20
   RopeSize: 6
   RopeCooldown: 0.5
-  ProjectileSpeed: 3
+  ProjectileSpeed: 30

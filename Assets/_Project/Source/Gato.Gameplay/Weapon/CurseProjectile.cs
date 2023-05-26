@@ -57,6 +57,7 @@ namespace Gato.Gameplay
             _layerMask = LayerMask.GetMask("Roped");
             ConnectedToRope.Add(player);
             ConnectedToRope.Add(gameObject);
+            HingeJoint.enabled = false;
         }
 
         public void ActivateCurse(bool cursed)
@@ -112,7 +113,10 @@ namespace Gato.Gameplay
                 RopeComeBack();
             }
             Directionator();
-            transform.Translate((_playerStats.ProjectileSpeed * Time.deltaTime * _direction));//+ backForce);
+            Vector2 translation = _playerStats.ProjectileSpeed * Time.deltaTime * _direction;
+            //transform.Translate((_playerStats.ProjectileSpeed * Time.deltaTime * _direction));//+ backForce);
+
+            _rigidbody2D.velocity = (translation);
         }
 
         #region Main Line functions
@@ -243,6 +247,7 @@ namespace Gato.Gameplay
 
             _isMoving = false;
             _connectedFinalTarget = collision.transform;
+            HingeJoint.enabled = true;
 
             if (collision.gameObject.TryGetComponent<Rigidbody2D>(out Rigidbody2D hitRigidBody))
             {
@@ -282,6 +287,7 @@ namespace Gato.Gameplay
             }
 
             _isTarget = !_isTarget;
+            Rope.ActivateJoints();
         }
 
         private void OnCollisionExit2D(Collider2D collision)
