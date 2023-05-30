@@ -13,10 +13,11 @@ namespace Gato.Gameplay
         private Rigidbody2D _playerRigidBody;
         private Rigidbody2D _projectileRigidBody;
         public HingeJoint2D FirstHinge;
-        private int currentRopeDist;
-        private int _oldRopeDist;
+        private float currentRopeDist;
+        private float _oldRopeDist;
         private List<Rigidbody2D> RopeJointsPool = new List<Rigidbody2D>();
         private bool _isActive = true;
+        public bool IsMoving = true;
 
         //Variáveis pra CreatJoints()
 
@@ -47,13 +48,17 @@ namespace Gato.Gameplay
         private void Update()
         {
             if (!_isActive) return;
-            currentRopeDist = (int)Vector3.Distance(FirstHinge.transform.position, _projectileRigidBody.transform.position) * 6;
+            currentRopeDist = Vector3.Distance(FirstHinge.transform.position, _projectileRigidBody.transform.position) * 6;
             
-            if ((currentRopeDist - _oldRopeDist) > 0.1f)
+            if ((currentRopeDist - _oldRopeDist) > 0.01f)
             {
                 ActivateJoints();
             }
             
+            if(IsMoving)
+            {
+                ActivateJoints();
+            }
             _oldRopeDist = currentRopeDist;
             ShowLine();
         }

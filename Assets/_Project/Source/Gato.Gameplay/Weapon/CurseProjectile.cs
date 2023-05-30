@@ -51,6 +51,7 @@ namespace Gato.Gameplay
             HingeJoint = GetComponent<HingeJoint2D>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
             Rope = GetComponent<RopePoolAndLineHandler>();
+            Rope.IsMoving = true;
             _isMoving = true;
             _direction = direction;
          //   _line = GetComponent<LineRenderer>();
@@ -246,6 +247,7 @@ namespace Gato.Gameplay
             }
 
             _isMoving = false;
+            Rope.IsMoving = false;
             _connectedFinalTarget = collision.transform;
             HingeJoint.enabled = true;
 

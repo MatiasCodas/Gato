@@ -21,6 +21,8 @@ namespace Gato.Gameplay
         private List<CurseProjectile> _projectilePool = new List<CurseProjectile>();
         private HingeJoint2D _hinge;
 
+        private RopePoolAndLineHandler _ropePool;
+
         public void Awake()
         {
             _inCooldown = false;
@@ -50,14 +52,14 @@ namespace Gato.Gameplay
 
             Rigidbody2D playerRigidBody = GetComponent<Rigidbody2D>();
             Rigidbody2D projectileRigidBody = instance.GetComponent<Rigidbody2D>();
-            RopePoolAndLineHandler ropePool = instance.GetComponent<RopePoolAndLineHandler>();
-            ropePool.Setup(playerRigidBody, projectileRigidBody);
+            
+            _ropePool = instance.GetComponent<RopePoolAndLineHandler>();
+            _ropePool.Setup(playerRigidBody, projectileRigidBody);
             _projectilePool.Add(instance);
 
             if(_projectilePool.Count % 2 != 1)
             {
                 instance.Rope.Deactivate();
-                
                 _projectilePool[_projectilePool.Count - 2].Rope.FirstHinge = instance.HingeJoint;
                 _projectilePool[_projectilePool.Count - 2].Rope.ActivateJoints();
                 _hinge.connectedBody = null;
