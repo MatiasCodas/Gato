@@ -62,6 +62,8 @@ namespace Gato.Gameplay
                 instance.Rope.Deactivate();
                 _projectilePool[_projectilePool.Count - 2].Rope.FirstHinge = instance.HingeJoint;
                 _projectilePool[_projectilePool.Count - 2].Rope.ActivateJoints();
+                _projectilePool[_projectilePool.Count - 2].GetComponent<CurseProjectile>().ConnectedRopeTip = _projectilePool[_projectilePool.Count - 1].gameObject;
+                _projectilePool[_projectilePool.Count - 1].GetComponent<CurseProjectile>().ConnectedRopeTip = _projectilePool[_projectilePool.Count - 2].gameObject;
                 _hinge.connectedBody = null;
                 _hinge.enabled = false;
             }

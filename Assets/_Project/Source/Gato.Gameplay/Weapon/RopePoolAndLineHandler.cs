@@ -72,15 +72,12 @@ namespace Gato.Gameplay
                 GameObject instance = Instantiate(chainJointPrefab, Vector3.zero, Quaternion.identity, transform);
                 HingeJoint2D hinge = instance.GetComponent<HingeJoint2D>();
 
-                if (i == 0)
-                {
-                    hinge.connectedBody = _projectileRigidBody;
-                }
-                else
+                if (i != 0)
                 {
                     instance.transform.SetParent(previousJoint.transform);
                     hinge.connectedBody = previousJoint;
                 }
+                
 
                 previousJoint = instance.GetComponent<Rigidbody2D>();
                 instance.SetActive(false);

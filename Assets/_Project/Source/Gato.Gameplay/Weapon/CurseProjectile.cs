@@ -22,9 +22,10 @@ namespace Gato.Gameplay
         private Rigidbody2D _rigidbody2D;
         private DistanceJoint2D _distanceJoint2D;
         public RopePoolAndLineHandler Rope;
+        public GameObject ConnectedRopeTip;
         private bool _isMoving;
         private bool _isCursed;
-        public bool IsCursed;
+        public static bool IsCursed;
         public static bool IsBlessed;
         private bool _sentCurse;
         private Vector2 _direction;
@@ -138,6 +139,7 @@ namespace Gato.Gameplay
             if (ray2D.collider.name == "Curse")
             {
                 _isCursed = true;
+                IsCursed = true;
             }
 
             if (_isCursed)
@@ -226,6 +228,7 @@ namespace Gato.Gameplay
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            Debug.Log(IsCursed);
             if (collision.gameObject.CompareTag("Rope"))
             {
                 return;
@@ -256,12 +259,12 @@ namespace Gato.Gameplay
                 _rigidbody2D.bodyType = RigidbodyType2D.Static;
                 HingeJoint.connectedBody = hitRigidBody;
             }
-
+            
             _enemyHit = collision.gameObject.GetComponent<BasicEnemy>();
-
+            
             if (_enemyHit != null)
             {
-                if (_isCursed)
+                if (_isCursed || IsCursed)
                 {
                     _enemyHit.Curse(gameObject);
 
@@ -272,7 +275,7 @@ namespace Gato.Gameplay
                     OnObjectTriggered?.Invoke();
                 }
             }
-
+            
             switch (collision.gameObject.tag)
             {
                 default:
@@ -349,7 +352,15 @@ namespace Gato.Gameplay
         {
             if (_target == null) return;
             _direction = Vector3.Lerp(_direction,Vector3.ClampMagnitude(_target.position-transform.position, 1) , 0.3f);
-            Debug.Log(_target.name);
+        }
+
+        private void OnDestroy()
+        {
+            IsCursed = false;
+            if(ConnectedRopeTip != null)
+            {
+                Destroy(ConnectedRopeTip);
+            }
         }
 
         private void RopeComeBack()

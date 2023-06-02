@@ -105,6 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chainJointPrefab: {fileID: 7388936715939031520, guid: 6bafeac78e3cebe4d972bc7886e31158, type: 3}
   ropeJointsSize: 40
+  FirstHinge: {fileID: 0}
+  IsMoving: 1
 --- !u!114 &1364707071902809101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,8 +119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fda48dba1bab02a4091bd3cc128b9720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 25
   _playerStats: {fileID: 11400000, guid: 02287128bc6c28641b81d60579b35b02, type: 2}
+  HingeJoint: {fileID: 0}
+  Rope: {fileID: 0}
+  ConnectedRopeTip: {fileID: 0}
   IsCursed: 0
   RopeShooter: {fileID: 0}
   ConnectedToRope: []
