@@ -25,7 +25,8 @@ namespace Gato.Gameplay
         public GameObject ConnectedRopeTip;
         private bool _isMoving;
         private bool _isCursed;
-        public static bool IsCursed;
+        public static List<bool> IsCursed = new List<bool>();
+        private int RopeProjectileIndex;
         public static bool IsBlessed;
         private bool _sentCurse;
         private Vector2 _direction;
@@ -40,12 +41,13 @@ namespace Gato.Gameplay
         private int _lineIndex = 0;
         private GameObject _player;
 
+        public bool IsAlreadyDead = false;
         public float TimerToDestroy;
         private float _timeGoingBack;
         private bool _goBack = false;
         public static bool GoAllBack = false;
 
-        public void Setup(Vector2 direction, bool isCurseActive, GameObject player)
+        public void Setup(Vector2 direction, bool isCurseActive, GameObject player, int index)
         {
             _player = player;
             _isCursed = isCurseActive;
@@ -60,6 +62,9 @@ namespace Gato.Gameplay
             ConnectedToRope.Add(player);
             ConnectedToRope.Add(gameObject);
             HingeJoint.enabled = false;
+            RopeProjectileIndex = index;
+            if (IsCursed.Count > index) return;
+            IsCursed.Add(false);
         }
 
         public void ActivateCurse(bool cursed)
@@ -107,17 +112,8 @@ namespace Gato.Gameplay
             
                 return;
             }
-
-            _timeGoingBack += Time.deltaTime;
-
-            if (_goBack && _timeGoingBack > 5)
-            {
-                RopeComeBack();
-            }
             Directionator();
             Vector2 translation = _playerStats.ProjectileSpeed * Time.deltaTime * _direction;
-            //transform.Translate((_playerStats.ProjectileSpeed * Time.deltaTime * _direction));//+ backForce);
-
             _rigidbody2D.velocity = (translation);
         }
 
@@ -139,7 +135,7 @@ namespace Gato.Gameplay
             if (ray2D.collider.name == "Curse")
             {
                 _isCursed = true;
-                IsCursed = true;
+                IsCursed[RopeProjectileIndex] = true;
             }
 
             if (_isCursed)
@@ -228,7 +224,6 @@ namespace Gato.Gameplay
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            Debug.Log(IsCursed);
             if (collision.gameObject.CompareTag("Rope"))
             {
                 return;
@@ -264,7 +259,7 @@ namespace Gato.Gameplay
             
             if (_enemyHit != null)
             {
-                if (_isCursed || IsCursed)
+                if (_isCursed || IsCursed[RopeProjectileIndex])
                 {
                     _enemyHit.Curse(gameObject);
 
@@ -279,11 +274,11 @@ namespace Gato.Gameplay
             switch (collision.gameObject.tag)
             {
                 default:
-                    if (IsCursed) OnCurseTriggered?.Invoke();
+                    if (IsCursed[RopeProjectileIndex]) OnCurseTriggered?.Invoke();
                     if (IsBlessed) collision.gameObject.SendMessageUpwards("Bless");
                     break;
                 case "Curse":
-                    IsCursed = true;
+                    IsCursed[RopeProjectileIndex] = true;
                     OnCurseTriggered?.Invoke();
                     break;
                 case "Blessing":
@@ -295,7 +290,7 @@ namespace Gato.Gameplay
             Rope.ActivateJoints();
         }
 
-        private void OnCollisionExit2D(Collider2D collision)
+        private void OnCollisionExit2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Rope"))
             {
@@ -308,7 +303,7 @@ namespace Gato.Gameplay
             switch (collision.gameObject.tag)
             {
                 case "Curse":
-                    IsCursed = false;
+                    IsCursed[RopeProjectileIndex] = false;
                     _sentCurse = false;
                     break;
                 case "Blessing":
@@ -318,6 +313,7 @@ namespace Gato.Gameplay
                     break;
             }
 
+            
             if (_connectedFinalTarget == null)
             {
                 // _goBack = true;
@@ -335,6 +331,10 @@ namespace Gato.Gameplay
             }
 
             collision.gameObject.layer = 0;
+
+
+
+            
         }
 
         private Transform _target = null;
@@ -356,8 +356,11 @@ namespace Gato.Gameplay
 
         private void OnDestroy()
         {
-            IsCursed = false;
-            if(ConnectedRopeTip != null)
+            IsCursed[RopeProjectileIndex] = false;
+            IsAlreadyDead = true;
+            OnRopeDestroy?.Invoke();
+            GoAllBack = false;
+            if (ConnectedRopeTip != null)
             {
                 Destroy(ConnectedRopeTip);
             }
@@ -365,20 +368,12 @@ namespace Gato.Gameplay
 
         private void RopeComeBack()
         {
+            
+            IsAlreadyDead = true;
             OnRopeDestroy?.Invoke();
-            GoAllBack = false;
             Destroy(gameObject);
+            
             return;
-            // _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-            //_hingeJoint.connectedBody = null;
-            // _rigidbody2D.MovePosition(_player.transform.position);
-            // _hingeJoint.connectedBody = null;
-            // _rigidbody2D.gameObject.SetActive(false);
-            // _rope.ComeBack();
-            for (int i = 0; i < ConnectedToRope.Count; i ++)
-            {
-                //Destroy(ConnectedToRope[i]);
-            }
         }
     }
 }

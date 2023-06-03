@@ -17910,7 +17910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6affb5bdaa1434497373f37350becc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxProjectileAvailable: 2
+  _maxProjectileAvailable: 1
   _playerStats: {fileID: 11400000, guid: 02287128bc6c28641b81d60579b35b02, type: 2}
   _projectilePrefab: {fileID: 1364707071902809101, guid: 8f539a993dc3f8a4a80be778a26ae741, type: 3}
   _aim: {fileID: 1615582357}

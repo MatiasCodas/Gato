@@ -7,7 +7,7 @@ namespace Gato.Gameplay
     public class CurseWeapon : MonoBehaviour, IRangedWeapon
     {
         [SerializeField]
-        private int _maxProjectileAvailable = 2;
+        private int _maxProjectileAvailable = 1;
         [SerializeField]
         private PlayerStats _playerStats;
         [SerializeField]
@@ -38,17 +38,18 @@ namespace Gato.Gameplay
 
         public void ThrowWeapon(Vector2 direction)
         {
-            if (_inCooldown ||_projectilePool.Count >= _maxProjectileAvailable)
+            
+            if (_inCooldown ||_projectilePool.Count >= _maxProjectileAvailable*2)
             {
                 return;
             }
 
             _hasHitCurse = false;
             CurseProjectile instance = Instantiate(_projectilePrefab, (Vector2)gameObject.transform.position + direction, Quaternion.identity);
-            instance.Setup(direction, _hasHitCurse, gameObject);
+            instance.Setup(direction, _hasHitCurse, gameObject, _projectilePool.Count / 2);
             instance.OnCurseTriggered += HandleCurseTriggered;
             instance.OnObjectTriggered += HandleObjectTriggered;
-            instance.OnRopeDestroy += HandleRopeDestroy;
+            instance.OnRopeDestroy += HandleRopeDestroyed;
 
             Rigidbody2D playerRigidBody = GetComponent<Rigidbody2D>();
             Rigidbody2D projectileRigidBody = instance.GetComponent<Rigidbody2D>();
@@ -83,13 +84,12 @@ namespace Gato.Gameplay
         {
             foreach (CurseProjectile projectile in _projectilePool)
             {
-                Debug.Log("ACTIVE");
                 projectile.ActivateCurse(_hasHitCurse);
             }
 
             _hasHitCurse = false;
             _hasHitObj = false;
-            _projectilePool.Clear();
+          //  _projectilePool.Clear();
         }
 
         private void HandleCurseTriggered()
@@ -112,17 +112,17 @@ namespace Gato.Gameplay
             }
         }
 
-        private void HandleRopeDestroy()
+        private void HandleRopeDestroyed()
         {
-            List<CurseProjectile> projectilePool = _projectilePool;
-            _projectilePool.Clear();
-            foreach(CurseProjectile curseProjectile in projectilePool)
+
+            for (int i = 0; i < _projectilePool.Count; i++)
             {
-                if (curseProjectile != null)
+                if(_projectilePool[i] == null || _projectilePool[i].IsAlreadyDead == true)
                 {
-                    _projectilePool.Add(curseProjectile);
+                    _projectilePool.RemoveAt(i);
                 }
             }
         }
+
     }
 }
