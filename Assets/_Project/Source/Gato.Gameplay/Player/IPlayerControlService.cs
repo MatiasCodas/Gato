@@ -12,5 +12,7 @@ namespace Gato.Gameplay
         void Dash(Vector2 direction);
 
         void ShootWeapon();
+
+        void RecoverWeapon();
     }
 }

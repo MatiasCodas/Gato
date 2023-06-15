@@ -48,6 +48,13 @@ namespace Gato.Gameplay
             _rigidbody2d.MovePosition(_rigidbody2d.position + (direction * _playerStats.MovementSpeed * Time.fixedDeltaTime));
         }
 
+        public void EnemyHit()
+        {
+            if (_isDashing) return;
+            Destroy(gameObject);
+
+        }
+
         public void ShootWeapon()
         {
             if (_isDashing)
@@ -60,6 +67,11 @@ namespace Gato.Gameplay
             direction = direction.normalized;
 
             _rangedWeapon.ThrowWeapon(direction);
+        }
+
+        public void RecoverWeapon()
+        {
+            CurseProjectile.AllRopesComeBack();
         }
 
         public PlayerStats FetchPlayerStats()

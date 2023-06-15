@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: PlayerStats1
   m_EditorClassIdentifier: 
   MovementSpeed: 7
-  DashSpeed: 30
+  DashSpeed: 40
   DashCooldown: 1
   DashTime: 0.1
   RopeTime: 20
   RopeSize: 6
   RopeCooldown: 0.5
   ProjectileSpeed: 300
+  HomingStrength: 0.15

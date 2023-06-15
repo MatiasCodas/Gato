@@ -58,6 +58,11 @@ namespace Gato.Gameplay
             {
                 _playerControlSystem.ShootWeapon();
             }
+
+            if(Input.GetKeyDown(_inputSettings.RecoverWeaponKeyCode))
+            {
+                _playerControlSystem.RecoverWeapon();
+            }
         }
     }
 }
