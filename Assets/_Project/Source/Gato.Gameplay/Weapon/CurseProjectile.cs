@@ -49,6 +49,7 @@ namespace Gato.Gameplay
         private bool _isCursed;
         private BasicEnemy _enemyHit;
         private Transform _target = null;
+        private static List<Transform> _targets = new List<Transform>();
 
         //outside communications
         [HideInInspector]
@@ -325,9 +326,15 @@ namespace Gato.Gameplay
         
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            for (int i = 0; i < _targets.Count; i++)
+            {
+                if (collision.transform == _targets[i]) return;
+            }
+
             if (_target == null || Vector2.Distance(collision.transform.position, transform.position) < Vector2.Distance(_target.position, transform.position))
             {
                 _target = collision.transform;
+                _targets.Add(_target);
             }
          
         }
@@ -348,6 +355,8 @@ namespace Gato.Gameplay
             {
                 Destroy(ConnectedRopeTip);
             }
+            if (_target == null) return;
+            _targets.Remove(_target);
         }
 
         public static void AllRopesComeBack()
