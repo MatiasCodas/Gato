@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2a20f1b3f54657b7b8bb71dbcaede9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _firstScreenData: {fileID: 11400000, guid: 7974a4a0de2d7394998d62f80122aea3, type: 2}
+  _firstScreenData: {fileID: 11400000, guid: 67f3b6c9c86ca4e499c8826cb0827b0f, type: 2}
 --- !u!4 &716896971
 Transform:
   m_ObjectHideFlags: 0
@@ -309,6 +309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1018879569}
   - component: {fileID: 1018879570}
+  - component: {fileID: 1018879568}
   m_Layer: 0
   m_Name: AudioSystem
   m_TagString: Untagged
@@ -316,6 +317,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1018879568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018879567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b55c4d883000bd341bf56431e983af7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1018879569
 Transform:
   m_ObjectHideFlags: 0
@@ -347,6 +360,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1338552047}
+  - component: {fileID: 1338552046}
   m_Layer: 0
   m_Name: UISystem
   m_TagString: Untagged
@@ -354,6 +368,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1338552046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338552045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b87394a3a83be4babc1ce841595cee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _loadingScreenData: {fileID: 0}
 --- !u!4 &1338552047
 Transform:
   m_ObjectHideFlags: 0
