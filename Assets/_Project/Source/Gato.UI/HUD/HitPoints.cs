@@ -14,6 +14,7 @@ namespace Gato.UI
 
         private void Awake()
         {
+            IncreaseHitPointsText();
             BasicEnemy.OnIncreaseHitPoints += IncreaseHitPointsText;
         }
 
