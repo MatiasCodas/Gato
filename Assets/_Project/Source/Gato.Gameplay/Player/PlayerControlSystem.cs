@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Gato.Core;
 using Gato.UI;
+using System;
 using UnityEngine;
 
 namespace Gato.Gameplay
@@ -56,8 +57,6 @@ namespace Gato.Gameplay
             if (_playerStats.HitPoints + 1 < _playerStats.MaxHP)
             {
                 _playerStats.HitPoints += 1;
-                transform.position -= new Vector3(2, 2, 0); // Temporary
-                HitPoints.OnIncreaseHitPoints?.Invoke(_playerStats.HitPoints, _playerStats.MaxHP);
             }
             else
             {
