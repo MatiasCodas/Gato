@@ -132,35 +132,38 @@ namespace Gato.Gameplay
             float playerX = collision.transform.position.x;
             float playerY = collision.transform.position.y;
 
-            float enemyXOffset;
-            float enemyYOffset;
-            float playerXOffset;
-            float playerYOffset;
+            float enemyXDirection;
+            float enemyYDirection;
+            float playerXDirection;
+            float playerYDirection;
 
             if (enemyX > playerX)
             {
-                enemyXOffset = 1f;
-                playerXOffset = -1f;
+                enemyXDirection = 1f;
+                playerXDirection = -1f;
             }
             else
             {
-                enemyXOffset = -1f;
-                playerXOffset = 1f;
+                enemyXDirection = -1f;
+                playerXDirection = 1f;
             }
 
             if (enemyY > playerY)
             {
-                enemyYOffset = 1f;
-                playerYOffset = -1f;
+                enemyYDirection = 1f;
+                playerYDirection = -1f;
             }
             else
             {
-                enemyYOffset = -1f;
-                playerYOffset = 1f;
+                enemyYDirection = -1f;
+                playerYDirection = 1f;
             }
 
-            transform.position = new Vector3(enemyX + (.5f * enemyXOffset), enemyY + (.5f * enemyYOffset), 0);
-            collision.transform.position = new Vector3(playerX + (.5f * playerXOffset), playerY + (.5f * playerYOffset), 0);
+            float enemyCollisionOffset = .5f;
+            float playerCollisionOffset = .5f;
+
+            transform.position = new Vector3(enemyX + (enemyCollisionOffset * enemyXDirection), enemyY + (enemyCollisionOffset * enemyYDirection), 0);
+            collision.transform.position = new Vector3(playerX + (playerCollisionOffset * playerXDirection), playerY + (playerCollisionOffset * playerYDirection), 0);
         }
     }
 }
