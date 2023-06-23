@@ -38,8 +38,6 @@ namespace Gato.Gameplay
             DashAsync(direction);
         }
 
-        
-
         public void Move(Vector2 direction)
         {
             if (!_canWalk)

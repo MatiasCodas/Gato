@@ -119,8 +119,48 @@ namespace Gato.Gameplay
             {
                 collision.transform.SendMessage("EnemyHit");
                 OnIncreaseHitPoints?.Invoke();
+                CollisionShock(collision);
             }
-            
+        }
+
+        private void CollisionShock(Collision2D collision)
+        {
+            RB2D.velocity = Vector2.zero;
+
+            float enemyX = transform.position.x;
+            float enemyY = transform.position.y;
+            float playerX = collision.transform.position.x;
+            float playerY = collision.transform.position.y;
+
+            float enemyXOffset;
+            float enemyYOffset;
+            float playerXOffset;
+            float playerYOffset;
+
+            if (enemyX > playerX)
+            {
+                enemyXOffset = 1f;
+                playerXOffset = -1f;
+            }
+            else
+            {
+                enemyXOffset = -1f;
+                playerXOffset = 1f;
+            }
+
+            if (enemyY > playerY)
+            {
+                enemyYOffset = 1f;
+                playerYOffset = -1f;
+            }
+            else
+            {
+                enemyYOffset = -1f;
+                playerYOffset = 1f;
+            }
+
+            transform.position = new Vector3(enemyX + (.5f * enemyXOffset), enemyY + (.5f * enemyYOffset), 0);
+            collision.transform.position = new Vector3(playerX + (.5f * playerXOffset), playerY + (.5f * playerYOffset), 0);
         }
     }
 }
