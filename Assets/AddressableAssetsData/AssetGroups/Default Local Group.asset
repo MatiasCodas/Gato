@@ -16,7 +16,11 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 75b4d6ff8bec351429894e0d6f5c8a90
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: fddaaeb6392e7b64199d7fcecf61d338
+    m_Address: Assets/_Project/Content/Placeables/Common/Player/Player.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7e35d956654c79d4b8cfdfe4ec76935a, type: 2}
   m_SchemaSet:
