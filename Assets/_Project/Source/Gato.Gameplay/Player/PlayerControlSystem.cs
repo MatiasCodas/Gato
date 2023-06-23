@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Gato.Core;
+using Gato.UI;
 using UnityEngine;
 
 namespace Gato.Gameplay
@@ -51,8 +52,19 @@ namespace Gato.Gameplay
         public void EnemyHit()
         {
             if (_isDashing) return;
-            Destroy(gameObject);
 
+            if (_playerStats.HitPoints + 1 < _playerStats.MaxHP)
+            {
+                _playerStats.HitPoints += 1;
+                transform.position -= new Vector3(2, 2, 0); // Temporary
+                HitPoints.OnIncreaseHitPoints?.Invoke(_playerStats.HitPoints, _playerStats.MaxHP);
+            }
+            else
+            {
+                _playerStats.HitPoints = 0; // Value will be replaced by the stats set in the Game Design SO
+                _playerStats.MaxHP = 3; // Value will be replaced by the stats set in the Game Design SO
+                Destroy(gameObject);
+            }
         }
 
         public void ShootWeapon()

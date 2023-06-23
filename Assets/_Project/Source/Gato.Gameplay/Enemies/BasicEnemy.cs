@@ -115,6 +115,7 @@ namespace Gato.Gameplay
             if(collision.gameObject.name == "Player")
             {
                 collision.transform.SendMessage("EnemyHit");
+                transform.position -= new Vector3(2, 2, 0); // Temporary
             }
             
         }
