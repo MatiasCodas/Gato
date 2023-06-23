@@ -561,6 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb4a1c0889500a4893bdc7077f455ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerStats: {fileID: 11400000, guid: 02287128bc6c28641b81d60579b35b02, type: 2}
   _hitPointsText: {fileID: 2061800620}
 --- !u!1 &274450087
 GameObject:
@@ -640,7 +641,7 @@ MonoBehaviour:
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
-  maxFrameTime: 1
+  maxFrameTime: 10
   batchGraphUpdates: 0
   graphUpdateBatchingInterval: 0.2
   euclideanEmbedding:

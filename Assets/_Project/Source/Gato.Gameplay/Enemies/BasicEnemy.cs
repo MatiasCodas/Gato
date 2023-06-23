@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,8 @@ namespace Gato.Gameplay
         public Vector2 NextPosition;
         [HideInInspector]
         public int MovementState;
+
+        public static Action OnIncreaseHitPoints;
 
         #region Base stuff to start any code inheriting this
         private void Start()
@@ -115,7 +118,7 @@ namespace Gato.Gameplay
             if(collision.gameObject.name == "Player")
             {
                 collision.transform.SendMessage("EnemyHit");
-                transform.position -= new Vector3(2, 2, 0); // Temporary
+                OnIncreaseHitPoints?.Invoke();
             }
             
         }
