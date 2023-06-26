@@ -27,6 +27,8 @@ namespace Gato.Gameplay
         [HideInInspector]
         public int MovementState;
 
+        public float EnemyHitCooldown;
+
         public static Action OnIncreaseHitPoints;
 
         #region Base stuff to start any code inheriting this
@@ -58,6 +60,9 @@ namespace Gato.Gameplay
 
         public void BasicUpdate()
         {
+            if (EnemyHitCooldown > 0)
+                EnemyHitCooldown -= Time.deltaTime;
+
             if (!_cursed) return;
             Sprite.color = Color.magenta;
         }
@@ -117,9 +122,13 @@ namespace Gato.Gameplay
         {
             if(collision.gameObject.name == "Player")
             {
-                collision.transform.SendMessage("EnemyHit");
-                OnIncreaseHitPoints?.Invoke();
-                CollisionShock(collision);
+                if (EnemyHitCooldown <= 0)
+                {
+                    collision.transform.SendMessage("EnemyHit");
+                    OnIncreaseHitPoints?.Invoke();
+                    EnemyHitCooldown = 2f;
+                    // CollisionShock(collision);
+                }
             }
         }
 
