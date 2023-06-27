@@ -127,7 +127,7 @@ namespace Gato.Gameplay
                     collision.transform.SendMessage("EnemyHit");
                     OnIncreaseHitPoints?.Invoke();
                     EnemyHitCooldown = 2f;
-                    // CollisionShock(collision);
+                    CollisionShock(collision);
                 }
             }
         }
@@ -147,7 +147,7 @@ namespace Gato.Gameplay
             Vector3 dir = transform.position - collision.transform.position;
             dir.Normalize();
 
-            transform.position = new Vector3(enemyX + (enemyCollisionOffset * dir.x), enemyY + (enemyCollisionOffset * dir.y), 0);
+            // transform.position = new Vector3(enemyX + (enemyCollisionOffset * dir.x), enemyY + (enemyCollisionOffset * dir.y), 0);
             collision.transform.position = new Vector3(playerX + (playerCollisionOffset * -dir.x), playerY + (playerCollisionOffset * -dir.y), 0);
         }
     }
