@@ -9,9 +9,11 @@ namespace Gato.Gameplay
 
         void Move(Vector2 direction);
 
+        void WeaponAim(Vector2 direction);
+
         void Dash(Vector2 direction);
 
-        void ShootWeapon();
+        void ShootWeapon(Vector2 direction);
 
         void RecoverWeapon();
     }
