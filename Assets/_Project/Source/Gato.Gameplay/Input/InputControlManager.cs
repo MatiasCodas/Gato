@@ -8,6 +8,12 @@ namespace Gato.Gameplay
         private const string HorizontalAxisName = "Horizontal";
         private const string VerticalAxisName = "Vertical";
 
+        private const string HorizontalTurnAxisName = "HorizontalTurn";
+        private const string VerticalTurnAxisName = "VerticalTurn";
+        private const string LeftTriggerAxisName = "LeftTrigger";
+        private const string RightTriggerAxisName = "RightTrigger";
+
+
         [SerializeField]
         private InputCodeSettings _inputSettings;
 
@@ -16,6 +22,8 @@ namespace Gato.Gameplay
         private IPlayerControlService _playerControlSystem;
 
         private bool _dashHalfPress; //Variável criada pra evitar do player só deixar o dash pressionado e dar vários dashes
+        private bool _leftTriggerPressed;
+        private bool _rightTriggerPressed;
 
         public override void Setup()
         {
@@ -34,9 +42,10 @@ namespace Gato.Gameplay
 
             _direction = new Vector2(Input.GetAxis(HorizontalAxisName), Input.GetAxis(VerticalAxisName));
 
+
             
             _playerControlSystem.Move(_direction);
-            if (!Input.GetKey(_inputSettings.DashKeyCode)) { 
+            if (!Input.GetKey(_inputSettings.DashKeyCode) && !Input.GetKey(_inputSettings.DashKeyCodeGamepad)) { 
                 _dashHalfPress = false;
                 return;
             }
@@ -54,15 +63,23 @@ namespace Gato.Gameplay
                 _playerControlSystem = ServiceLocator.Shared.Get<IPlayerControlService>();
             }
 
-            if (Input.GetKeyDown(_inputSettings.ShootWeaponKeyCode))
+            _directionWeapon = new Vector2(Input.GetAxis(HorizontalTurnAxisName), Input.GetAxis(VerticalTurnAxisName));
+            _playerControlSystem.WeaponAim(_directionWeapon);
+
+            if (Input.GetKeyDown(_inputSettings.ShootWeaponKeyCode) || (Input.GetAxis(RightTriggerAxisName) > 0.5f && !_rightTriggerPressed))
             {
-                _playerControlSystem.ShootWeapon();
+                _playerControlSystem.ShootWeapon(_directionWeapon);
+                _rightTriggerPressed = true;
             }
 
-            if(Input.GetKeyDown(_inputSettings.RecoverWeaponKeyCode))
+            if(Input.GetKeyDown(_inputSettings.RecoverWeaponKeyCode) || (Input.GetAxis(LeftTriggerAxisName) > 0.5f && !_leftTriggerPressed))
             {
                 _playerControlSystem.RecoverWeapon();
+                _leftTriggerPressed = true;
             }
+
+            if (Input.GetAxis(LeftTriggerAxisName) < 0.5f) _leftTriggerPressed = false;
+            if (Input.GetAxis(RightTriggerAxisName) < 0.5f) _rightTriggerPressed = false;
         }
     }
 }

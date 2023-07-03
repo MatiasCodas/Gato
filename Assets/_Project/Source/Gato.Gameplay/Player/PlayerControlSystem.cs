@@ -15,6 +15,7 @@ namespace Gato.Gameplay
         private bool _isDashing = false;
         private IRangedWeapon _rangedWeapon;
         private Rigidbody2D _rigidbody2d;
+        private CurseWeapon _curseWeapon;
 
         public ServiceLocator OwningLocator { get; set; }
 
@@ -23,6 +24,7 @@ namespace Gato.Gameplay
             ServiceLocator.Shared.Set<IPlayerControlService>(this);
             _rangedWeapon = gameObject.GetComponent<IRangedWeapon>();
             _rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
+            _curseWeapon = gameObject.GetComponent<CurseWeapon>();
             Player = this;
         }
 
@@ -48,6 +50,18 @@ namespace Gato.Gameplay
             _rigidbody2d.MovePosition(_rigidbody2d.position + (direction * _playerStats.MovementSpeed * Time.fixedDeltaTime));
         }
 
+        public void WeaponAim(Vector2 direction)
+        {
+            if (direction != new Vector2(0, 0))
+            {
+                _curseWeapon.Aim("Controller", direction + (Vector2)transform.position);
+                return;
+            }
+            direction = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            _curseWeapon.Aim("Mouse", direction);
+
+        }
+
         public void EnemyHit()
         {
             if (_isDashing) return;
@@ -55,15 +69,17 @@ namespace Gato.Gameplay
 
         }
 
-        public void ShootWeapon()
+        public void ShootWeapon(Vector2 direction)
         {
             if (_isDashing)
             {
                 return;
             }
 
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 direction = mousePos - (Vector2)transform.position;
+            if (direction == new Vector2(0, 0)) 
+            {
+                direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            }
             direction = direction.normalized;
 
             _rangedWeapon.ThrowWeapon(direction);
