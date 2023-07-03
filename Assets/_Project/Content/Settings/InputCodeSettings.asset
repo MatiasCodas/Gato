@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d7ddd1167506e4198d290ad70682b2, type: 3}
   m_Name: InputCodeSettings
   m_EditorClassIdentifier: 
-  _shootWeaponKeyCode: 323
-  _recoverWeaponKeyCode: 324
-  _dashKeyCode: 32
+  _shootWeaponKeyCode: 4301000000000000
+  _recoverWeaponKeyCode: 4401000000000000
+  _dashKeyCode: 200000004a010000
