@@ -57,6 +57,7 @@ namespace Gato.Gameplay
         public bool IsAlreadyDead = false;
         public static bool GoAllBack = false;
         public static Action OnPulling;
+        public static Action<Vector3> OnPushing;
         private static bool _isTarget = true;
 
         public void Setup(Vector2 direction, bool isCurseActive, GameObject player, int index)
@@ -280,7 +281,9 @@ namespace Gato.Gameplay
                     // ConnectedToRope[0] = collision.gameObject;
                     break;
                 case "Pushable":
-                    // TODO: Pushable
+                    int lastIndex = ConnectedToRope.Count - 1;
+                    OnPushing?.Invoke(ConnectedToRope[lastIndex].transform.position);
+                    RopeComeBack();
                     break;
             }
 
