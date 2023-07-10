@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,6 +56,7 @@ namespace Gato.Gameplay
         [HideInInspector]
         public bool IsAlreadyDead = false;
         public static bool GoAllBack = false;
+        public static Action OnPulling;
         private static bool _isTarget = true;
 
         public void Setup(Vector2 direction, bool isCurseActive, GameObject player, int index)
@@ -269,6 +271,16 @@ namespace Gato.Gameplay
                     break;
                 case "Blessing":
                     IsBlessed = true;
+                    break;
+                case "Pullable":
+                    collision.gameObject.transform.SetParent(_player.GetComponent<PullableTargetTransform>().PullableTargetPosition);
+                    OnPulling?.Invoke();
+                    RopeComeBack();
+                    // Test:
+                    // ConnectedToRope[0] = collision.gameObject;
+                    break;
+                case "Pushable":
+                    // TODO: Pushable
                     break;
             }
 
