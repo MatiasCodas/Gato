@@ -56,7 +56,7 @@ namespace Gato.Gameplay
         [HideInInspector]
         public bool IsAlreadyDead = false;
         public static bool GoAllBack = false;
-        public static Action OnPulling;
+        public static Action<Collision2D, Transform> OnPulling;
         public static Action<Vector3> OnPushing;
         private static bool _isTarget = true;
 
@@ -259,7 +259,7 @@ namespace Gato.Gameplay
                     OnObjectTriggered?.Invoke();
                 }
             }
-            
+
             switch (collision.gameObject.tag)
             {
                 default:
@@ -274,16 +274,11 @@ namespace Gato.Gameplay
                     IsBlessed = true;
                     break;
                 case "Pullable":
-                    collision.gameObject.transform.SetParent(_player.GetComponent<PullableTargetTransform>().PullableTargetPosition);
-                    OnPulling?.Invoke();
-                    RopeComeBack();
-                    // Test:
-                    // ConnectedToRope[0] = collision.gameObject;
+                    OnPulling?.Invoke(collision, _player.GetComponent<PullableTargetTransform>().PullableTargetPosition);
                     break;
                 case "Pushable":
                     int lastIndex = ConnectedToRope.Count - 1;
                     OnPushing?.Invoke(ConnectedToRope[lastIndex].transform.position);
-                    RopeComeBack();
                     break;
             }
 
@@ -360,8 +355,17 @@ namespace Gato.Gameplay
             _direction = Vector3.Lerp(_direction,Vector3.ClampMagnitude(_target.position-transform.position, 1) , _playerStats.HomingStrength);
         }
 
+        private void Awake()
+        {
+            Pullable.OnPulled += RopeComeBack;
+            PushableTargetTransform.OnPushed += RopeComeBack;
+        }
+
         private void OnDestroy()
         {
+            Pullable.OnPulled -= RopeComeBack;
+            PushableTargetTransform.OnPushed -= RopeComeBack;
+
             IsCursed[_ropeProjectileIndex] = false;
             IsAlreadyDead = true;
             OnRopeDestroy?.Invoke();
