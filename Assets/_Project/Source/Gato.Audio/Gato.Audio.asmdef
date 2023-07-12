@@ -3,7 +3,8 @@
     "rootNamespace": "Gato.Audio",
     "references": [
         "GUID:f412fcd852ca5284885832e7f1a931b6",
-        "GUID:a8ea122f90950044886c8a0bd05aa53c"
+        "GUID:a8ea122f90950044886c8a0bd05aa53c",
+        "GUID:afedad58e6c7b2648a88d295839d9ce4"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
