@@ -1,6 +1,6 @@
 using Cysharp.Threading.Tasks;
-using Gato.Audio;
 using Gato.Core;
+using System;
 using UnityEngine;
 
 namespace Gato.Gameplay
@@ -47,12 +47,6 @@ namespace Gato.Gameplay
             }
 
             _rigidbody2d.MovePosition(_rigidbody2d.position + (direction * _playerStats.MovementSpeed * Time.fixedDeltaTime));
-
-            // Temporary - WIP:
-            if (direction != Vector2.zero)
-                AudioManager.Instance.PlayAudioSource("FootStep");
-            else
-                AudioManager.Instance.StopAudioSource("FootStep");
         }
 
         public void EnemyHit()

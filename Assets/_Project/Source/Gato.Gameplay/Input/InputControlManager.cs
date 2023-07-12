@@ -1,4 +1,5 @@
 using Gato.Core;
+using System;
 using UnityEngine;
 
 namespace Gato.Gameplay
@@ -17,6 +18,8 @@ namespace Gato.Gameplay
 
         private bool _dashHalfPress; //Variável criada pra evitar do player só deixar o dash pressionado e dar vários dashes
 
+        public static Action<Vector2> OnMovingSFX;
+
         public override void Setup()
         {
             if (!ServiceLocator.Shared.TryGet(out _playerControlSystem))
@@ -34,8 +37,8 @@ namespace Gato.Gameplay
 
             _direction = new Vector2(Input.GetAxis(HorizontalAxisName), Input.GetAxis(VerticalAxisName));
 
-            
             _playerControlSystem.Move(_direction);
+            OnMovingSFX?.Invoke(_direction);
             if (!Input.GetKey(_inputSettings.DashKeyCode)) { 
                 _dashHalfPress = false;
                 return;
@@ -44,7 +47,6 @@ namespace Gato.Gameplay
             if (_direction == Vector2.zero || _dashHalfPress) return;
             _playerControlSystem.Dash(_direction);
             _dashHalfPress = true;
-
         }
 
         public override void Tick(float deltaTime)
