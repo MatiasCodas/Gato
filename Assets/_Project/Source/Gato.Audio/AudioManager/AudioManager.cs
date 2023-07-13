@@ -7,19 +7,16 @@ namespace Gato.Audio
 {
     public class AudioManager : MonoBehaviour
     {
-        [SerializeField] private List<AudioSource> _audioClips;
-
-        public static AudioManager Instance;
+        [SerializeField] private Dictionary<string, AudioSource> _audioSources;
 
         private void Awake()
         {
-            if (Instance == null)
-                Instance = this;
             DontDestroyOnLoad(this);
 
-            _audioClips = new List<AudioSource>();
+            _audioSources = new Dictionary<string, AudioSource>();
             for (int i = 0; i < gameObject.transform.childCount; i++)
-                _audioClips.Add(gameObject.transform.GetChild(i).GetComponent<AudioSource>());
+                _audioSources.Add(gameObject.transform.GetChild(i).GetComponent<AudioSource>().clip.name, 
+                    gameObject.transform.GetChild(i).GetComponent<AudioSource>());
 
             InputControlManager.OnMovingSFX += PlayMovementSFX;
         }
@@ -31,14 +28,16 @@ namespace Gato.Audio
 
         public void PlayAudioSource(string clipName)
         {
-            if (_audioClips.Find(x => x.clip.name == clipName && !x.isPlaying))
-                _audioClips.Find(x => x.clip.name == clipName).Play();
+            AudioSource audioSource = _audioSources[clipName];
+            if (!audioSource.isPlaying)
+                audioSource.Play();
         }
 
         public void StopAudioSource(string clipName)
         {
-            if (_audioClips.Find(x => x.clip.name == clipName && x.isPlaying))
-                _audioClips.Find(x => x.clip.name == clipName).Stop();
+            AudioSource audioSource = _audioSources[clipName];
+            if (audioSource.isPlaying)
+                audioSource.Stop();
         }
 
         public void PlayMovementSFX(Vector2 direction)
