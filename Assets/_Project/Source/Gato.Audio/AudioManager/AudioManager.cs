@@ -18,12 +18,12 @@ namespace Gato.Audio
                 _audioSources.Add(gameObject.transform.GetChild(i).GetComponent<AudioSource>().clip.name,
                     gameObject.transform.GetChild(i).GetComponent<AudioSource>());
 
-            InputControlManager.OnMovingSFX += PlayMovementSFX;
+            InputControlManager.OnMovingSFX += MovementSFX;
         }
 
         private void OnDestroy()
         {
-            InputControlManager.OnMovingSFX -= PlayMovementSFX;
+            InputControlManager.OnMovingSFX -= MovementSFX;
         }
 
         public string FindAudioClipName(string keyword)
@@ -48,7 +48,7 @@ namespace Gato.Audio
                 audioSource.Stop();
         }
 
-        public void PlayMovementSFX(Vector2 direction)
+        public void MovementSFX(Vector2 direction)
         {
             // Presumably, the audio clips' names are well identified
             string audioClipName = FindAudioClipName("Foot");
