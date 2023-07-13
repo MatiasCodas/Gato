@@ -17,7 +17,10 @@ namespace Gato.Audio
             for (int i = 0; i < gameObject.transform.childCount; i++)
                 _audioSources.Add(gameObject.transform.GetChild(i).GetComponent<AudioSource>().clip.name,
                     gameObject.transform.GetChild(i).GetComponent<AudioSource>());
+        }
 
+        private void Start()
+        {
             InputControlManager.OnMovingSFX += MovementSFX;
         }
 
@@ -34,29 +37,21 @@ namespace Gato.Audio
             return null;
         }
 
-        public void PlayAudioSource(string clipName)
+        public void ToggleSFX(string clipName, bool toggle)
         {
             AudioSource audioSource = _audioSources[clipName];
-            if (!audioSource.isPlaying)
-                audioSource.Play();
-        }
 
-        public void StopAudioSource(string clipName)
-        {
-            AudioSource audioSource = _audioSources[clipName];
-            if (audioSource.isPlaying)
+            if (toggle && !audioSource.isPlaying)
+                audioSource.Play();
+            else if (!toggle && audioSource.isPlaying)
                 audioSource.Stop();
         }
 
-        public void MovementSFX(Vector2 direction)
+        public void MovementSFX(bool isMoving)
         {
             // Presumably, the audio clips' names are well identified
             string audioClipName = FindAudioClipName("Foot");
-
-            if (direction != Vector2.zero)
-                PlayAudioSource(audioClipName);
-            else
-                StopAudioSource(audioClipName);
+            ToggleSFX(audioClipName, isMoving);
         }
     }
 }
