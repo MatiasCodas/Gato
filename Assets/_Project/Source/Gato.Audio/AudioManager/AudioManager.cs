@@ -7,7 +7,7 @@ namespace Gato.Audio
 {
     public class AudioManager : MonoBehaviour
     {
-        [SerializeField] private Dictionary<string, AudioSource> _audioSources;
+        private Dictionary<string, AudioSource> _audioSources;
 
         private void Awake()
         {
@@ -50,6 +50,7 @@ namespace Gato.Audio
 
         public void PlayMovementSFX(Vector2 direction)
         {
+            // Presumably, the audio clips' names are well identified
             string audioClipName = FindAudioClipName("Foot");
 
             if (direction != Vector2.zero)
