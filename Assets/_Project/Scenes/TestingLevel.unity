@@ -17530,8 +17530,8 @@ GameObject:
   - component: {fileID: 1025103981}
   - component: {fileID: 1025103982}
   m_Layer: 0
-  m_Name: Pushable
-  m_TagString: Pushable
+  m_Name: RopeBoostable
+  m_TagString: RopeBoostable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19324,8 +19324,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1808492165}
   m_Layer: 3
-  m_Name: PullableTargetTransform
-  m_TagString: Pullable
+  m_Name: RopePullableTargetTransform
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19363,8 +19363,8 @@ GameObject:
   - component: {fileID: 1907685109}
   - component: {fileID: 1907685110}
   m_Layer: 0
-  m_Name: Pullable
-  m_TagString: Pullable
+  m_Name: RopePullable
+  m_TagString: RopePullable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20258,8 +20258,8 @@ GameObject:
   - component: {fileID: 2081841285}
   - component: {fileID: 2081841286}
   - component: {fileID: 2081841287}
-  - component: {fileID: 2081841291}
   - component: {fileID: 2081841292}
+  - component: {fileID: 2081841291}
   - component: {fileID: 2081841288}
   - component: {fileID: 2081841289}
   - component: {fileID: 2081841290}
@@ -20474,10 +20474,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2081841279}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecc1cb3cac43c274c85c9478bac5ea56, type: 3}
+  m_Script: {fileID: 11500000, guid: fa9e785bca8074243be339235f22510a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PullableTargetPosition: {fileID: 1808492165}
+  RopePullableTargetPosition: {fileID: 1808492165}
 --- !u!114 &2081841292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20487,7 +20487,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2081841279}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02699ea9a80fd724cae8a08a6b4b8cca, type: 3}
+  m_Script: {fileID: 11500000, guid: ea0fc4b552c7eb1499b1103587378f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2105383595

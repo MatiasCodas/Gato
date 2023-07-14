@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace Gato.Gameplay
 {
-    public class Pullable : MonoBehaviour
+    public class RopePullable : MonoBehaviour
     {
         private bool _pulling;
         private Transform _originalTransformParent;
@@ -19,15 +19,15 @@ namespace Gato.Gameplay
         {
             _pulling = false;
             _originalTransformParent = transform.parent;
-            CurseProjectile.OnPulling += PullingMovement;
+            CurseProjectile.OnPulling += HookPullMovement;
         }
 
         private void OnDestroy()
         {
-            CurseProjectile.OnPulling -= PullingMovement;
+            CurseProjectile.OnPulling -= HookPullMovement;
         }
 
-        private void PullingMovement(Collision2D pullableCollider, Transform pullableTransform)
+        private void HookPullMovement(Collision2D pullableCollider, Transform pullableTransform)
         {
             _pullableCollider = pullableCollider;
             _pullableTransform = pullableTransform;
@@ -50,15 +50,17 @@ namespace Gato.Gameplay
                 _pullableCollider = null;
                 _pullableTransform = null;
                 OnPulled?.Invoke();
+                // Temporary:
+                transform.SetParent(_originalTransformParent);
             }
 
-            // Temporary for tests:
-            if (Keyboard.current.tKey.wasPressedThisFrame) // Temporary key
+            /*
+            // Temporary:
+            if (Keyboard.current.tKey.wasPressedThisFrame)
             {
                 transform.SetParent(_originalTransformParent);
-                // Testing movement:
-                // transform.position = Vector2.MoveTowards(transform.localPosition, transform.localPosition + Vector3.one, 1f);
             }
+            */
         }
     }
 }
