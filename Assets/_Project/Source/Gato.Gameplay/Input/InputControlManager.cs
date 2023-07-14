@@ -1,4 +1,5 @@
 using Gato.Core;
+using Gato.Audio;
 using System;
 using UnityEngine;
 
@@ -15,8 +16,14 @@ namespace Gato.Gameplay
         private const string RightTriggerAxisName = "RightTrigger";
 
 
+        [Header("Input Settings")]
         [SerializeField]
         private InputCodeSettings _inputSettings;
+
+        [Space(10)]
+        [Header("Audio Settings")]
+        [SerializeField]
+        private PlayerAudio _playerAudio;
 
         private Vector2 _direction;
         private Vector2 _directionWeapon = new Vector2(0, -1);
@@ -25,8 +32,6 @@ namespace Gato.Gameplay
         private bool _dashHalfPress; //Variável criada pra evitar do player só deixar o dash pressionado e dar vários dashes
         private bool _leftTriggerPressed;
         private bool _rightTriggerPressed;
-
-        public static Action<bool> OnMovingSFX;
 
         public override void Setup()
         {
@@ -48,9 +53,9 @@ namespace Gato.Gameplay
             _playerControlSystem.Move(_direction);
 
             if (_direction != Vector2.zero)
-                OnMovingSFX?.Invoke(true);
+                AudioManager.Instance.ToggleSFX(_playerAudio.PlayerAudioSource, _playerAudio.PlayerSFX.WalkSFX, true);
             else
-                OnMovingSFX?.Invoke(false);
+                AudioManager.Instance.ToggleSFX(_playerAudio.PlayerAudioSource, _playerAudio.PlayerSFX.WalkSFX, false);
 
             if (!Input.GetKey(_inputSettings.DashKeyCode) && !Input.GetKey(_inputSettings.DashKeyCodeGamepad)) { 
                 _dashHalfPress = false;
