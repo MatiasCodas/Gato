@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerSpawnSystemSettings
   m_EditorClassIdentifier: 
   _playerPrefabReference:
-    m_AssetGUID: 
+    m_AssetGUID: fddaaeb6392e7b64199d7fcecf61d338
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
