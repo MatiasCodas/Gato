@@ -1,4 +1,6 @@
 using Gato.Core;
+using Gato.Audio;
+using System;
 using UnityEngine;
 
 namespace Gato.Gameplay
@@ -14,8 +16,14 @@ namespace Gato.Gameplay
         private const string RightTriggerAxisName = "RightTrigger";
 
 
+        [Header("Input Settings")]
         [SerializeField]
         private InputCodeSettings _inputSettings;
+
+        [Space(10)]
+        [Header("Audio Settings")]
+        [SerializeField]
+        private PlayerAudio _playerAudio;
 
         private Vector2 _direction;
         private Vector2 _directionWeapon = new Vector2(0, -1);
@@ -42,9 +50,13 @@ namespace Gato.Gameplay
 
             _direction = new Vector2(Input.GetAxis(HorizontalAxisName), Input.GetAxis(VerticalAxisName));
 
-
-            
             _playerControlSystem.Move(_direction);
+
+            if (_direction != Vector2.zero)
+                AudioManager.Instance.ToggleSFX(_playerAudio.PlayerAudioSource, _playerAudio.PlayerSFX.WalkSFX, true);
+            else
+                AudioManager.Instance.ToggleSFX(_playerAudio.PlayerAudioSource, _playerAudio.PlayerSFX.WalkSFX, false);
+
             if (!Input.GetKey(_inputSettings.DashKeyCode) && !Input.GetKey(_inputSettings.DashKeyCodeGamepad)) { 
                 _dashHalfPress = false;
                 return;
@@ -53,7 +65,6 @@ namespace Gato.Gameplay
             if (_direction == Vector2.zero || _dashHalfPress) return;
             _playerControlSystem.Dash(_direction);
             _dashHalfPress = true;
-
         }
 
         public override void Tick(float deltaTime)
