@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Gato.Core;
+using Gato.UI;
+using System;
 using UnityEngine;
 
 namespace Gato.Gameplay
@@ -36,8 +38,6 @@ namespace Gato.Gameplay
             DashAsync(direction);
         }
 
-        
-
         public void Move(Vector2 direction)
         {
             if (!_canWalk)
@@ -51,8 +51,17 @@ namespace Gato.Gameplay
         public void EnemyHit()
         {
             if (_isDashing) return;
-            Destroy(gameObject);
 
+            if (_playerStats.HitPoints + 1 < _playerStats.MaxHP)
+            {
+                _playerStats.HitPoints += 1;
+            }
+            else
+            {
+                _playerStats.HitPoints = 0; // Value will be replaced by the stats set in the Game Design SO
+                _playerStats.MaxHP = 3; // Value will be replaced by the stats set in the Game Design SO
+                Destroy(gameObject);
+            }
         }
 
         public void ShootWeapon()

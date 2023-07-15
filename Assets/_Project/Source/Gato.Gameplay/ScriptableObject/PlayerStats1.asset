@@ -21,3 +21,5 @@ MonoBehaviour:
   RopeCooldown: 0.5
   ProjectileSpeed: 300
   HomingStrength: 0.15
+  HitPoints: 0
+  MaxHP: 3

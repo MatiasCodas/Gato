@@ -15,5 +15,7 @@ public class PlayerStats : ScriptableObject
     public float RopeCooldown;
     public float ProjectileSpeed;
     public float HomingStrength;
+    public int HitPoints;
+    public int MaxHP; // Temporary
 }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,10 @@ namespace Gato.Gameplay
         public Vector2 NextPosition;
         [HideInInspector]
         public int MovementState;
+
+        public float EnemyHitCooldown;
+
+        public static Action OnIncreaseHitPoints;
 
         #region Base stuff to start any code inheriting this
         private void Start()
@@ -55,6 +60,9 @@ namespace Gato.Gameplay
 
         public void BasicUpdate()
         {
+            if (EnemyHitCooldown > 0)
+                EnemyHitCooldown -= Time.deltaTime;
+
             if (!_cursed) return;
             Sprite.color = Color.magenta;
         }
@@ -114,9 +122,33 @@ namespace Gato.Gameplay
         {
             if(collision.gameObject.name == "Player")
             {
-                collision.transform.SendMessage("EnemyHit");
+                if (EnemyHitCooldown <= 0)
+                {
+                    collision.transform.SendMessage("EnemyHit");
+                    OnIncreaseHitPoints?.Invoke();
+                    EnemyHitCooldown = 2f;
+                    CollisionShock(collision);
+                }
             }
-            
+        }
+
+        private void CollisionShock(Collision2D collision)
+        {
+            RB2D.velocity = Vector2.zero;
+
+            float enemyX = transform.position.x;
+            float enemyY = transform.position.y;
+            float playerX = collision.transform.position.x;
+            float playerY = collision.transform.position.y;
+
+            float enemyCollisionOffset = .5f;
+            float playerCollisionOffset = .5f;
+
+            Vector3 dir = transform.position - collision.transform.position;
+            dir.Normalize();
+
+            // transform.position = new Vector3(enemyX + (enemyCollisionOffset * dir.x), enemyY + (enemyCollisionOffset * dir.y), 0);
+            collision.transform.position = new Vector3(playerX + (playerCollisionOffset * -dir.x), playerY + (playerCollisionOffset * -dir.y), 0);
         }
     }
 }
