@@ -4,6 +4,8 @@ using Gato.Core;
 using Gato.UI;
 using System;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.InputSystem;
 
 namespace Gato.Gameplay
 {
@@ -25,7 +27,13 @@ namespace Gato.Gameplay
         private IRangedWeapon _rangedWeapon;
         private Rigidbody2D _rigidbody2d;
 
+        // Rope Movement
+        private bool _boosting;
+        private Vector3 _boostableTargetPosition;
+
         public ServiceLocator OwningLocator { get; set; }
+
+        public static Action OnBoosted;
 
         public override void Setup()
         {
@@ -33,6 +41,14 @@ namespace Gato.Gameplay
             _rangedWeapon = gameObject.GetComponent<IRangedWeapon>();
             _rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
             Player = this;
+            _boosting = false;
+
+            CurseProjectile.OnBoosting += RopeBoostingMovement;
+        }
+
+        public override void Dispose()
+        {
+            CurseProjectile.OnBoosting -= RopeBoostingMovement;
         }
 
         public void Dash(Vector2 direction)
@@ -90,8 +106,8 @@ namespace Gato.Gameplay
             Vector2 direction = mousePos - (Vector2)transform.position;
             direction = direction.normalized;
 
-            _rangedWeapon.ThrowWeapon(direction);
             AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.ThrowRopeSFX, true);
+            _rangedWeapon.ThrowWeapon(direction);
         }
 
         public void RecoverWeapon()
@@ -120,6 +136,29 @@ namespace Gato.Gameplay
             await UniTask.Delay((int)(_playerStats.DashCooldown * 1000));
 
             _canDash = true;
+        }
+
+        private void RopeBoostingMovement(Vector3 ropeTipPosition)
+        {
+            _boostableTargetPosition = ropeTipPosition;
+        }
+
+        public override void Tick(float deltaTime)
+        {
+            if (_boostableTargetPosition != null && Keyboard.current.pKey.wasPressedThisFrame && !_boosting) // Temporary key
+                _boosting = true;
+
+            if (_boosting)
+            {
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.BoostByRopeSFX, true);
+                transform.position = Vector2.MoveTowards(transform.position, _boostableTargetPosition, 1f);
+            }
+
+            if (transform.position == _boostableTargetPosition)
+            {
+                _boosting = false;
+                OnBoosted?.Invoke();
+            }
         }
     }
 }

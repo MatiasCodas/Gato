@@ -1,3 +1,4 @@
+using Gato.Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,9 @@ namespace Gato.Gameplay
 {
     public class RopePullable : MonoBehaviour
     {
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private RopePullableSFXLibrary _ropePullableSFXLibrary;
+
         private bool _pulling;
         private Transform _originalTransformParent;
         private Collision2D _pullableCollider;
@@ -42,6 +46,7 @@ namespace Gato.Gameplay
             {
                 _pullableCollider.gameObject.transform.SetParent(_pullableTransform);
                 transform.localPosition = Vector2.MoveTowards(transform.localPosition, Vector2.zero, 1f);
+                AudioManager.Instance.ToggleSFX(_audioSource, _ropePullableSFXLibrary.RopeDraggingSFX, true);
             }
 
             if (transform.localPosition == Vector3.zero)

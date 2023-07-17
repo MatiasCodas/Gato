@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WalkSFX: {fileID: 8300000, guid: afda1e04fee4dc1428dd6267cde5c7b7, type: 3}
   ThrowRopeSFX: {fileID: 8300000, guid: d6eb1856e6cce794ab677d439b1ad8e3, type: 3}
-  RopeBoosterSFX: {fileID: 8300000, guid: 4756f617a0aa57d4aa342d5afbf7df23, type: 3}
-  RopeDraggingSFX: {fileID: 8300000, guid: 3f9a417b744bddd4abe2660c95550c56, type: 3}
+  BoostByRopeSFX: {fileID: 8300000, guid: 4756f617a0aa57d4aa342d5afbf7df23, type: 3}

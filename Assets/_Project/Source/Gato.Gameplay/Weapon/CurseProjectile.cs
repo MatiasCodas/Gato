@@ -358,13 +358,13 @@ namespace Gato.Gameplay
         private void Awake()
         {
             RopePullable.OnPulled += RopeComeBack;
-            RopeBoostableTargetTransform.OnBoosted += RopeComeBack;
+            PlayerControlSystem.OnBoosted += RopeComeBack;
         }
 
         private void OnDestroy()
         {
             RopePullable.OnPulled -= RopeComeBack;
-            RopeBoostableTargetTransform.OnBoosted -= RopeComeBack;
+            PlayerControlSystem.OnBoosted -= RopeComeBack;
 
             IsCursed[_ropeProjectileIndex] = false;
             IsAlreadyDead = true;
