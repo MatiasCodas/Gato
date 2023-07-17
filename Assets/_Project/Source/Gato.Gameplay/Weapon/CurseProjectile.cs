@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,6 +56,8 @@ namespace Gato.Gameplay
         [HideInInspector]
         public bool IsAlreadyDead = false;
         public static bool GoAllBack = false;
+        public static Action<Collision2D, Transform> OnPulling;
+        public static Action<Vector3> OnBoosting;
         private static bool _isTarget = true;
 
         public void Setup(Vector2 direction, bool isCurseActive, GameObject player, int index)
@@ -256,7 +259,7 @@ namespace Gato.Gameplay
                     OnObjectTriggered?.Invoke();
                 }
             }
-            
+
             switch (collision.gameObject.tag)
             {
                 default:
@@ -269,6 +272,13 @@ namespace Gato.Gameplay
                     break;
                 case "Blessing":
                     IsBlessed = true;
+                    break;
+                case "RopePullable":
+                    OnPulling?.Invoke(collision, _player.GetComponent<RopePullableTargetTransform>().RopePullableTargetPosition);
+                    break;
+                case "RopeBoostable":
+                    int lastIndex = ConnectedToRope.Count - 1;
+                    OnBoosting?.Invoke(ConnectedToRope[lastIndex].transform.position);
                     break;
             }
 
@@ -345,8 +355,17 @@ namespace Gato.Gameplay
             _direction = Vector3.Lerp(_direction,Vector3.ClampMagnitude(_target.position-transform.position, 1) , _playerStats.HomingStrength);
         }
 
+        private void Awake()
+        {
+            RopePullable.OnPulled += RopeComeBack;
+            RopeBoostableTargetTransform.OnBoosted += RopeComeBack;
+        }
+
         private void OnDestroy()
         {
+            RopePullable.OnPulled -= RopeComeBack;
+            RopeBoostableTargetTransform.OnBoosted -= RopeComeBack;
+
             IsCursed[_ropeProjectileIndex] = false;
             IsAlreadyDead = true;
             OnRopeDestroy?.Invoke();
