@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 450dac07b01671b49a7d39662269d1c1, type: 3}
   m_Name: RopePullableSFXLibrary
   m_EditorClassIdentifier: 
-  RopeDraggingSFX: {fileID: 8300000, guid: 3f9a417b744bddd4abe2660c95550c56, type: 3}
+  RopeDraggingSFX: {fileID: 8300000, guid: 7d4ff6648a442754e843b05a89a129bd, type: 3}
