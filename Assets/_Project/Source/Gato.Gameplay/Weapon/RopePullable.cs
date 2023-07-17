@@ -46,7 +46,7 @@ namespace Gato.Gameplay
             {
                 _pullableCollider.gameObject.transform.SetParent(_pullableTransform);
                 transform.localPosition = Vector2.MoveTowards(transform.localPosition, Vector2.zero, 1f);
-                AudioManager.Instance.ToggleSFX(_audioSource, _ropePullableSFXLibrary.RopeDraggingSFX, true);
+                AudioManager.Instance.ToggleSFX(_audioSource, _ropePullableSFXLibrary.RopeDraggingSFX);
             }
 
             if (transform.localPosition == Vector3.zero)

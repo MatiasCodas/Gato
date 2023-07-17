@@ -12,7 +12,7 @@ namespace Gato.Gameplay
 {
     internal class PlayerControlSystem : MonoSystem, IPlayerControlService
     {
-        [Header("Stats")]
+        [Header("Player Stats")]
         [SerializeField]
         private PlayerStats _playerStats;
         public static PlayerControlSystem Player;
@@ -113,7 +113,7 @@ namespace Gato.Gameplay
             Vector2 direction = mousePos - (Vector2)transform.position;
             direction = direction.normalized;
 
-            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.ThrowRopeSFX, true);
+            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.ThrowRopeSFX);
             _rangedWeapon.ThrowWeapon(direction);
         }
 
@@ -147,7 +147,7 @@ namespace Gato.Gameplay
 
         private void TeleportingMovementSFX()
         {
-            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.TeleportingSFX, true);
+            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.TeleportingSFX);
         }
 
         private void RopeBoostingMovement(Vector3 ropeTipPosition)
@@ -171,7 +171,7 @@ namespace Gato.Gameplay
 
             if (_boosting)
             {
-                AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.BoostByRopeSFX, true);
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.BoostByRopeSFX);
                 transform.position = Vector2.MoveTowards(transform.position, _boostableTargetPosition, 1f);
             }
 
