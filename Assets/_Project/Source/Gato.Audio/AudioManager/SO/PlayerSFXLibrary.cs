@@ -8,5 +8,8 @@ namespace Gato.Audio
     public class PlayerSFXLibrary : ScriptableObject
     {
         public AudioClip WalkSFX;
+        public AudioClip ThrowRopeSFX;
+        public AudioClip RopeBoosterSFX;
+        public AudioClip RopeDraggingSFX;
     }
 }
