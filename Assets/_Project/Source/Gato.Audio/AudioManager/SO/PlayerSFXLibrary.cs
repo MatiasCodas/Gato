@@ -10,5 +10,6 @@ namespace Gato.Audio
         public AudioClip WalkSFX;
         public AudioClip ThrowRopeSFX;
         public AudioClip BoostByRopeSFX;
+        public AudioClip TeleportingSFX;
     }
 }

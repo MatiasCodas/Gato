@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace Gato.Gameplay
         public SpriteRenderer SpriteRenderer;
         public float ColorSpeed;
         public Transform TeleportTo;
+        public static Action OnTeleporting;
 
         private void Update()
         {
@@ -19,6 +21,7 @@ namespace Gato.Gameplay
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (!collision.CompareTag("Player")) return;
+            OnTeleporting?.Invoke();
             collision.gameObject.transform.position = TeleportTo.position;
         }
     }

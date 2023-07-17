@@ -48,11 +48,14 @@ namespace Gato.Gameplay
 
             _boosting = false;
             CurseProjectile.OnBoosting += RopeBoostingMovement;
+
+            Teleport.OnTeleporting += TeleportingMovementSFX;
         }
 
         public override void Dispose()
         {
             CurseProjectile.OnBoosting -= RopeBoostingMovement;
+            Teleport.OnTeleporting -= TeleportingMovementSFX;
         }
 
         public void Dash(Vector2 direction)
@@ -140,6 +143,11 @@ namespace Gato.Gameplay
             await UniTask.Delay((int)(_playerStats.DashCooldown * 1000));
 
             _canDash = true;
+        }
+
+        private void TeleportingMovementSFX()
+        {
+            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.TeleportingSFX, true);
         }
 
         private void RopeBoostingMovement(Vector3 ropeTipPosition)
