@@ -49,14 +49,15 @@ namespace Gato.Gameplay
             _boosting = false;
             CurseProjectile.OnBoosting += RopeBoostingMovement;
 
-            Teleport.OnTeleporting += TeleportingMovementSFX;
+            Teleport.OnTeleporting += PlayTeleportSFX;
             BasicEnemy.OnIncreaseHitPoints += PlayHitByEnemySFX;
         }
 
         public override void Dispose()
         {
             CurseProjectile.OnBoosting -= RopeBoostingMovement;
-            Teleport.OnTeleporting -= TeleportingMovementSFX;
+
+            Teleport.OnTeleporting -= PlayTeleportSFX;
             BasicEnemy.OnIncreaseHitPoints -= PlayHitByEnemySFX;
         }
 
@@ -147,7 +148,7 @@ namespace Gato.Gameplay
             _canDash = true;
         }
 
-        private void TeleportingMovementSFX()
+        private void PlayTeleportSFX()
         {
             AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.TeleportingSFX);
         }
@@ -164,6 +165,8 @@ namespace Gato.Gameplay
 
         public override void Tick(float deltaTime)
         {
+            base.Tick(deltaTime);
+
             // Rope Pull
 
             if (RopePullableTarget.childCount > 1)
