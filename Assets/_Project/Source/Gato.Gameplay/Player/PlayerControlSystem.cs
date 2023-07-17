@@ -1,12 +1,9 @@
 using Cysharp.Threading.Tasks;
 using Gato.Audio;
 using Gato.Core;
-using Gato.UI;
 using System;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
 
 namespace Gato.Gameplay
 {
