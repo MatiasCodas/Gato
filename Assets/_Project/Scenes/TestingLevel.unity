@@ -20544,7 +20544,6 @@ GameObject:
   - component: {fileID: 2081841285}
   - component: {fileID: 2081841286}
   - component: {fileID: 2081841287}
-  - component: {fileID: 2081841294}
   - component: {fileID: 2081841288}
   - component: {fileID: 2081841289}
   - component: {fileID: 2081841290}
@@ -20676,6 +20675,7 @@ MonoBehaviour:
   _playerStats: {fileID: 11400000, guid: 02287128bc6c28641b81d60579b35b02, type: 2}
   _playerAudioSource: {fileID: 2081841292}
   _playerSFX: {fileID: 11400000, guid: 30ec1875ba5800240a43256d8e57c6b7, type: 2}
+  RopePullableTarget: {fileID: 823594364}
 --- !u!114 &2081841287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20849,19 +20849,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2081841294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081841279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa9e785bca8074243be339235f22510a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RopePullableTargetPosition: {fileID: 823594364}
 --- !u!1 &2105383595
 GameObject:
   m_ObjectHideFlags: 0

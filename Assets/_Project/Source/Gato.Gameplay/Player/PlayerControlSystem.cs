@@ -6,6 +6,7 @@ using System;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 namespace Gato.Gameplay
 {
@@ -27,9 +28,12 @@ namespace Gato.Gameplay
         private IRangedWeapon _rangedWeapon;
         private Rigidbody2D _rigidbody2d;
 
-        // Rope Movement
         private bool _boosting;
         private Vector3 _boostableTargetPosition;
+
+        [Space(5)]
+        [Header("Rope Pulling Movement")]
+        public Transform RopePullableTarget;
 
         public ServiceLocator OwningLocator { get; set; }
 
@@ -41,8 +45,8 @@ namespace Gato.Gameplay
             _rangedWeapon = gameObject.GetComponent<IRangedWeapon>();
             _rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
             Player = this;
-            _boosting = false;
 
+            _boosting = false;
             CurseProjectile.OnBoosting += RopeBoostingMovement;
         }
 
@@ -145,6 +149,15 @@ namespace Gato.Gameplay
 
         public override void Tick(float deltaTime)
         {
+            // Rope Pull
+
+            if (RopePullableTarget.childCount > 1)
+                for (int i = 2; i < RopePullableTarget.childCount; i++)
+                    RopePullableTarget.GetChild(i).parent = null;
+
+
+            // Rope Boost
+
             if (_boostableTargetPosition != null && Keyboard.current.pKey.wasPressedThisFrame && !_boosting) // Temporary key
                 _boosting = true;
 

@@ -274,7 +274,7 @@ namespace Gato.Gameplay
                     IsBlessed = true;
                     break;
                 case "RopePullable":
-                    OnPulling?.Invoke(collision, _player.GetComponent<RopePullableTargetTransform>().RopePullableTargetPosition);
+                    OnPulling?.Invoke(collision, PlayerControlSystem.Player.RopePullableTarget);
                     break;
                 case "RopeBoostable":
                     int lastIndex = ConnectedToRope.Count - 1;

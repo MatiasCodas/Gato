@@ -55,12 +55,14 @@ namespace Gato.Gameplay
                 _pullableCollider = null;
                 _pullableTransform = null;
                 OnPulled?.Invoke();
+
                 // Temporary:
                 transform.SetParent(_originalTransformParent);
             }
 
             /*
             // Temporary:
+
             if (Keyboard.current.tKey.wasPressedThisFrame)
             {
                 transform.SetParent(_originalTransformParent);
