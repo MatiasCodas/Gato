@@ -58,6 +58,7 @@ namespace Gato.Gameplay
         public static bool GoAllBack = false;
         public static Action<Collision2D, Transform> OnPulling;
         public static Action<Vector3> OnBoosting;
+        public static Action OnCursedStatus;
         private static bool _isTarget = true;
 
         public void Setup(Vector2 direction, bool isCurseActive, GameObject player, int index)
@@ -269,6 +270,7 @@ namespace Gato.Gameplay
                 case "Curse":
                     IsCursed[_ropeProjectileIndex] = true;
                     OnCurseTriggered?.Invoke();
+                    OnCursedStatus?.Invoke();
                     break;
                 case "Blessing":
                     IsBlessed = true;

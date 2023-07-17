@@ -15,7 +15,7 @@ namespace Gato.Audio
             DontDestroyOnLoad(this);
         }
 
-        public void ToggleSFX(AudioSource audioSource, AudioClip audioClip, bool toggle)
+        public void ToggleSFX(AudioSource audioSource, AudioClip audioClip, bool toggle = true)
         {
             if (toggle && !audioSource.isPlaying)
             {
