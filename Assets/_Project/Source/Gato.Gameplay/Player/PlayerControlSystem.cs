@@ -50,12 +50,14 @@ namespace Gato.Gameplay
             CurseProjectile.OnBoosting += RopeBoostingMovement;
 
             Teleport.OnTeleporting += TeleportingMovementSFX;
+            BasicEnemy.OnIncreaseHitPoints += PlayHitByEnemySFX;
         }
 
         public override void Dispose()
         {
             CurseProjectile.OnBoosting -= RopeBoostingMovement;
             Teleport.OnTeleporting -= TeleportingMovementSFX;
+            BasicEnemy.OnIncreaseHitPoints -= PlayHitByEnemySFX;
         }
 
         public void Dash(Vector2 direction)
@@ -148,6 +150,11 @@ namespace Gato.Gameplay
         private void TeleportingMovementSFX()
         {
             AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.TeleportingSFX);
+        }
+
+        private void PlayHitByEnemySFX()
+        {
+            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.HitByEnemySFX);
         }
 
         private void RopeBoostingMovement(Vector3 ropeTipPosition)

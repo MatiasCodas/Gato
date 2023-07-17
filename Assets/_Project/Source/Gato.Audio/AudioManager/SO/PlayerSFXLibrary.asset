@@ -16,3 +16,4 @@ MonoBehaviour:
   ThrowRopeSFX: {fileID: 8300000, guid: d6eb1856e6cce794ab677d439b1ad8e3, type: 3}
   BoostByRopeSFX: {fileID: 8300000, guid: 4756f617a0aa57d4aa342d5afbf7df23, type: 3}
   TeleportingSFX: {fileID: 8300000, guid: 31f94b65b6bea5749892a1cbcba9638e, type: 3}
+  HitByEnemySFX: {fileID: 8300000, guid: 2ae2ee2aa01dc2746a5e2cd4888e9fff, type: 3}
