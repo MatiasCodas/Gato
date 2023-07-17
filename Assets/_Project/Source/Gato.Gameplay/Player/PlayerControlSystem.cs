@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Gato.Audio;
 using Gato.Core;
 using System;
 using UnityEngine;
@@ -7,9 +8,15 @@ namespace Gato.Gameplay
 {
     internal class PlayerControlSystem : MonoSystem, IPlayerControlService
     {
+        [Header("Stats")]
         [SerializeField]
         private PlayerStats _playerStats;
         public static PlayerControlSystem Player;
+
+        [Space(5)]
+        [Header("Audio Settings")]
+        [SerializeField] private AudioSource _playerAudioSource;
+        [SerializeField] private PlayerSFXLibrary _playerSFX;
 
         private bool _canDash = true;
         private bool _canWalk = true;
@@ -47,6 +54,11 @@ namespace Gato.Gameplay
             }
 
             _rigidbody2d.MovePosition(_rigidbody2d.position + (direction * _playerStats.MovementSpeed * Time.fixedDeltaTime));
+
+            if (direction != Vector2.zero)
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.WalkSFX, true);
+            else
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.WalkSFX, false);
         }
 
         public void EnemyHit()
