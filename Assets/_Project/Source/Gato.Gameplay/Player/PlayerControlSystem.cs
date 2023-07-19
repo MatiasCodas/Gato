@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Gato.Audio;
 using Gato.Core;
 using System;
 using UnityEngine;
@@ -7,9 +8,15 @@ namespace Gato.Gameplay
 {
     internal class PlayerControlSystem : MonoSystem, IPlayerControlService
     {
+        [Header("Player Stats")]
         [SerializeField]
         private PlayerStats _playerStats;
         public static PlayerControlSystem Player;
+
+        [Space(5)]
+        [Header("Audio Settings")]
+        [SerializeField] private AudioSource _playerAudioSource;
+        [SerializeField] private PlayerSFXLibrary _playerSFX;
 
         private bool _canDash = true;
         private bool _canWalk = true;
@@ -17,6 +24,13 @@ namespace Gato.Gameplay
         private IRangedWeapon _rangedWeapon;
         private Rigidbody2D _rigidbody2d;
         private CurseWeapon _curseWeapon;
+
+        private bool _boosting;
+        private Vector3 _boostableTargetPosition;
+
+        [Space(5)]
+        [Header("Rope Pulling Movement")]
+        public Transform RopePullableTarget;
 
         public ServiceLocator OwningLocator { get; set; }
 
