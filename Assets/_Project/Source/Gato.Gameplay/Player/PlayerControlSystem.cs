@@ -44,6 +44,20 @@ namespace Gato.Gameplay
             _rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
             _curseWeapon = gameObject.GetComponent<CurseWeapon>();
             Player = this;
+
+            _boosting = false;
+            CurseProjectile.OnBoosting += RopeBoostingMovement;
+
+            Teleport.OnTeleporting += PlayTeleportSFX;
+            BasicEnemy.OnIncreaseHitPoints += PlayHitByEnemySFX;
+        }
+
+        public override void Dispose()
+        {
+            CurseProjectile.OnBoosting -= RopeBoostingMovement;
+
+            Teleport.OnTeleporting -= PlayTeleportSFX;
+            BasicEnemy.OnIncreaseHitPoints -= PlayHitByEnemySFX;
         }
 
         public void Dash(Vector2 direction)
