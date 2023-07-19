@@ -57,7 +57,7 @@ namespace Gato.Gameplay
         public bool IsAlreadyDead = false;
         public static bool GoAllBack = false;
         public static Action<Collision2D, Transform> OnPulling;
-        public static Action<Vector3> OnBoosting;
+        public static Action<List<GameObject>, Vector3> OnBoosting;
         public static Action OnCursedStatus;
         private static bool _isTarget = true;
 
@@ -280,7 +280,7 @@ namespace Gato.Gameplay
                     break;
                 case "RopeBoostable":
                     int lastIndex = ConnectedToRope.Count - 1;
-                    OnBoosting?.Invoke(ConnectedToRope[lastIndex].transform.position);
+                    OnBoosting?.Invoke(ConnectedToRope, ConnectedToRope[lastIndex].transform.position);
                     break;
             }
 

@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using Gato.Audio;
 using Gato.Core;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,6 +28,7 @@ namespace Gato.Gameplay
         private CurseWeapon _curseWeapon;
 
         private bool _boosting;
+        private List<GameObject> _ropeList;
         private Vector3 _boostableTargetPosition;
 
         [Space(5)]
@@ -170,8 +172,9 @@ namespace Gato.Gameplay
             AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.HitByEnemySFX);
         }
 
-        private void RopeBoostingMovement(Vector3 ropeTipPosition)
+        private void RopeBoostingMovement(List<GameObject> ropeList, Vector3 ropeTipPosition)
         {
+            _ropeList = ropeList;
             _boostableTargetPosition = ropeTipPosition;
         }
 
@@ -188,7 +191,7 @@ namespace Gato.Gameplay
 
             // Rope Boost
 
-            if (_boostableTargetPosition != null && Keyboard.current.pKey.wasPressedThisFrame && !_boosting) // Temporary key
+            if (_ropeList != null && _ropeList.Count > 0 && !_boosting && Keyboard.current.pKey.wasPressedThisFrame) // Temporary key
                 _boosting = true;
 
             if (_boosting)
@@ -200,6 +203,7 @@ namespace Gato.Gameplay
             if (transform.position == _boostableTargetPosition)
             {
                 _boosting = false;
+                _ropeList.Clear();
                 OnBoosted?.Invoke();
             }
         }
