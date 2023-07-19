@@ -30,10 +30,26 @@ namespace Gato.Gameplay
         }
         private void Update()
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            _aim.transform.LookAt(mousePos, Vector3.forward);
+            
+            
 
             
+        }
+
+        public void Aim(string mode, Vector2 position)
+        {
+            switch (mode)
+            {
+                default:
+                case "Controller":
+                    _aim.transform.LookAt(position, Vector3.forward);
+                    break;
+
+                case "Mouse":
+                    _aim.transform.LookAt(position, Vector3.forward);
+                    break;
+            }
+
         }
 
         public void ThrowWeapon(Vector2 direction)

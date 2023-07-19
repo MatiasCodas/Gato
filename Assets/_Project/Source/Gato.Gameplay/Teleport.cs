@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,19 +9,25 @@ namespace Gato.Gameplay
         public SpriteRenderer SpriteRenderer;
         public float ColorSpeed;
         public Transform TeleportTo;
-        public static Action OnTeleporting;
+        public GameObject Player;
 
-        private void Update()
+        public virtual void Update()
         {
             float h, s, v;
             Color.RGBToHSV(SpriteRenderer.color, out h, out s, out v);
             SpriteRenderer.color = Color.HSVToRGB(h + ColorSpeed, s, v);
         }
-        private void OnTriggerEnter2D(Collider2D collision)
+        public virtual void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!collision.CompareTag("Player")) return;
-            OnTeleporting?.Invoke();
-            collision.gameObject.transform.position = TeleportTo.position;
+            Player = collision.gameObject;
+            TeleportNow(Vector3.zero);
+        }
+
+        public virtual void TeleportNow(Vector3 offset)
+        {
+
+            if (!Player.CompareTag("Player")) return;
+            Player.transform.position = TeleportTo.position + offset;
         }
     }
 }
