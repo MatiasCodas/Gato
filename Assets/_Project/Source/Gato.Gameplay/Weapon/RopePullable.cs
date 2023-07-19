@@ -40,33 +40,37 @@ namespace Gato.Gameplay
 
         private void Update()
         {
-            if (_pullableCollider != null && !_pulling && Keyboard.current.oKey.wasPressedThisFrame) // Temporary key
+            if (CurseWeapon.ProjectilePoolCounter == 1
+                && _pullableCollider != null
+                && !_pulling
+                && Keyboard.current.oKey.wasPressedThisFrame) // Temporary key
                 _pulling = true;
 
             if (_pulling)
             {
                 _pullableCollider.gameObject.transform.SetParent(_pullableTransform);
-                transform.localPosition = Vector2.MoveTowards(transform.localPosition, Vector2.zero, 1f);
+                _pullableCollider.transform.localPosition = Vector2.MoveTowards(_pullableCollider.transform.localPosition, Vector2.zero, 1f);
                 AudioManager.Instance.ToggleSFX(_audioSource, _ropePullableSFXLibrary.RopeDraggingSFX);
             }
 
-            if (transform.localPosition == Vector3.zero)
+            if (_pullableCollider != null
+                && _pullableCollider.transform.localPosition == Vector3.zero)
             {
+                // Temporary:
+                _pullableCollider.transform.SetParent(_originalTransformParent);
+
                 _pulling = false;
                 _pullableCollider = null;
                 _pullableTransform = null;
                 OnPulled?.Invoke();
-
-                // Temporary:
-                transform.SetParent(_originalTransformParent);
             }
 
             /*
             // Temporary:
 
-            if (Keyboard.current.tKey.wasPressedThisFrame)
+            if (_pullableCollider != null && Keyboard.current.tKey.wasPressedThisFrame)
             {
-                transform.SetParent(_originalTransformParent);
+                _pullableCollider.transform.SetParent(_originalTransformParent);
             }
             */
         }
