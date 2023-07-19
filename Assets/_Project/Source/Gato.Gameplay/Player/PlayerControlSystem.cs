@@ -3,6 +3,7 @@ using Gato.Audio;
 using Gato.Core;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Gato.Gameplay
 {
@@ -135,6 +136,50 @@ namespace Gato.Gameplay
             await UniTask.Delay((int)(_playerStats.DashCooldown * 1000));
 
             _canDash = true;
+        }
+
+        private void PlayTeleportSFX()
+        {
+            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.TeleportingSFX);
+        }
+
+        private void PlayHitByEnemySFX()
+        {
+            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.HitByEnemySFX);
+        }
+
+        private void RopeBoostingMovement(Vector3 ropeTipPosition)
+        {
+            _boostableTargetPosition = ropeTipPosition;
+        }
+
+        public override void Tick(float deltaTime)
+        {
+            base.Tick(deltaTime);
+
+            // Rope Pull
+
+            if (RopePullableTarget.childCount > 1)
+                for (int i = 2; i < RopePullableTarget.childCount; i++)
+                    RopePullableTarget.GetChild(i).parent = null;
+
+
+            // Rope Boost
+
+            if (_boostableTargetPosition != null && Keyboard.current.pKey.wasPressedThisFrame && !_boosting) // Temporary key
+                _boosting = true;
+
+            if (_boosting)
+            {
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.BoostByRopeSFX);
+                transform.position = Vector2.MoveTowards(transform.position, _boostableTargetPosition, 1f);
+            }
+
+            if (transform.position == _boostableTargetPosition)
+            {
+                _boosting = false;
+                OnBoosted?.Invoke();
+            }
         }
     }
 }
