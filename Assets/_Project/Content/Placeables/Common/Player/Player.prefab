@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 2241775832496813632}
   - component: {fileID: 2241775832496813635}
   - component: {fileID: 2241775832496813634}
-  - component: {fileID: 2241775832496813645}
+  - component: {fileID: 2081841288}
   - component: {fileID: 2241775832496813644}
   - component: {fileID: 2241775832496813647}
   - component: {fileID: 1362824276566528239}
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b344846971ef143919ee68ceee4eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody2D: {fileID: 2241775832496813645}
+  _rigidbody2D: {fileID: 2081841288}
   _animator: {fileID: 2241775832496813637}
 --- !u!114 &2241775832496813635
 MonoBehaviour:
@@ -193,7 +193,7 @@ MonoBehaviour:
   _playerStats: {fileID: 11400000, guid: 02287128bc6c28641b81d60579b35b02, type: 2}
   _projectilePrefab: {fileID: 1364707071902809101, guid: 8f539a993dc3f8a4a80be778a26ae741, type: 3}
   _aim: {fileID: 2241775832972034640}
---- !u!50 &2241775832496813645
+--- !u!50 &2081841288
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
