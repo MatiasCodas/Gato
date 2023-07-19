@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace Gato.Gameplay
 {
+    [RequireComponent(typeof(AudioSource))]
     public class RopePullable : MonoBehaviour
     {
         [SerializeField] private AudioSource _audioSource;
