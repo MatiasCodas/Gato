@@ -34,6 +34,8 @@ namespace Gato.Gameplay
 
         public ServiceLocator OwningLocator { get; set; }
 
+        public static Action OnBoosted;
+
         public override void Setup()
         {
             ServiceLocator.Shared.Set<IPlayerControlService>(this);
