@@ -78,6 +78,14 @@ namespace Gato.Gameplay
             }
 
             _rigidbody2d.MovePosition(_rigidbody2d.position + (direction * _playerStats.MovementSpeed * Time.fixedDeltaTime));
+
+            // Walking SFX was disabled as it may not be needed
+            /*
+            if (direction != Vector2.zero)
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.WalkSFX, true);
+            else
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.WalkSFX, false);
+            */
         }
 
         public void WeaponAim(Vector2 direction)
