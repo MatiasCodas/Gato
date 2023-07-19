@@ -40,7 +40,7 @@ namespace Gato.Gameplay
 
         private void Update()
         {
-            if (_pullableCollider != null && Keyboard.current.oKey.wasPressedThisFrame && !_pulling) // Temporary key
+            if (_pullableCollider != null && !_pulling && Keyboard.current.oKey.wasPressedThisFrame) // Temporary key
                 _pulling = true;
 
             if (_pulling)
