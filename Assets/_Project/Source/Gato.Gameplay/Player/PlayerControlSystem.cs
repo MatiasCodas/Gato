@@ -182,16 +182,13 @@ namespace Gato.Gameplay
         {
             base.Tick(deltaTime);
 
-            // Rope Pull
-
-            if (RopePullableTarget.childCount > 1)
-                for (int i = 2; i < RopePullableTarget.childCount; i++)
-                    RopePullableTarget.GetChild(i).parent = null;
-
-
             // Rope Boost
 
-            if (_ropeList != null && _ropeList.Count > 0 && !_boosting && Keyboard.current.pKey.wasPressedThisFrame) // Temporary key
+            if (CurseWeapon.ProjectilePoolCounter == 1
+                && _ropeList != null
+                && _ropeList.Count > 0
+                && !_boosting
+                && Keyboard.current.pKey.wasPressedThisFrame) // Temporary key
                 _boosting = true;
 
             if (_boosting)
@@ -200,7 +197,8 @@ namespace Gato.Gameplay
                 transform.position = Vector2.MoveTowards(transform.position, _boostableTargetPosition, 1f);
             }
 
-            if (_ropeList != null && transform.position == _boostableTargetPosition)
+            if (_ropeList != null
+                && transform.position == _boostableTargetPosition)
             {
                 _boosting = false;
                 _ropeList.Clear();
