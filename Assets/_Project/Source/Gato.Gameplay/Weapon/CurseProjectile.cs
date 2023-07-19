@@ -386,7 +386,7 @@ namespace Gato.Gameplay
         }
         private void RopeComeBack()
         {
-            
+            CurseWeapon.ProjectilePoolCounter = 0;
             IsAlreadyDead = true;
             OnRopeDestroy?.Invoke();
             Destroy(gameObject);
