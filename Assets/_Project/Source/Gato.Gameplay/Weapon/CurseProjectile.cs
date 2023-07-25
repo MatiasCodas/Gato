@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,6 +56,9 @@ namespace Gato.Gameplay
         [HideInInspector]
         public bool IsAlreadyDead = false;
         public static bool GoAllBack = false;
+        public static Action<Collision2D, Transform> OnPulling;
+        public static Action<List<GameObject>, Vector3> OnBoosting;
+        public static Action OnCursedStatus;
         private static bool _isTarget = true;
 
         public void Setup(Vector2 direction, bool isCurseActive, GameObject player, int index)
@@ -256,7 +260,7 @@ namespace Gato.Gameplay
                     OnObjectTriggered?.Invoke();
                 }
             }
-            
+
             switch (collision.gameObject.tag)
             {
                 default:
@@ -266,9 +270,17 @@ namespace Gato.Gameplay
                 case "Curse":
                     IsCursed[_ropeProjectileIndex] = true;
                     OnCurseTriggered?.Invoke();
+                    OnCursedStatus?.Invoke();
                     break;
                 case "Blessing":
                     IsBlessed = true;
+                    break;
+                case "RopePullable":
+                    OnPulling?.Invoke(collision, PlayerControlSystem.Player.RopePullableTarget);
+                    break;
+                case "RopeBoostable":
+                    int lastIndex = ConnectedToRope.Count - 1;
+                    OnBoosting?.Invoke(ConnectedToRope, ConnectedToRope[lastIndex].transform.position);
                     break;
             }
 
@@ -345,8 +357,17 @@ namespace Gato.Gameplay
             _direction = Vector3.Lerp(_direction,Vector3.ClampMagnitude(_target.position-transform.position, 1) , _playerStats.HomingStrength);
         }
 
+        private void Awake()
+        {
+            RopePullable.OnPulled += RopeComeBack;
+            PlayerControlSystem.OnBoosted += RopeComeBack;
+        }
+
         private void OnDestroy()
         {
+            RopePullable.OnPulled -= RopeComeBack;
+            PlayerControlSystem.OnBoosted -= RopeComeBack;
+
             IsCursed[_ropeProjectileIndex] = false;
             IsAlreadyDead = true;
             OnRopeDestroy?.Invoke();
@@ -365,7 +386,7 @@ namespace Gato.Gameplay
         }
         private void RopeComeBack()
         {
-            
+            CurseWeapon.ProjectilePoolCounter = 0;
             IsAlreadyDead = true;
             OnRopeDestroy?.Invoke();
             Destroy(gameObject);

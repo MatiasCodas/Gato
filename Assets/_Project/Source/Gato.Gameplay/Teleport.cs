@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Gato.Gameplay
         public float ColorSpeed;
         public Transform TeleportTo;
         public GameObject Player;
+        public static Action OnTeleporting;
 
         public virtual void Update()
         {
@@ -25,9 +27,9 @@ namespace Gato.Gameplay
 
         public virtual void TeleportNow(Vector3 offset)
         {
-
             if (!Player.CompareTag("Player")) return;
             Player.transform.position = TeleportTo.position + offset;
+            OnTeleporting?.Invoke();
         }
     }
 }

@@ -1,15 +1,24 @@
 using Cysharp.Threading.Tasks;
+using Gato.Audio;
 using Gato.Core;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Gato.Gameplay
 {
     internal class PlayerControlSystem : MonoSystem, IPlayerControlService
     {
+        [Header("Player Stats")]
         [SerializeField]
         private PlayerStats _playerStats;
         public static PlayerControlSystem Player;
+
+        [Space(5)]
+        [Header("Audio Settings")]
+        [SerializeField] private AudioSource _playerAudioSource;
+        [SerializeField] private PlayerSFXLibrary _playerSFX;
 
         private bool _canDash = true;
         private bool _canWalk = true;
@@ -18,7 +27,17 @@ namespace Gato.Gameplay
         private Rigidbody2D _rigidbody2d;
         private CurseWeapon _curseWeapon;
 
+        private bool _boosting;
+        private List<GameObject> _ropeList;
+        private Vector3 _boostableTargetPosition;
+
+        [Space(5)]
+        [Header("Rope Pulling Movement")]
+        public Transform RopePullableTarget;
+
         public ServiceLocator OwningLocator { get; set; }
+
+        public static Action OnBoosted;
 
         public override void Setup()
         {
@@ -27,6 +46,20 @@ namespace Gato.Gameplay
             _rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
             _curseWeapon = gameObject.GetComponent<CurseWeapon>();
             Player = this;
+
+            _boosting = false;
+            CurseProjectile.OnBoosting += RopeBoostingMovement;
+
+            Teleport.OnTeleporting += PlayTeleportSFX;
+            BasicEnemy.OnIncreaseHitPoints += PlayHitByEnemySFX;
+        }
+
+        public override void Dispose()
+        {
+            CurseProjectile.OnBoosting -= RopeBoostingMovement;
+
+            Teleport.OnTeleporting -= PlayTeleportSFX;
+            BasicEnemy.OnIncreaseHitPoints -= PlayHitByEnemySFX;
         }
 
         public void Dash(Vector2 direction)
@@ -47,6 +80,14 @@ namespace Gato.Gameplay
             }
 
             _rigidbody2d.MovePosition(_rigidbody2d.position + (direction * _playerStats.MovementSpeed * Time.fixedDeltaTime));
+
+            // Walking SFX was disabled as it may not be needed
+            /*
+            if (direction != Vector2.zero)
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.WalkSFX, true);
+            else
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.WalkSFX, false);
+            */
         }
 
         public void WeaponAim(Vector2 direction)
@@ -119,6 +160,50 @@ namespace Gato.Gameplay
             await UniTask.Delay((int)(_playerStats.DashCooldown * 1000));
 
             _canDash = true;
+        }
+
+        private void PlayTeleportSFX()
+        {
+            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.TeleportingSFX);
+        }
+
+        private void PlayHitByEnemySFX()
+        {
+            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.HitByEnemySFX);
+        }
+
+        private void RopeBoostingMovement(List<GameObject> ropeList, Vector3 ropeTipPosition)
+        {
+            _ropeList = ropeList;
+            _boostableTargetPosition = ropeTipPosition;
+        }
+
+        public override void Tick(float deltaTime)
+        {
+            base.Tick(deltaTime);
+
+            // Rope Boost
+
+            if (CurseWeapon.ProjectilePoolCounter == 1
+                && _ropeList != null
+                && _ropeList.Count > 0
+                && !_boosting
+                && Keyboard.current.pKey.wasPressedThisFrame) // Temporary key
+                _boosting = true;
+
+            if (_boosting)
+            {
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.BoostByRopeSFX);
+                transform.position = Vector2.MoveTowards(transform.position, _boostableTargetPosition, 1f);
+            }
+
+            if (_ropeList != null
+                && transform.position == _boostableTargetPosition)
+            {
+                _boosting = false;
+                _ropeList.Clear();
+                OnBoosted?.Invoke();
+            }
         }
     }
 }

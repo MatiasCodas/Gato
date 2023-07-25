@@ -2,18 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using Gato.Audio;
 
 namespace Gato.Gameplay
 {
     public class BullEnemy : BasicEnemy
     {
+        [Header("Bull Stats")]
         [SerializeField]
         private BullStats _bullStats;
         private bool _angry;
         private bool _tired;
 
+        [Space(5)]
+        [Header("Audio Settings")]
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private EnemySFXLibrary _enemySFXLibrary;
+
+        [Space(5)]
+        [Header("AI")]
         public AIDestinationSetter DestinationSetter;
         public AIPath AIPath;
+
+        private void Awake()
+        {
+            CurseProjectile.OnCursedStatus += PlayCurseSFX;
+        }
+
+        private void OnDestroy()
+        {
+            CurseProjectile.OnCursedStatus -= PlayCurseSFX;
+        }
 
         private void Start()
         {
@@ -94,6 +113,11 @@ namespace Gato.Gameplay
         {
             yield return new WaitForSeconds(_bullStats.RestTime);
             _tired = false;
+        }
+
+        private void PlayCurseSFX()
+        {
+            AudioManager.Instance.ToggleSFX(_audioSource, _enemySFXLibrary.CurseSFX);
         }
     }
 }

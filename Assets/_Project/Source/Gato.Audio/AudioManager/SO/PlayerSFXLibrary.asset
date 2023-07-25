@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0655b766e40cc554c83d404fd3ae839f, type: 3}
+  m_Name: PlayerSFXLibrary
+  m_EditorClassIdentifier: 
+  WalkSFX: {fileID: 8300000, guid: afda1e04fee4dc1428dd6267cde5c7b7, type: 3}
+  ThrowRopeSFX: {fileID: 8300000, guid: d6eb1856e6cce794ab677d439b1ad8e3, type: 3}
+  BoostByRopeSFX: {fileID: 8300000, guid: 4756f617a0aa57d4aa342d5afbf7df23, type: 3}
+  TeleportingSFX: {fileID: 8300000, guid: 31f94b65b6bea5749892a1cbcba9638e, type: 3}
+  HitByEnemySFX: {fileID: 8300000, guid: 2ae2ee2aa01dc2746a5e2cd4888e9fff, type: 3}

@@ -14,6 +14,10 @@ namespace Gato.UI
 
         private void Awake()
         {
+            // Temporary:
+            if (_playerStats.HitPoints > 0)
+                _playerStats.HitPoints = 0;
+
             IncreaseHitPointsText();
             BasicEnemy.OnIncreaseHitPoints += IncreaseHitPointsText;
         }

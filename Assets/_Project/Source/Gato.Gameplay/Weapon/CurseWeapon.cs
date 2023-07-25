@@ -23,6 +23,8 @@ namespace Gato.Gameplay
 
         private RopePoolAndLineHandler _ropePool;
 
+        public static int ProjectilePoolCounter;
+
         public void Awake()
         {
             _inCooldown = false;
@@ -30,10 +32,7 @@ namespace Gato.Gameplay
         }
         private void Update()
         {
-            
-            
 
-            
         }
 
         public void Aim(string mode, Vector2 position)
@@ -54,7 +53,6 @@ namespace Gato.Gameplay
 
         public void ThrowWeapon(Vector2 direction)
         {
-            
             if (_inCooldown ||_projectilePool.Count >= _maxProjectileAvailable*2)
             {
                 return;
@@ -85,6 +83,8 @@ namespace Gato.Gameplay
                 _hinge.enabled = false;
             }
             WeaponCooldown();
+
+            ProjectilePoolCounter = _projectilePool.Count;
         }
 
         private async UniTask WeaponCooldown()
