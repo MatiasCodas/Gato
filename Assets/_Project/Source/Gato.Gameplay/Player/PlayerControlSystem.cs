@@ -132,6 +132,8 @@ namespace Gato.Gameplay
             direction = direction.normalized;
 
             _rangedWeapon.ThrowWeapon(direction);
+
+            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.ThrowRopeSFX);
         }
 
         public void RecoverWeapon()
