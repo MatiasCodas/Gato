@@ -40,12 +40,11 @@ namespace Gato.Gameplay
 
         private void Update()
         {
-            if (CurseWeapon.ProjectilePoolCounter == 1) // || CurseWeapon.ProjectilePoolCounter == 3)
+            if (CurseWeapon.ProjectilePoolCounter == 1 || CurseWeapon.ProjectilePoolCounter == 3)
             {
-                if (_pullableCollider != null && !_pulling && Keyboard.current.oKey.wasPressedThisFrame) // Temporary key
-                {
+                if (_pullableCollider != null && _pullableCollider.transform.tag.Equals("RopePullable") && !_pulling
+                    && Keyboard.current.oKey.wasPressedThisFrame) // Temporary key
                     _pulling = true;
-                }
             }
 
             if (_pulling)

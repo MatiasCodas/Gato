@@ -30,6 +30,7 @@ namespace Gato.Gameplay
         private bool _boosting;
         private List<GameObject> _ropeList;
         private Vector3 _boostableTargetPosition;
+        private Collision2D _boostableCollider;
 
         [Space(5)]
         [Header("Rope Pulling Movement")]
@@ -174,10 +175,11 @@ namespace Gato.Gameplay
             AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.HitByEnemySFX);
         }
 
-        private void RopeBoostingMovement(List<GameObject> ropeList, Vector3 ropeTipPosition)
+        private void RopeBoostingMovement(List<GameObject> ropeList, Vector3 ropeTipPosition, Collision2D collider)
         {
             _ropeList = ropeList;
             _boostableTargetPosition = ropeTipPosition;
+            _boostableCollider = collider;
         }
 
         public override void Tick(float deltaTime)
@@ -186,12 +188,11 @@ namespace Gato.Gameplay
 
             // Rope Boost
 
-            if (CurseWeapon.ProjectilePoolCounter == 1) // || CurseWeapon.ProjectilePoolCounter == 3)
+            if (CurseWeapon.ProjectilePoolCounter == 1 || CurseWeapon.ProjectilePoolCounter == 3)
             {
-                if (_ropeList != null && _ropeList.Count > 0 && !_boosting && Keyboard.current.pKey.wasPressedThisFrame) // Temporary key
-                {
+                if (_ropeList != null && _ropeList.Count > 0 && _boostableCollider.transform.tag.Equals("RopeBoostable") && !_boosting
+                    && Keyboard.current.pKey.wasPressedThisFrame) // Temporary key
                     _boosting = true;
-                }
             }
 
             if (_boosting)
