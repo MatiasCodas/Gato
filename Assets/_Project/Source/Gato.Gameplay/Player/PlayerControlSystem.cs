@@ -186,12 +186,11 @@ namespace Gato.Gameplay
 
             // Rope Boost
 
-            if (CurseWeapon.ProjectilePoolCounter == 1
-                && _ropeList != null
-                && _ropeList.Count > 0
-                && !_boosting
-                && Keyboard.current.pKey.wasPressedThisFrame) // Temporary key
-                _boosting = true;
+            if (CurseWeapon.ProjectilePoolCounter == 1 || CurseWeapon.ProjectilePoolCounter == 3)
+            {
+                if (_ropeList != null && _ropeList.Count > 0 && !_boosting && Keyboard.current.pKey.wasPressedThisFrame) // Temporary key
+                    _boosting = true;
+            }
 
             if (_boosting)
             {
