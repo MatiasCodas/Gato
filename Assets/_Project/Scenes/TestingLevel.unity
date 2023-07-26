@@ -424,7 +424,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2061800619}
   m_Father: {fileID: 691266512}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20044,7 +20045,7 @@ GameObject:
   - component: {fileID: 2061800621}
   - component: {fileID: 2061800620}
   m_Layer: 3
-  m_Name: Player
+  m_Name: Text
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20062,8 +20063,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 691266512}
-  m_RootOrder: 2
+  m_Father: {fileID: 264450166}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -20565,6 +20566,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 363286527, guid: fddaaeb6392e7b64199d7fcecf61d338, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 2241775832496813639, guid: fddaaeb6392e7b64199d7fcecf61d338, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -21218,6 +21223,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6984914502087621776, guid: 123fc3a22450ec744bc9d30aab84e3ca, type: 3}
+      propertyPath: _aimX
+      value: 
+      objectReference: {fileID: 2800000, guid: 9a3f48f770596094eaf5f75d03d4cac6, type: 3}
     - target: {fileID: 7506660946644041017, guid: 123fc3a22450ec744bc9d30aab84e3ca, type: 3}
       propertyPath: m_MaxValue
       value: 0.02

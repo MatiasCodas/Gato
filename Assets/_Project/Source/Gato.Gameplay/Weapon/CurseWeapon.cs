@@ -14,6 +14,8 @@ namespace Gato.Gameplay
         private CurseProjectile _projectilePrefab;
         [SerializeField]
         private GameObject _aim;
+        [SerializeField]
+        private LineRenderer _laserAim;
 
         private bool _hasHitCurse;
         private bool _hasHitObj;
@@ -42,10 +44,14 @@ namespace Gato.Gameplay
                 default:
                 case "Controller":
                     _aim.transform.LookAt(position, Vector3.forward);
+                    _laserAim.SetPosition(0, _aim.transform.position);
+                    _laserAim.SetPosition(1, position);
                     break;
 
                 case "Mouse":
                     _aim.transform.LookAt(position, Vector3.forward);
+                    _laserAim.SetPosition(0, _aim.transform.position);
+                    _laserAim.SetPosition(1, position);
                     break;
             }
 
