@@ -2,29 +2,25 @@ using Gato.Core;
 using Gato.Audio;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Gato.Gameplay
 {
     public class InputControlManager : MonoSystem
     {
-        private const string HorizontalAxisName = "Horizontal";
-        private const string VerticalAxisName = "Vertical";
-
-        private const string HorizontalTurnAxisName = "HorizontalTurn";
-        private const string VerticalTurnAxisName = "VerticalTurn";
-        private const string LeftTriggerAxisName = "LeftTrigger";
-        private const string RightTriggerAxisName = "RightTrigger";
 
         [SerializeField]
         private InputCodeSettings _inputSettings;
+        [SerializeField]
+        private InputActionReference _movement, _dash, _mousePosition, _aimPosition, _ropePlus, _ropeMinus, _ropeAction1, _ropeAction2;
 
         private Vector2 _direction;
         private Vector2 _directionWeapon = new Vector2(0, -1);
         private IPlayerControlService _playerControlSystem;
 
         private bool _dashHalfPress; //Variável criada pra evitar do player só deixar o dash pressionado e dar vários dashes
-        private bool _leftTriggerPressed;
-        private bool _rightTriggerPressed;
+        private bool _mouseAiming;
+        private Vector2 _previousMousePos;
 
         public override void Setup()
         {
@@ -41,11 +37,11 @@ namespace Gato.Gameplay
                 return;
             }
 
-            _direction = new Vector2(Input.GetAxis(HorizontalAxisName), Input.GetAxis(VerticalAxisName));
+            _direction = _movement.action.ReadValue<Vector2>();
 
             _playerControlSystem.Move(_direction);
 
-            if (!Input.GetKey(_inputSettings.DashKeyCode) && !Input.GetKey(_inputSettings.DashKeyCodeGamepad)) { 
+            if (!_dash.action.IsPressed()){
                 _dashHalfPress = false;
                 return;
             }
@@ -62,23 +58,35 @@ namespace Gato.Gameplay
                 _playerControlSystem = ServiceLocator.Shared.Get<IPlayerControlService>();
             }
 
-            _directionWeapon = new Vector2(Input.GetAxis(HorizontalTurnAxisName), Input.GetAxis(VerticalTurnAxisName));
+            _directionWeapon = MouseOrGamepad();
             _playerControlSystem.WeaponAim(_directionWeapon);
 
-            if (Input.GetKeyDown(_inputSettings.ShootWeaponKeyCode) || (Input.GetAxis(RightTriggerAxisName) > 0.5f && !_rightTriggerPressed))
+            if (_ropePlus.action.IsPressed())
             {
                 _playerControlSystem.ShootWeapon(_directionWeapon);
-                _rightTriggerPressed = true;
             }
 
-            if(Input.GetKeyDown(_inputSettings.RecoverWeaponKeyCode) || (Input.GetAxis(LeftTriggerAxisName) > 0.5f && !_leftTriggerPressed))
+            if(_ropeMinus.action.IsPressed() )
             {
                 _playerControlSystem.RecoverWeapon();
-                _leftTriggerPressed = true;
+            }
+        }
+
+
+        private Vector2 MouseOrGamepad()
+        {
+            Vector2 mousePos = _mousePosition.action.ReadValue<Vector2>();
+            if (mousePos != _previousMousePos || _aimPosition.action.IsInProgress())
+            {
+                _mouseAiming = !_aimPosition.action.IsInProgress();
+            }
+            _previousMousePos = mousePos;
+            if (!_mouseAiming)
+            {
+                return _aimPosition.action.ReadValue<Vector2>();
             }
 
-            if (Input.GetAxis(LeftTriggerAxisName) < 0.5f) _leftTriggerPressed = false;
-            if (Input.GetAxis(RightTriggerAxisName) < 0.5f) _rightTriggerPressed = false;
+            return Camera.main.ScreenToWorldPoint(_mousePosition.action.ReadValue<Vector2>());
         }
     }
 }
