@@ -89,11 +89,11 @@ namespace Gato.Gameplay
 
             if (cursed)
             {
-                BasicEnemy basicEnemy = collision.gameObject.GetComponent<BasicEnemy>();
+                Enemy basicEnemy = collision.gameObject.GetComponent<Enemy>();
 
                 if (basicEnemy != null)
                 {
-                    basicEnemy.Curse(gameObject);
+                    basicEnemy.Curse();
                 }
             }
         }
