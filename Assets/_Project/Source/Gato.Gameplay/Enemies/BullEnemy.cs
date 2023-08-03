@@ -6,6 +6,7 @@ using Gato.Audio;
 
 namespace Gato.Gameplay
 {
+    // TODO: Deletar depois de ter passado toda funcionalidade para os novos inimigos
     public class BullEnemy : BasicEnemy
     {
         [Header("Bull Stats")]

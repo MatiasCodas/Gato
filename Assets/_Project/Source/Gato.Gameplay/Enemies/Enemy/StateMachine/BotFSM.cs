@@ -104,7 +104,8 @@ namespace Gato.Gameplay
                 _firstState = States.StrafeFollow;
             }
         }
-
+        
+        // TODO:  criar um state de inimigo melee
         public void Attack()
         {
             if (_inCooldown)
@@ -122,6 +123,7 @@ namespace Gato.Gameplay
             }
         }
 
+        // TODO:  criar um state de inimigo a distancia
         public void Aim()
         {
             if (_aimState == null)
@@ -136,6 +138,7 @@ namespace Gato.Gameplay
             }
         }
 
+        // TODO:  criar um state de inimigo a distancia
         public void Shoot()
         {
             if (_inCooldown)

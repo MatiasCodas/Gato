@@ -19,10 +19,8 @@ namespace Gato.Gameplay
     [RequireComponent(typeof(BotFSM))]
     public class BotController : MonoBehaviour
     {
-        [FormerlySerializedAs("enemyType")]
         [SerializeField]
         private EnemyType _enemyType = EnemyType.None;
-        [FormerlySerializedAs("attackDistance")]
         [SerializeField]
         private float _attackDistance = 3f;
 
@@ -65,6 +63,8 @@ namespace Gato.Gameplay
         private void EnemyAction()
         {
             bool canAttack = false;
+            // TODO: talvez melhorar como é chamado cada os states e separar a logica de cada enemyType em diferentes scrpits
+
             switch (_enemyType)
             {
                 case EnemyType.Bull:
@@ -80,7 +80,7 @@ namespace Gato.Gameplay
 
                     break;
                 }
-                
+
                 case EnemyType.Mosquito:
                 {
                     _botFSM.MosquitoFollow();
@@ -108,7 +108,8 @@ namespace Gato.Gameplay
 
                     break;
                 }
-                
+
+                // TODO:  criar um state de inimigo melee
                 case EnemyType.Melee:
 
                     _botFSM.Follow();
@@ -122,6 +123,7 @@ namespace Gato.Gameplay
 
                     break;
 
+                // TODO:  criar um state de inimigo a distancia
                 case EnemyType.Range:
 
                     _botFSM.Aim();

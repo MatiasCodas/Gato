@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Gato.Gameplay
 {
+    // TODO: Deletar depois de ter passado toda funcionalidade para os novos inimigos
     public class MosquitoEnemy : BasicEnemy
     {
         [SerializeField]
