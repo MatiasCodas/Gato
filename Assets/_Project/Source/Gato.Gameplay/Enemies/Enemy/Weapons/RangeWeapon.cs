@@ -29,9 +29,6 @@ namespace Gato.Gameplay
 
             if (isPlayer && currentAmmo.value == 0) return;
 
-            //apenas chamado pelo player, para os bots as animações são chamdas pelo state machine
-            if (animController != null) animController.SetTrigger("Shoot");
-
             if (pool.objPool.Count == 0)
             {
                 CreateNewProjectile();

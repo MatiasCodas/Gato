@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 //Script que cria os states e "setta" eles
 namespace Gato.Gameplay
@@ -8,6 +6,8 @@ namespace Gato.Gameplay
     public enum States
     {
         Follow,
+        MosquitoFollow,
+        StrafeFollow,
         Idle,
         Attack,
         Aim,
@@ -18,133 +18,180 @@ namespace Gato.Gameplay
 
     public class BotFSM : StateMachine
     {
-        public RangeWeapon rangeWeapon;
-        public Weapon weapon;
         [SerializeField]
-        private float cooldownTime = 1f;
+        private RangeWeapon _rangeWeapon;
         [SerializeField]
-        private int pointsValue = 10;
-        [HideInInspector]
-        public States firstState = States.None;
-        [HideInInspector]
-        public States secondState = States.None;
-        private Enemy enemy;
-        private Follow followState;
-        private Attack attackState;
-        private Aim aimState;
-        private Shoot shootState;
-        private Die dieState;
-        private Idle idleState;
-        public Animator animController;
-        private float cooldown;
-        private bool inCooldown;
+        private Weapon _weapon;
+        [SerializeField]
+        private float _cooldownTime = 1f;
+        [SerializeField]
+        private States _firstState = States.None;
+        [SerializeField]
+        private States _secondState = States.None;
+
+        private Enemy _enemy;
+        private Follow _followState;
+        private MosquitoFollow _mosquitoFollowState;
+        private StrafeFollow _strafeFollowState;
+        private Attack _attackState;
+        private Aim _aimState;
+        private Shoot _shootState;
+        private Die _dieState;
+        private Idle _idleState;
+        private float _cooldown;
+        private bool _inCooldown;
+
+        // TODO: Change to the type of animation we will use.
+        // public Animator animController;
 
         private void Start()
         {
-            enemy = GetComponent<Enemy>();
+            _enemy = GetComponent<Enemy>();
+        }
+
+        public void Idle()
+        {
+            if (_idleState == null)
+            {
+                _idleState = new Idle();
+            }
+
+            if (_firstState != States.Idle)
+            {
+                SetState01(_idleState);
+                _firstState = States.Idle;
+            }
         }
 
         public void Follow()
         {
-            if (followState == null)
+            if (_followState == null)
             {
-                followState = new Follow(this, enemy, animController);
+                _followState = new Follow(this, _enemy);
             }
 
-            if (firstState != States.Follow)
+            if (_firstState != States.Follow)
             {
-                SetState01(followState);
-                firstState = States.Follow;
+                SetState01(_followState);
+                _firstState = States.Follow;
+            }
+        }
+
+        public void MosquitoFollow()
+        {
+            if (_mosquitoFollowState == null)
+            {
+                _mosquitoFollowState = new MosquitoFollow(this, _enemy);
+            }
+
+            if (_firstState != States.MosquitoFollow)
+            {
+                SetState01(_mosquitoFollowState);
+                _firstState = States.MosquitoFollow;
+            }
+        }
+
+        public void StrafeFollow()
+        {
+            if (_strafeFollowState == null)
+            {
+                _strafeFollowState = new StrafeFollow(this, _enemy);
+            }
+
+            if (_firstState != States.StrafeFollow)
+            {
+                SetState01(_strafeFollowState);
+                _firstState = States.StrafeFollow;
             }
         }
 
         public void Attack()
         {
-            if (inCooldown)
+            if (_inCooldown)
                 return;
 
-            if (attackState == null)
+            if (_attackState == null)
             {
-                attackState = new Attack(this, enemy, animController, weapon);
+                _attackState = new Attack(this, _enemy, _weapon);
             }
 
-            if (secondState != States.Attack)
+            if (_secondState != States.Attack)
             {
-                SetState02(attackState);
-                secondState = States.Attack;
+                SetState02(_attackState);
+                _secondState = States.Attack;
             }
         }
 
         public void Aim()
         {
-            if (aimState == null)
+            if (_aimState == null)
             {
-                aimState = new Aim(this, enemy, animController);
+                _aimState = new Aim(this, _enemy);
             }
 
-            if (firstState != States.Aim)
+            if (_firstState != States.Aim)
             {
-                SetState01(aimState);
-                firstState = States.Aim;
+                SetState01(_aimState);
+                _firstState = States.Aim;
             }
         }
 
         public void Shoot()
         {
-            if (inCooldown)
+            if (_inCooldown)
                 return;
 
-            if (shootState == null)
+            if (_shootState == null)
             {
-                shootState = new Shoot(this, rangeWeapon, animController);
+                _shootState = new Shoot(this, _rangeWeapon);
             }
 
-            if (secondState != States.Shoot)
+            if (_secondState != States.Shoot)
             {
-                SetState02(shootState);
-                secondState = States.Shoot;
+                SetState02(_shootState);
+                _secondState = States.Shoot;
             }
         }
 
         public void Die()
         {
-            if (dieState == null)
+            if (_dieState == null)
             {
-                dieState = new Die(this, enemy, animController);
+                _dieState = new Die(this, _enemy);
             }
 
-            if (firstState != States.Die)
+            if (_firstState != States.Die)
             {
-                SetState01(dieState);
-                firstState = States.Die;
+                SetState01(_dieState);
+                _firstState = States.Die;
             }
         }
 
 
         public void AttackCooldown()
         {
-            inCooldown = true;
-            cooldown += Time.deltaTime;
+            _inCooldown = true;
+            _cooldown += Time.deltaTime;
 
-            if (cooldown >= cooldownTime)
+            if (_cooldown >= _cooldownTime)
             {
-                inCooldown = false;
-                cooldown = 0;
-                ResetState(2);
+                _inCooldown = false;
+                _cooldown = 0;
+                ResetState(1);
             }
         }
 
         //Resetar o state quando tiver o cooldown do ataque
         public void ResetState(int index)
         {
-            if (index == 1 && firstState != States.None)
+            if (index == 1 && _firstState != States.None)
             {
-                firstState = States.None;
+                _firstState = States.None;
             }
 
-            else if (index == 2 && secondState != States.None)
+            else if (index == 2 && _secondState != States.None)
             {
-                secondState = States.None;
+                _secondState = States.None;
             }
         }
     }

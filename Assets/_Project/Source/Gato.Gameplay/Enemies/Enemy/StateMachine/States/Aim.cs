@@ -5,30 +5,28 @@ namespace Gato.Gameplay
 {
     public class Aim : StateAI
     {
-        public readonly Enemy enemy;
-        public Animator animController;
-        private StateMachine stateMachine;
+        public readonly Enemy _enemy;
+        private StateMachine _stateMachine;
 
-        public Aim(StateMachine _stateMachine, Enemy _enemy, Animator _animController)
+        public Aim(StateMachine stateMachine, Enemy enemy)
         {
-            stateMachine = _stateMachine;
-            enemy = _enemy;
-            animController = _animController;
+            _stateMachine = stateMachine;
+            _enemy = enemy;
         }
 
         public override void EntryAction()
         {
-            animController.SetBool("Aim", true);
+            // animController.SetBool("Aim", true);
         }
 
         public override void ExitAction()
         {
-            animController.SetBool("Aim", false);
+            // animController.SetBool("Aim", false);
         }
 
         public override void UpdateAction()
         {
-            enemy.Aim();
+            _enemy.Aim();
         }
     }
 }

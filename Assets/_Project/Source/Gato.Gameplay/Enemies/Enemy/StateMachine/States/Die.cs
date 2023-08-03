@@ -7,21 +7,20 @@ namespace Gato.Gameplay
     public class Die : StateAI
     {
 
-        public readonly Enemy enemy;
-        public Animator animController;
-        private StateMachine stateMachine;
+        private readonly Enemy _enemy;
+        private StateMachine _stateMachine;
 
-        public Die(StateMachine _stateMachine, Enemy _enemy, Animator _animController)
+        public Die(StateMachine stateMachine, Enemy enemy)
         {
-            stateMachine = _stateMachine;
-            enemy = _enemy;
-            animController = _animController;
+            _stateMachine = stateMachine;
+            _enemy = enemy;
+            // animController = _animController;
         }
 
         public override void EntryAction()
         {
-            animController.SetTrigger("Die");
-            enemy.Die();
+            // animController.SetTrigger("Die");
+            _enemy.Die();
         }
 
         public override void ExitAction() { }

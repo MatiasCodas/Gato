@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 //Script que chama os states do StateMachine
 namespace Gato.Gameplay
@@ -9,27 +10,39 @@ namespace Gato.Gameplay
     {
         Melee,
         Range,
+        Bull,
+        Mosquito,
+        Strafer,
         None
     }
 
     [RequireComponent(typeof(BotFSM))]
     public class BotController : MonoBehaviour
     {
-        public EnemyType enemyType = EnemyType.None;
-        private BotFSM botFSM;
-        [HideInInspector]
-        public Transform player;
+        [FormerlySerializedAs("enemyType")]
         [SerializeField]
-        private float attackDistance = 3f;
-        public LayerMask playerMask;
-        private bool canAttack;
-        private Enemy enemy;
+        private EnemyType _enemyType = EnemyType.None;
+        [FormerlySerializedAs("attackDistance")]
+        [SerializeField]
+        private float _attackDistance = 3f;
 
+        private BotFSM _botFSM;
+        private Enemy _enemy;
+        private Transform _player;
 
-        void Start()
+        public EnemyType EnemyType => _enemyType;
+
+        // public LayerMask playerMask;
+
+        public void SetPlayer(Transform player)
         {
-            botFSM = GetComponent<BotFSM>();
-            enemy = GetComponent<Enemy>();
+            _player = player;
+        }
+
+        private void Start()
+        {
+            _botFSM = GetComponent<BotFSM>();
+            _enemy = GetComponent<Enemy>();
         }
 
         private void Update()
@@ -39,9 +52,9 @@ namespace Gato.Gameplay
                 return;
             }*/
 
-            if (enemy.life <= 0)
+            if (_enemy.life <= 0)
             {
-                botFSM.Die();
+                _botFSM.Die();
 
                 return;
             }
@@ -49,27 +62,70 @@ namespace Gato.Gameplay
             EnemyAction();
         }
 
-        void EnemyAction()
+        private void EnemyAction()
         {
-            switch (enemyType)
+            bool canAttack = false;
+            switch (_enemyType)
             {
-                case EnemyType.Melee:
+                case EnemyType.Bull:
+                {
+                    _botFSM.Follow();
 
-                    botFSM.Follow();
-
-                    canAttack = Physics.CheckSphere(gameObject.transform.position, attackDistance, playerMask);
+                    // canAttack = Physics.CheckSphere(gameObject.transform.position, attackDistance, playerMask);
 
                     if (canAttack)
                     {
-                        botFSM.Attack();
+                        _botFSM.Attack();
+                    }
+
+                    break;
+                }
+                
+                case EnemyType.Mosquito:
+                {
+                    _botFSM.MosquitoFollow();
+
+                    // canAttack = Physics.CheckSphere(gameObject.transform.position, attackDistance, playerMask);
+
+                    if (canAttack)
+                    {
+                        _botFSM.Attack();
+                    }
+
+                    break;
+                }
+
+                case EnemyType.Strafer:
+                {
+                    _botFSM.StrafeFollow();
+
+                    // canAttack = Physics.CheckSphere(gameObject.transform.position, attackDistance, playerMask);
+
+                    if (canAttack)
+                    {
+                        _botFSM.Attack();
+                    }
+
+                    break;
+                }
+                
+                case EnemyType.Melee:
+
+                    _botFSM.Follow();
+
+                    // canAttack = Physics.CheckSphere(gameObject.transform.position, attackDistance, playerMask);
+
+                    if (canAttack)
+                    {
+                        _botFSM.Attack();
                     }
 
                     break;
 
                 case EnemyType.Range:
 
-                    botFSM.Aim();
-                    botFSM.Shoot();
+                    _botFSM.Aim();
+                    _botFSM.Shoot();
 
                     break;
             }

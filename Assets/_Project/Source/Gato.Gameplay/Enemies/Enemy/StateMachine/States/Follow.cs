@@ -6,30 +6,34 @@ namespace Gato.Gameplay
 {
     public class Follow : StateAI
     {
-        public readonly Enemy enemy;
-        public Animator animController;
-        private StateMachine stateMachine;
+        private readonly Enemy _enemy;
+        private StateMachine _stateMachine;
 
-        public Follow(StateMachine _stateMachine, Enemy _enemy, Animator _animController)
+        // public Animator animController;
+        
+        public Follow(StateMachine stateMachine, Enemy enemy/*, Animator animController*/)
         {
-            stateMachine = _stateMachine;
-            enemy = _enemy;
-            animController = _animController;
+            _stateMachine = stateMachine;
+            _enemy = enemy;
+            
+            // animController = _animController;
         }
 
         public override void EntryAction()
         {
-            animController.SetBool("Walking", true);
+            Debug.LogError("EntryAction");
+            // animController.SetBool("Walking", true);
         }
 
         public override void ExitAction()
         {
-            animController.SetBool("Walking", false);
+            // animController.SetBool("Walking", false);
         }
 
         public override void UpdateAction()
         {
-            enemy.Follow();
+            Debug.LogError("UpdateAction");
+            _enemy.Follow();
         }
     }
 }

@@ -1,33 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Gato.Gameplay
+﻿namespace Gato.Gameplay
 {
     public class Shoot : StateAI
     {
-        public readonly RangeWeapon weapon;
-        public Animator animController;
-        private BotFSM stateMachine;
+        private readonly RangeWeapon _weapon;
+        private BotFSM _stateMachine;
 
-        public Shoot(BotFSM _stateMachine, RangeWeapon _weapon, Animator _animController)
+        public Shoot(BotFSM stateMachine, RangeWeapon weapon)
         {
-            stateMachine = _stateMachine;
-            weapon = _weapon;
-            animController = _animController;
+            _stateMachine = stateMachine;
+            _weapon = weapon;
+            // animController = _animController;
         }
 
         public override void EntryAction()
         {
-            weapon.Shoot();
-            animController.SetTrigger("Shoot");
+            _weapon.Shoot();
+            // animController.SetTrigger("Shoot");
         }
 
         public override void ExitAction() { }
 
         public override void UpdateAction()
         {
-            stateMachine.AttackCooldown();
+            _stateMachine.AttackCooldown();
         }
     }
 }

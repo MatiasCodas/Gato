@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,38 +8,38 @@ namespace Gato.Gameplay
 {
     public class StateMachine : MonoBehaviour
     {
-        protected StateAI state01;
-        protected StateAI state02;
+        protected StateAI _state01;
+        protected StateAI _state02;
 
         protected void Update()
         {
-            if (state01 != null)
-                state01.UpdateAction();
+            if (_state01 != null)
+                _state01.UpdateAction();
 
-            if (state02 != null)
-                state02.UpdateAction();
+            if (_state02 != null)
+                _state02.UpdateAction();
         }
 
-        public void SetState01(StateAI _state)
+        public void SetState01(StateAI state)
         {
-            if (state01 != null)
+            if (_state01 != null)
             {
-                state01.ExitAction();
+                _state01.ExitAction();
             }
 
-            state01 = _state;
-            state01.EntryAction();
+            _state01 = state;
+            _state01.EntryAction();
         }
 
-        public void SetState02(StateAI _state)
+        public void SetState02(StateAI state)
         {
-            if (state02 != null)
+            if (_state02 != null)
             {
-                state02.ExitAction();
+                _state02.ExitAction();
             }
 
-            state02 = _state;
-            state02.EntryAction();
+            _state02 = state;
+            _state02.EntryAction();
         }
     }
 }

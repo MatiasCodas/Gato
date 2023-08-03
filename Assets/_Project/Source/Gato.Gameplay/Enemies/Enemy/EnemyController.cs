@@ -91,8 +91,6 @@ namespace Gato.Gameplay
                     int spawnIndex = Random.Range(0, rangeSpawn.Count);
 
                     rangeEnemy.StartEnemy(rangeSpawn[spawnIndex].transform.position, enemyPool[index], playerObj);
-                    rangeEnemy.spawn = rangeSpawn[spawnIndex];
-                    if(rangeEnemy.capsuleCollider != null) rangeEnemy.capsuleCollider.enabled = true;
 
                     rangeSpawn.Remove(rangeSpawn[spawnIndex]);
 
@@ -106,7 +104,6 @@ namespace Gato.Gameplay
                     Enemy meleeEnemy = instance.GetComponent<Enemy>();
                     Vector3 spawnPos = new Vector3(Random.Range(-16, 16), 0, Random.Range(-16, 16));
                     meleeEnemy.StartEnemy(spawnPos, enemyPool[index], playerObj);
-                    if(meleeEnemy.capsuleCollider != null)meleeEnemy.capsuleCollider.enabled = true;
                     break;
             }
 

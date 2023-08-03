@@ -6569,9 +6569,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotemCurse: {fileID: 3796829957738570119, guid: 4834a426ddf2ab34288e7b858fe01502, type: 3}
   TotemBless: {fileID: 1805360586432797081, guid: cb414d308b1ba3b44ab2b422574488da, type: 3}
-  EnemyBull: {fileID: 2501532263888041369, guid: 30a2ba42f283bdf43993d782be42148e, type: 3}
-  EnemyMosquito: {fileID: 2501532263888041369, guid: 6383591ef32bd994dbd62907ec8f077c, type: 3}
-  EnemyHover: {fileID: 2501532263888041369, guid: 04e893ed1519b0843baa24515a7e7f0b, type: 3}
+  EnemyBull: {fileID: 1761848072011862489, guid: 3a596360f9de41141ab4b9e6dc3e606c, type: 3}
+  EnemyMosquito: {fileID: 8427117043561456524, guid: cd99b536ebe485345ae5bb9ea6c2837e, type: 3}
+  EnemyHover: {fileID: 8632082938007003451, guid: 0c9ec10f83711214d8ad10f94aed8329, type: 3}
   Door: {fileID: 4828677171331469795, guid: 7cb3d5901c9801d45ad72451b8fcf33d, type: 3}
 --- !u!4 &893251337
 Transform:
@@ -21327,6 +21327,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8032483938135342864, guid: 00ca89d2db5a4d04fad81e9ea993327a, type: 3}
+      propertyPath: BasicEnemy
+      value: 
+      objectReference: {fileID: 1761848072011862489, guid: 3a596360f9de41141ab4b9e6dc3e606c, type: 3}
     - target: {fileID: 8032483938135342865, guid: 00ca89d2db5a4d04fad81e9ea993327a, type: 3}
       propertyPath: m_Name
       value: BattleManager

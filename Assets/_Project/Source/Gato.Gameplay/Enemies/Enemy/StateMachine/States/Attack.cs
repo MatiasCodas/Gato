@@ -6,33 +6,31 @@ namespace Gato.Gameplay
 {
     public class Attack : StateAI
     {
-        public readonly Enemy enemy;
-        public Animator animController;
-        private BotFSM stateMachine;
-        private Weapon weapon;
+        private readonly Enemy _enemy;
+        private BotFSM _stateMachine;
+        private Weapon _weapon;
 
-        public Attack(BotFSM _stateMachine, Enemy _enemy, Animator _animController, Weapon _weapon)
+        public Attack(BotFSM stateMachine, Enemy enemy, Weapon weapon)
         {
-            stateMachine = _stateMachine;
-            enemy = _enemy;
-            animController = _animController;
-            weapon = _weapon;
+            _stateMachine = stateMachine;
+            _enemy = enemy;
+            _weapon = weapon;
         }
 
         public override void EntryAction()
         {
-            animController.SetTrigger("Attack");
-            weapon.canDamage = true;
+            // animController.SetTrigger("Attack");
+            _weapon.canDamage = true;
         }
 
         public override void ExitAction()
         {
-            weapon.canDamage = false;
+            _weapon.canDamage = false;
         }
 
         public override void UpdateAction()
         {
-            stateMachine.AttackCooldown();
+            _stateMachine.AttackCooldown();
         }
     }
 }
