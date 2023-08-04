@@ -11,10 +11,13 @@ namespace Gato.UI
         private Button _pauseButton;
         [SerializeField]
         private GameObject _pauseMenuContainer;
+        [SerializeField]
+        private Button _quitButton;
 
         private void Awake()
         {
             _pauseButton.onClick.AddListener(HandlePauseButtonPressed);
+            _quitButton.onClick.AddListener(QuitGame);
         }
 
         private void FixedUpdate()
@@ -29,6 +32,11 @@ namespace Gato.UI
         {
             _pauseMenuContainer.SetActive(true);
             Time.timeScale = 0;
+        }
+
+        private void QuitGame()
+        {
+            Application.Quit();
         }
     }
 }
