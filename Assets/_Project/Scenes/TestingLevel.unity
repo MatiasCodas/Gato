@@ -20692,22 +20692,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 363286527, guid: fddaaeb6392e7b64199d7fcecf61d338, type: 3}
-      propertyPath: m_Parameters.alignment
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 363286527, guid: fddaaeb6392e7b64199d7fcecf61d338, type: 3}
-      propertyPath: m_Parameters.textureMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 363286527, guid: fddaaeb6392e7b64199d7fcecf61d338, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 411c6d6019050da4db4f5d67b968e71e, type: 2}
-    - target: {fileID: 363286527, guid: fddaaeb6392e7b64199d7fcecf61d338, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 0.17551938
-      objectReference: {fileID: 0}
     - target: {fileID: 2241775832496813639, guid: fddaaeb6392e7b64199d7fcecf61d338, type: 3}
       propertyPath: m_RootOrder
       value: 4
