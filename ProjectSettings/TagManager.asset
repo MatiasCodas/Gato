@@ -9,6 +9,7 @@ TagManager:
   - Rope
   - RopePullable
   - RopeBoostable
+  - DragDrop
   layers:
   - Default
   - TransparentFX
