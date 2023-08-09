@@ -37,20 +37,21 @@ namespace Gato.Gameplay
 
         }
 
-        public void Aim(string mode, Vector2 position)
+        public void Aim(string mode, Vector2 position, bool performed)
         {
             switch (mode)
             {
                 default:
                 case "Controller":
-                    _aim.transform.LookAt(position, Vector3.forward);
-                    _laserAim.SetPosition(0, _aim.transform.position);
-                    _laserAim.SetPosition(1, position);
+                    _aim.transform.LookAt((Vector2) _laserAim.transform.position + position, Vector3.forward);
+                    _laserAim.enabled = performed;
+                    _laserAim.SetPosition(0, _laserAim.transform.position);
+                    _laserAim.SetPosition(1, (Vector2) _laserAim.transform.position + (new Vector2(2f, 2f) * position));
                     break;
-
                 case "Mouse":
+                    _laserAim.enabled = performed;
                     _aim.transform.LookAt(position, Vector3.forward);
-                    _laserAim.SetPosition(0, _aim.transform.position);
+                    _laserAim.SetPosition(0, _laserAim.transform.position);
                     _laserAim.SetPosition(1, position);
                     break;
             }
@@ -59,7 +60,7 @@ namespace Gato.Gameplay
 
         public void ThrowWeapon(Vector2 direction)
         {
-            if (_inCooldown ||_projectilePool.Count >= _maxProjectileAvailable*2)
+            if (_inCooldown || _projectilePool.Count >= _maxProjectileAvailable * 2)
             {
                 return;
             }
@@ -73,12 +74,12 @@ namespace Gato.Gameplay
 
             Rigidbody2D playerRigidBody = GetComponent<Rigidbody2D>();
             Rigidbody2D projectileRigidBody = instance.GetComponent<Rigidbody2D>();
-            
+
             _ropePool = instance.GetComponent<RopePoolAndLineHandler>();
             _ropePool.Setup(playerRigidBody, projectileRigidBody);
             _projectilePool.Add(instance);
 
-            if(_projectilePool.Count % 2 != 1)
+            if (_projectilePool.Count % 2 != 1)
             {
                 instance.Rope.Deactivate();
                 _projectilePool[_projectilePool.Count - 2].Rope.FirstHinge = instance.HingeJoint;
@@ -111,7 +112,7 @@ namespace Gato.Gameplay
 
             _hasHitCurse = false;
             _hasHitObj = false;
-          //  _projectilePool.Clear();
+            //  _projectilePool.Clear();
         }
 
         private void HandleCurseTriggered()
@@ -139,7 +140,7 @@ namespace Gato.Gameplay
 
             for (int i = 0; i < _projectilePool.Count; i++)
             {
-                if(_projectilePool[i] == null || _projectilePool[i].IsAlreadyDead == true)
+                if (_projectilePool[i] == null || _projectilePool[i].IsAlreadyDead == true)
                 {
                     _projectilePool.RemoveAt(i);
                 }

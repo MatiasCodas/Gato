@@ -33,6 +33,11 @@ namespace Gato.Gameplay
         private Collision2D _boostableCollider;
 
         [Space(5)]
+        [Header("Aim Actions")]
+        [SerializeField] private InputActionReference _gamepadAimDirection;
+        [SerializeField] private InputActionReference _mouseAimDirection;
+
+        [Space(5)]
         [Header("Rope Actions")]
         public InputActionReference RopeBoostInputAction;
         public InputActionReference RopePullInputAction;
@@ -95,9 +100,16 @@ namespace Gato.Gameplay
 
         public void WeaponAim(Vector2 direction)
         {
-                _curseWeapon.Aim("Controller", direction + (Vector2)transform.position);
-               
+            // Before:
+            // _curseWeapon.Aim("Controller", direction + (Vector2)transform.position);
 
+            if (_gamepadAimDirection.action.IsPressed())
+                _curseWeapon.Aim("Controller", direction, true);
+            else if (!_gamepadAimDirection.action.IsPressed())
+                _curseWeapon.Aim("Controller", direction, false);
+
+            if (_mouseAimDirection.action.IsPressed())
+                _curseWeapon.Aim("Mouse", direction, true);
         }
 
         public void EnemyHit()
