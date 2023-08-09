@@ -46,13 +46,15 @@ namespace Gato.Gameplay
                     _aim.transform.LookAt((Vector2) _laserAim.transform.position + position, Vector3.forward);
                     _laserAim.enabled = performed;
                     _laserAim.SetPosition(0, _laserAim.transform.position);
-                    _laserAim.SetPosition(1, (Vector2) _laserAim.transform.position + (new Vector2(2f, 2f) * position));
+                    _laserAim.SetPosition(1, (Vector2) _laserAim.transform.position +
+                        (new Vector2(_playerStats.RopeSize, _playerStats.RopeSize) * position));
                     break;
                 case "Mouse":
                     _laserAim.enabled = performed;
                     _aim.transform.LookAt(position, Vector3.forward);
                     _laserAim.SetPosition(0, _laserAim.transform.position);
-                    _laserAim.SetPosition(1, position);
+                    _laserAim.SetPosition(1, (Vector2)_laserAim.transform.position +
+                        (new Vector2(_playerStats.RopeSize, _playerStats.RopeSize) * position.normalized));
                     break;
             }
 
