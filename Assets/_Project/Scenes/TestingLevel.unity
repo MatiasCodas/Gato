@@ -6568,6 +6568,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a793c0ac345a6c446828fbf8b609ef5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _1: {fileID: 282553816673291489, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _2: {fileID: -2097683096396693349, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _3: {fileID: -2235495095330130852, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _4: {fileID: 2723589679237070148, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _5: {fileID: -1125725595704254940, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _6: {fileID: -3198061049691839600, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _7: {fileID: -8340521612275953437, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
   TotemCurse: {fileID: 3796829957738570119, guid: 4834a426ddf2ab34288e7b858fe01502, type: 3}
   TotemBless: {fileID: 1805360586432797081, guid: cb414d308b1ba3b44ab2b422574488da, type: 3}
   EnemyBull: {fileID: 2501532263888041369, guid: 30a2ba42f283bdf43993d782be42148e, type: 3}

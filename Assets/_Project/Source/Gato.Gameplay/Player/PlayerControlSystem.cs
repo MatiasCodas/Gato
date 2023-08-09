@@ -93,13 +93,8 @@ namespace Gato.Gameplay
 
         public void WeaponAim(Vector2 direction)
         {
-            if (direction != new Vector2(0, 0))
-            {
                 _curseWeapon.Aim("Controller", direction + (Vector2)transform.position);
-                return;
-            }
-            direction = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            _curseWeapon.Aim("Mouse", direction);
+               
 
         }
 
@@ -126,10 +121,6 @@ namespace Gato.Gameplay
                 return;
             }
 
-            if (direction == new Vector2(0, 0)) 
-            {
-                direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-            }
             direction = direction.normalized;
 
             _rangedWeapon.ThrowWeapon(direction);

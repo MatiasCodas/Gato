@@ -346,6 +346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pauseButton: {fileID: 3573808465083269134}
   _pauseMenuContainer: {fileID: 5177562248595102648}
+  _pauseInput: {fileID: -1013666896755316900, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
 --- !u!1 &430244794022736734
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,6 +437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _aimTransform: {fileID: 5594604282760475445}
+  _aimPos: {fileID: -1003849247148768773, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
 --- !u!1 &432431052669449900
 GameObject:
   m_ObjectHideFlags: 0
