@@ -16,7 +16,6 @@ namespace Gato.UI
         [SerializeField]
         private InputActionReference _pauseInput;
 
-        private GameObject _pauseMenuContainer;
         [SerializeField]
         private Button _quitButton;
 
