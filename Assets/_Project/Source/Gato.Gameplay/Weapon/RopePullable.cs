@@ -43,7 +43,7 @@ namespace Gato.Gameplay
             if (CurseWeapon.ProjectilePoolCounter == 1 || CurseWeapon.ProjectilePoolCounter == 3)
             {
                 if (_pullableCollider != null && _pullableCollider.transform.tag.Equals("RopePullable") && !_pulling
-                    && Keyboard.current.oKey.wasPressedThisFrame) // Temporary key
+                    && PlayerControlSystem.Player.RopePullInputAction.action.WasPressedThisFrame())
                     _pulling = true;
             }
 

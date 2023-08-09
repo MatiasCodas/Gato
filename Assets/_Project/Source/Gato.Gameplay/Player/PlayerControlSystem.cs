@@ -33,7 +33,9 @@ namespace Gato.Gameplay
         private Collision2D _boostableCollider;
 
         [Space(5)]
-        [Header("Rope Pulling Movement")]
+        [Header("Rope Actions")]
+        public InputActionReference RopeBoostInputAction;
+        public InputActionReference RopePullInputAction;
         public Transform RopePullableTarget;
 
         public ServiceLocator OwningLocator { get; set; }
@@ -182,7 +184,7 @@ namespace Gato.Gameplay
             if (CurseWeapon.ProjectilePoolCounter == 1 || CurseWeapon.ProjectilePoolCounter == 3)
             {
                 if (_ropeList != null && _ropeList.Count > 0 && _boostableCollider.transform.tag.Equals("RopeBoostable") && !_boosting
-                    && Keyboard.current.pKey.wasPressedThisFrame) // Temporary key
+                    && RopeBoostInputAction.action.WasPressedThisFrame())
                     _boosting = true;
             }
 
