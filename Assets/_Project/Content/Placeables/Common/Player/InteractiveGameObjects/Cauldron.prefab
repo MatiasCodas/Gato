@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5984994287478961325}
   - component: {fileID: 28693887580906957}
+  - component: {fileID: 465067211310938900}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Cauldron
@@ -58,6 +59,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 100, y: 100}
   m_EdgeRadius: 0
+--- !u!114 &465067211310938900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687558009194321535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 669c1dadfa39d10459b77480ff1b1f44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventoryInput: {fileID: 4819165066669980715, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
 --- !u!1 &6969288577013367250
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 309daf82dd9d51840b19698956cf4623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTest: 0
+  _testing: 0
   _dragDropPrefab: {fileID: 2517858132605732795, guid: 70be7964a3fe7fa4cb9be9fed08bfd58, type: 3}
   _particleSystem: {fileID: 7026496801959896982}
 --- !u!1 &6995277169089258535

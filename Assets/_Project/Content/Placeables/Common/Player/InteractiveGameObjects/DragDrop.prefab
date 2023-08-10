@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3664479639457908343}
   - component: {fileID: 7757769469916832391}
+  - component: {fileID: 8352579074932308350}
   m_Layer: 0
   m_Name: Collider
   m_TagString: DragDrop
@@ -48,6 +49,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 50
+--- !u!114 &8352579074932308350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971924532099798438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 248913752b3ce9c46bb4bb9c845242d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventoryInput: {fileID: 4819165066669980715, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
 --- !u!1 &2517858132605732795
 GameObject:
   m_ObjectHideFlags: 0
