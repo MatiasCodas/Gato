@@ -87,12 +87,12 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "DragDrop",
+                    "name": "Inventory",
                     "type": "Button",
-                    "id": "0c920545-d02d-46c1-bdfc-938314436944",
+                    "id": "e52045e8-4504-4f0d-b050-1fbd20ab036c",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -418,12 +418,23 @@
                 },
                 {
                     "name": "",
-                    "id": "807b4c78-433b-44c5-9423-af57296c4f96",
-                    "path": "<Mouse>/leftButton",
+                    "id": "0fd5ab2a-d45b-4489-bd5b-24d0174cbb6a",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "DragDrop",
+                    "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "274a9a8f-06dc-43c6-ad43-dbf5624ff866",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
