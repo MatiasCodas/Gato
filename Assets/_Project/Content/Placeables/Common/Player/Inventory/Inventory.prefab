@@ -89,6 +89,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cae4c0c48dbf14e9194aceda2d7818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mousePosInput: {fileID: -1003849247148768773, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _gamepadStickPosInput: {fileID: 7682367593317144658, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _dropItemInput: {fileID: -4203049998450610720, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _sceneObjects: {fileID: 0}
 --- !u!1 &3062557414399188385
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,6 +290,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cae4c0c48dbf14e9194aceda2d7818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mousePosInput: {fileID: -1003849247148768773, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _gamepadStickPosInput: {fileID: 7682367593317144658, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _dropItemInput: {fileID: -4203049998450610720, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _sceneObjects: {fileID: 0}
 --- !u!1 &3062557414895597243
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +383,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cae4c0c48dbf14e9194aceda2d7818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mousePosInput: {fileID: -1003849247148768773, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _gamepadStickPosInput: {fileID: 7682367593317144658, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _dropItemInput: {fileID: -4203049998450610720, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _sceneObjects: {fileID: 0}
 --- !u!1 &3062557415345695906
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,6 +476,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cae4c0c48dbf14e9194aceda2d7818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mousePosInput: {fileID: -1003849247148768773, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _gamepadStickPosInput: {fileID: 7682367593317144658, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _dropItemInput: {fileID: -4203049998450610720, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _sceneObjects: {fileID: 0}
 --- !u!1 &3062557415917548474
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,3 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cae4c0c48dbf14e9194aceda2d7818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mousePosInput: {fileID: -1003849247148768773, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _gamepadStickPosInput: {fileID: 7682367593317144658, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _dropItemInput: {fileID: -4203049998450610720, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _sceneObjects: {fileID: 0}
