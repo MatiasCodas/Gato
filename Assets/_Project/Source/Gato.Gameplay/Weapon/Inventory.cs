@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 namespace Gato.Gameplay
 {
@@ -11,48 +12,61 @@ namespace Gato.Gameplay
     {
         [SerializeField] private InputActionReference _mousePosInput;
         [SerializeField] private InputActionReference _gamepadStickPosInput;
-        [SerializeField] private InputActionReference _dropItemInput;
+        [SerializeField] private InputActionReference _inventoryInput;
         [SerializeField] private Transform _sceneObjects;
+
+        private bool _canDrop;
+
+        private void Awake()
+        {
+            _canDrop = false;
+        }
 
         private void OnEnable()
         {
-            _dropItemInput.action.started += DropItemOnFloor;
+            _inventoryInput.action.started += DropItemOnFloor;
             InventoryItem.PutInInventory += AddToInventory;
         }
 
         private void OnDisable()
         {
-            _dropItemInput.action.started -= DropItemOnFloor;
+            _inventoryInput.action.started -= DropItemOnFloor;
             InventoryItem.PutInInventory -= AddToInventory;
         }
 
         private void DropItemOnFloor(InputAction.CallbackContext context)
         {
-            if (transform.childCount > 0)
+            if (_canDrop)
             {
-                Transform child = transform.GetChild(0);
-                child.transform.SetParent(_sceneObjects);
-
-                Vector2 newPos = Vector2.zero;
-
-                if (_gamepadStickPosInput.action.IsPressed())
+                if (transform.childCount > 0)
                 {
-                    _mousePosInput.action.Disable();
-                    newPos = Camera.main.ScreenToWorldPoint(_gamepadStickPosInput.action.ReadValue<Vector2>());
-                }
-                else if (!_gamepadStickPosInput.action.IsPressed())
-                {
-                    _mousePosInput.action.Enable();
-                    newPos = Camera.main.ScreenToWorldPoint(_mousePosInput.action.ReadValue<Vector2>());
-                }
+                    Transform child = transform.GetChild(0);
+                    child.transform.SetParent(_sceneObjects);
 
-                if (_mousePosInput.action.IsPressed())
-                {
-                    newPos = Camera.main.ScreenToWorldPoint(_mousePosInput.action.ReadValue<Vector2>());
-                }
+                    Vector2 newPos = Vector2.zero;
 
-                child.transform.position = newPos;
-                child.transform.localScale = new Vector3(.0065f, .0065f, .0065f);
+                    if (_gamepadStickPosInput.action.IsPressed())
+                    {
+                        _mousePosInput.action.Disable();
+                        /// Temporary:
+                        // newPos = _gamepadStickPosInput.action.ReadValue<Vector2>();
+                        newPos = Vector2.zero;
+                        child.transform.localPosition = new Vector3(-10f, 38f, 0);
+                    }
+                    else if (!_gamepadStickPosInput.action.IsPressed())
+                    {
+                        _mousePosInput.action.Enable();
+                        newPos = Camera.main.ScreenToWorldPoint(_mousePosInput.action.ReadValue<Vector2>());
+                    }
+
+                    if (_mousePosInput.action.IsPressed())
+                    {
+                        newPos = Camera.main.ScreenToWorldPoint(_mousePosInput.action.ReadValue<Vector2>());
+                    }
+
+                    child.transform.position = newPos;
+                    child.transform.localScale = new Vector3(.0065f, .0065f, .0065f);
+                }
             }
         }
 
@@ -63,7 +77,14 @@ namespace Gato.Gameplay
                 itemTransform.SetParent(transform, false);
                 itemTransform.localPosition = Vector3.zero;
                 itemTransform.localScale = new Vector3(.8f, .8f, .8f);
+                StartCoroutine(InventoryCoolDown());
             }
+        }
+
+        private IEnumerator InventoryCoolDown()
+        {
+            yield return new WaitForSeconds(1.25f);
+            _canDrop = true;
         }
 
         public void OnDrop(PointerEventData eventData)

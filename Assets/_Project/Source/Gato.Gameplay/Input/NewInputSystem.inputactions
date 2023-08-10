@@ -94,15 +94,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "DropItem",
-                    "type": "Button",
-                    "id": "e00bf75b-64ff-4853-aab0-0ed106c2b95d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -444,17 +435,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Inventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b23d7796-81ce-4314-982c-13930ea0f4a4",
-                    "path": "<Keyboard>/z",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "DropItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
