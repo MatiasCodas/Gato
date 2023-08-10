@@ -21611,6 +21611,10 @@ PrefabInstance:
       propertyPath: _aimX
       value: 
       objectReference: {fileID: 2800000, guid: 9a3f48f770596094eaf5f75d03d4cac6, type: 3}
+    - target: {fileID: 6984914502087621776, guid: 123fc3a22450ec744bc9d30aab84e3ca, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7506660946644041017, guid: 123fc3a22450ec744bc9d30aab84e3ca, type: 3}
       propertyPath: m_MaxValue
       value: 0.02

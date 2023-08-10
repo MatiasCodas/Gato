@@ -144,6 +144,7 @@ namespace Gato.Gameplay
                 return;
             }
 
+            direction = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position;
             direction = direction.normalized;
 
             _rangedWeapon.ThrowWeapon(direction);
