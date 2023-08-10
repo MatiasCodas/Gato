@@ -32,10 +32,6 @@ namespace Gato.Gameplay
             _inCooldown = false;
             _hinge = GetComponent<HingeJoint2D>();
         }
-        private void Update()
-        {
-
-        }
 
         public void Aim(string mode, Vector2 position, bool performed)
         {
@@ -56,7 +52,6 @@ namespace Gato.Gameplay
                     _laserAim.SetPosition(1, position);
                     break;
             }
-
         }
 
         public void ThrowWeapon(Vector2 direction)

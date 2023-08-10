@@ -103,6 +103,7 @@ namespace Gato.Gameplay
             // Before:
             // _curseWeapon.Aim("Controller", direction + (Vector2)transform.position);
 
+
             if (_gamepadAimDirection.action.IsPressed())
             {
                 _mouseAimDirection.action.Disable();
