@@ -53,8 +53,7 @@ namespace Gato.Gameplay
                     _laserAim.enabled = performed;
                     _aim.transform.LookAt(position, Vector3.forward);
                     _laserAim.SetPosition(0, _laserAim.transform.position);
-                    _laserAim.SetPosition(1, (Vector2)_laserAim.transform.position +
-                        (new Vector2(_playerStats.RopeSize, _playerStats.RopeSize) * position.normalized));
+                    _laserAim.SetPosition(1, position);
                     break;
             }
 
