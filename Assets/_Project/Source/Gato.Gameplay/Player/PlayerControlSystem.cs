@@ -144,8 +144,22 @@ namespace Gato.Gameplay
                 return;
             }
 
-            direction -= (Vector2) transform.position;
-            direction = direction.normalized;
+            if (_gamepadAimDirection.action.IsPressed())
+            {
+                _mouseAimDirection.action.Disable();
+                direction = direction.normalized;
+            }
+            else if (!_gamepadAimDirection.action.IsPressed())
+            {
+                _mouseAimDirection.action.Enable();
+                direction -= (Vector2)transform.position;
+                direction = direction.normalized;
+            }
+            else if (_mouseAimDirection.action.IsPressed())
+            {
+                direction -= (Vector2)transform.position;
+                direction = direction.normalized;
+            }
 
             _rangedWeapon.ThrowWeapon(direction);
 
