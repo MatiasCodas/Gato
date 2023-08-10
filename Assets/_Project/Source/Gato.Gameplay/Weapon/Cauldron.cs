@@ -1,30 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Gato.Gameplay
 {
-    public class Cauldron : MonoBehaviour
+    public class Cauldron : MonoBehaviour, IDropHandler
     {
-        [Header("Test")]
-        [SerializeField] private bool _isTest;
+        [SerializeField] private bool _testing;
         [SerializeField] private GameObject _dragDropPrefab;
-
-        [Space(5)]
-        [Header("Cauldron")]
         [SerializeField] private ParticleSystem _particleSystem;
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        public void OnDrop(PointerEventData eventData)
         {
-            if (collision.transform.tag.Equals("DragDrop"))
+            if (eventData.pointerDrag.transform.tag.Equals("DragDrop"))
             {
-                Destroy(collision.gameObject);
+                Destroy(eventData.pointerDrag.gameObject);
                 _particleSystem.Play();
-                if (_isTest)
+                if (_testing)
                     StartCoroutine(ReinitiateDragDropTest());
             }
         }
-
         private IEnumerator ReinitiateDragDropTest()
         {
             yield return new WaitForSeconds(4f);

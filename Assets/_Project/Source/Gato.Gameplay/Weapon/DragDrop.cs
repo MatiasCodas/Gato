@@ -1,53 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace Gato.Gameplay
 {
-    public class DragDrop : MonoBehaviour
+    public class DragDrop : MonoBehaviour, IDragHandler
     {
-        [SerializeField] private InputActionReference _dragDropUInputAction;
-        [SerializeField] private InputActionReference _mousePositionInputAction;
+        [SerializeField] private InputActionReference _mousePos;
+        
+        private Transform _originalParent;
 
-        private Transform _dragDropObject;
-        private Vector3 _clickPos;
-
-        private void OnEnable()
+        private void Awake()
         {
-            _dragDropUInputAction.action.started += Drag;
-            _dragDropUInputAction.action.canceled += Drop;
+            _originalParent = transform.root;
         }
 
-        private void OnDisable()
+        public void OnDrag(PointerEventData eventData)
         {
-            _dragDropUInputAction.action.started -= Drag;
-            _dragDropUInputAction.action.canceled -= Drop;
-        }
+            if (eventData.pointerDrag.transform.root != _originalParent)
+            {
+                eventData.pointerDrag.transform.SetParent(_originalParent);
+                eventData.pointerDrag.transform.localScale = new Vector3(.0065f, .0065f, .0065f);
+            }
 
-        private void Update()
-        {
-            MousePosition();
-            if (_dragDropObject != null)
-                _dragDropObject.position = _clickPos;
-        }
-
-        private void MousePosition()
-        {
-            _clickPos = Camera.main.ScreenToWorldPoint(_mousePositionInputAction.action.ReadValue<Vector2>());
-            _clickPos = new Vector3(_clickPos.x, _clickPos.y, 0);
-        }
-
-        private void Drag(InputAction.CallbackContext context)
-        {
-            RaycastHit2D hit = Physics2D.Raycast(_clickPos, Vector2.zero);
-            if (hit.collider != null && hit.collider.tag == transform.tag)
-                _dragDropObject = hit.transform;
-        }
-
-        private void Drop(InputAction.CallbackContext context)
-        {
-            _dragDropObject = null;
+            if (eventData.pointerDrag.transform.root == _originalParent)
+            {
+                Vector3 newPos = Camera.main.ScreenToWorldPoint(_mousePos.action.ReadValue<Vector2>());
+                newPos = new Vector3(newPos.x, newPos.y, 0);
+                transform.position = newPos;
+            }
         }
     }
 }
