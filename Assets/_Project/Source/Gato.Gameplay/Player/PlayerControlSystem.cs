@@ -26,6 +26,7 @@ namespace Gato.Gameplay
         private IRangedWeapon _rangedWeapon;
         private Rigidbody2D _rigidbody2d;
         private CurseWeapon _curseWeapon;
+        private CharacterAnimationComponent _animationComponent;
 
         private bool _boosting;
         private List<GameObject> _ropeList;
@@ -53,6 +54,7 @@ namespace Gato.Gameplay
             _rangedWeapon = gameObject.GetComponent<IRangedWeapon>();
             _rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
             _curseWeapon = gameObject.GetComponent<CurseWeapon>();
+            _animationComponent = gameObject.GetComponent<CharacterAnimationComponent>();
             Player = this;
 
             _boosting = false;
@@ -78,6 +80,7 @@ namespace Gato.Gameplay
             }
 
             DashAsync(direction);
+            _animationComponent.Dashing(direction);
         }
 
         public void Move(Vector2 direction)
@@ -88,6 +91,7 @@ namespace Gato.Gameplay
             }
 
             _rigidbody2d.MovePosition(_rigidbody2d.position + (direction * _playerStats.MovementSpeed * Time.fixedDeltaTime));
+            _animationComponent.Walking(direction);
 
             // Walking SFX was disabled as it may not be needed
             /*
@@ -182,13 +186,14 @@ namespace Gato.Gameplay
             _canDash = false;
             _canWalk = false;
             _rigidbody2d.velocity = (direction.normalized * _playerStats.DashSpeed);
+            _animationComponent.Dashing(direction);
             await UniTask.Delay((int)(_playerStats.DashTime * 1000));
             _rigidbody2d.velocity = Vector2.zero;
             _canWalk = true;
 
             await UniTask.Delay(250);
             _isDashing = false;
-
+            _animationComponent.WalkOrIdle(direction);
             await UniTask.Delay((int)(_playerStats.DashCooldown * 1000));
 
             _canDash = true;
