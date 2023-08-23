@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Gato.UI
@@ -12,14 +13,21 @@ namespace Gato.UI
         [SerializeField]
         private GameObject _pauseMenuContainer;
 
+        [SerializeField]
+        private InputActionReference _pauseInput;
+
+        [SerializeField]
+        private Button _quitButton;
+
         private void Awake()
         {
             _pauseButton.onClick.AddListener(HandlePauseButtonPressed);
+            _quitButton.onClick.AddListener(QuitGame);
         }
 
         private void FixedUpdate()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (_pauseInput.action.IsPressed())
             {
                 HandlePauseButtonPressed();
             }
@@ -29,6 +37,11 @@ namespace Gato.UI
         {
             _pauseMenuContainer.SetActive(true);
             Time.timeScale = 0;
+        }
+
+        private void QuitGame()
+        {
+            Application.Quit();
         }
     }
 }

@@ -30,9 +30,17 @@ namespace Gato.Gameplay
         private bool _boosting;
         private List<GameObject> _ropeList;
         private Vector3 _boostableTargetPosition;
+        private Collision2D _boostableCollider;
 
         [Space(5)]
-        [Header("Rope Pulling Movement")]
+        [Header("Aim Actions")]
+        [SerializeField] private InputActionReference _gamepadAimDirection;
+        [SerializeField] private InputActionReference _mouseAimDirection;
+
+        [Space(5)]
+        [Header("Rope Actions")]
+        public InputActionReference RopeBoostInputAction;
+        public InputActionReference RopePullInputAction;
         public Transform RopePullableTarget;
 
         public ServiceLocator OwningLocator { get; set; }
@@ -92,14 +100,25 @@ namespace Gato.Gameplay
 
         public void WeaponAim(Vector2 direction)
         {
-            if (direction != new Vector2(0, 0))
-            {
-                _curseWeapon.Aim("Controller", direction + (Vector2)transform.position);
-                return;
-            }
-            direction = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            _curseWeapon.Aim("Mouse", direction);
+            // Before:
+            // _curseWeapon.Aim("Controller", direction + (Vector2)transform.position);
 
+
+            if (_gamepadAimDirection.action.IsPressed())
+            {
+                _mouseAimDirection.action.Disable();
+                _curseWeapon.Aim("Controller", direction, true);
+            }
+            else if (!_gamepadAimDirection.action.IsPressed())
+            {
+                _mouseAimDirection.action.Enable();
+                _curseWeapon.Aim("Controller", direction, false);
+            }
+
+            if (_mouseAimDirection.action.IsPressed())
+            {
+                _curseWeapon.Aim("Mouse", direction, true);
+            }
         }
 
         public void EnemyHit()
@@ -125,13 +144,26 @@ namespace Gato.Gameplay
                 return;
             }
 
-            if (direction == new Vector2(0, 0)) 
+            if (_gamepadAimDirection.action.IsPressed())
             {
-                direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+                _mouseAimDirection.action.Disable();
+                direction = direction.normalized;
             }
-            direction = direction.normalized;
+            else if (!_gamepadAimDirection.action.IsPressed())
+            {
+                _mouseAimDirection.action.Enable();
+                direction -= (Vector2)transform.position;
+                direction = direction.normalized;
+            }
+            else if (_mouseAimDirection.action.IsPressed())
+            {
+                direction -= (Vector2)transform.position;
+                direction = direction.normalized;
+            }
 
             _rangedWeapon.ThrowWeapon(direction);
+
+            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.ThrowRopeSFX);
         }
 
         public void RecoverWeapon()
@@ -172,10 +204,11 @@ namespace Gato.Gameplay
             AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.HitByEnemySFX);
         }
 
-        private void RopeBoostingMovement(List<GameObject> ropeList, Vector3 ropeTipPosition)
+        private void RopeBoostingMovement(List<GameObject> ropeList, Vector3 ropeTipPosition, Collision2D collider)
         {
             _ropeList = ropeList;
             _boostableTargetPosition = ropeTipPosition;
+            _boostableCollider = collider;
         }
 
         public override void Tick(float deltaTime)
@@ -184,12 +217,12 @@ namespace Gato.Gameplay
 
             // Rope Boost
 
-            if (CurseWeapon.ProjectilePoolCounter == 1
-                && _ropeList != null
-                && _ropeList.Count > 0
-                && !_boosting
-                && Keyboard.current.pKey.wasPressedThisFrame) // Temporary key
-                _boosting = true;
+            if (CurseWeapon.ProjectilePoolCounter == 1 || CurseWeapon.ProjectilePoolCounter == 3)
+            {
+                if (_ropeList != null && _ropeList.Count > 0 && _boostableCollider.transform.tag.Equals("RopeBoostable") && !_boosting
+                    && RopeBoostInputAction.action.WasPressedThisFrame())
+                    _boosting = true;
+            }
 
             if (_boosting)
             {
@@ -197,8 +230,7 @@ namespace Gato.Gameplay
                 transform.position = Vector2.MoveTowards(transform.position, _boostableTargetPosition, 1f);
             }
 
-            if (_ropeList != null
-                && transform.position == _boostableTargetPosition)
+            if (_ropeList != null && transform.position == _boostableTargetPosition)
             {
                 _boosting = false;
                 _ropeList.Clear();
