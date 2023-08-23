@@ -61,10 +61,12 @@ namespace Gato.Gameplay
             if (direction == Vector2.zero)
             {
                 AnimationState.SetAnimation(0, IdleAnimationName[_faceDirection], true);
+                _spineSkel.timeScale = 1f;
                 return;
             }
 
             AnimationState.SetAnimation(0, WalkAnimationName[_faceDirection], true);
+            _spineSkel.timeScale = 1.5f;
         }
         private int _faceDirection;
         private void FaceDirection()
