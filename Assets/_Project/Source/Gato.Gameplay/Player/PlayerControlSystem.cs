@@ -157,12 +157,11 @@ namespace Gato.Gameplay
             _animationComponent.Dashing(direction);
             await UniTask.Delay((int)(_playerStats.DashTime * 1000));
             _rigidbody2d.velocity = Vector2.zero;
-            _animationComponent.WalkOrIdle(direction);
             _canWalk = true;
 
             await UniTask.Delay(250);
             _isDashing = false;
-
+            _animationComponent.WalkOrIdle(direction);
             await UniTask.Delay((int)(_playerStats.DashCooldown * 1000));
 
             _canDash = true;
