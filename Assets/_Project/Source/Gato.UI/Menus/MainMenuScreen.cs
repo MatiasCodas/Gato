@@ -11,11 +11,7 @@ namespace Gato.UI
         [SerializeField]
         private string _nextSceneName;
         [SerializeField]
-        private Button _playButton;
-        [SerializeField]
-        private Button _optionsButton;
-        [SerializeField]
-        private Button _creditsButton;
+        private Button _playButton, _optionsButton, _creditsButton;
         [SerializeField]
         private Button[] _returnToMainButton;
 
