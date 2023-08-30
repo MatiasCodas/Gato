@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 3478616807923916531}
   - component: {fileID: 5052054574904717668}
   - component: {fileID: 5543429528456412348}
-  - component: {fileID: 6106404544780894063}
+  - component: {fileID: 7116749878265639061}
   m_Layer: 5
   m_Name: DragDrop
   m_TagString: DragDrop
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6106404544780894063
+--- !u!114 &7116749878265639061
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,7 +189,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2517858132605732795}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b1a0342ecc15634489593ea20b5c7ab, type: 3}
+  m_Script: {fileID: 11500000, guid: 40115f61129eaa74383963d91ab2747a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _mousePos: {fileID: -1003849247148768773, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  CanDrag: 0
+  CanDrop: 0

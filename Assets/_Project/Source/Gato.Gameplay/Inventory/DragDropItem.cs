@@ -13,8 +13,8 @@ namespace Gato.Gameplay
         
         private Transform _originalParent;
 
-        public bool CanDrag;
-        public bool CanDrop;
+        [HideInInspector] public bool CanDrag;
+        [HideInInspector] public bool CanDrop;
 
         public static Action OnDragging;
         public static Action OnDropping;
