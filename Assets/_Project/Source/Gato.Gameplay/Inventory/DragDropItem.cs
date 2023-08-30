@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace Gato.Gameplay
 {
-    public class DragDrop : MonoBehaviour, IDragHandler, IDropHandler
+    public class DragDropItem : MonoBehaviour, IDragHandler, IDropHandler
     {
         [SerializeField] private InputActionReference _mousePos;
         

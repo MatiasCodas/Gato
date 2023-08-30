@@ -43,7 +43,7 @@ namespace Gato.Gameplay
 
         public void OnDrop(PointerEventData eventData)
         {
-            if (eventData.pointerDrag.transform.GetComponent<DragDrop>())
+            if (eventData.pointerDrag.transform.GetComponent<DragDropItem>())
             {
                 Destroy(eventData.pointerDrag.gameObject);
                 _particleSystem.Play();

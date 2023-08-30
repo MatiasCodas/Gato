@@ -18,14 +18,14 @@ namespace Gato.Gameplay
 
         private void OnTriggerStay2D(Collider2D collision)
         {
-            if (collision.transform.GetComponentInParent<DragDrop>())
-                collision.transform.GetComponentInParent<DragDrop>().CanDrag = true;
+            if (collision.transform.GetComponentInParent<DragDropItem>())
+                collision.transform.GetComponentInParent<DragDropItem>().CanDrag = true;
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.transform.GetComponentInParent<DragDrop>())
-                collision.transform.GetComponentInParent<DragDrop>().CanDrag = false;
+            if (collision.transform.GetComponentInParent<DragDropItem>())
+                collision.transform.GetComponentInParent<DragDropItem>().CanDrag = false;
         }
     }
 }

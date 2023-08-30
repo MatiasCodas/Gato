@@ -10,8 +10,8 @@ namespace Gato.Gameplay
     {
         private void OnEnable()
         {
-            DragDrop.OnDragging += ShowInventory;
-            DragDrop.OnDropping += HideInventory;
+            DragDropItem.OnDragging += ShowInventory;
+            DragDropItem.OnDropping += HideInventory;
             InventorySlot.OnDropping += delegate { StartCoroutine(HideAnimCoroutine()); };
             CauldronInventoryArea.OnNearCauldron += ShowInventory;
             CauldronInventoryArea.OnFarCauldron += HideInventory;
@@ -19,8 +19,8 @@ namespace Gato.Gameplay
 
         private void OnDisable()
         {
-            DragDrop.OnDragging -= ShowInventory;
-            DragDrop.OnDropping -= HideInventory;
+            DragDropItem.OnDragging -= ShowInventory;
+            DragDropItem.OnDropping -= HideInventory;
             InventorySlot.OnDropping -= delegate { StartCoroutine(HideAnimCoroutine()); };
             CauldronInventoryArea.OnNearCauldron -= ShowInventory;
             CauldronInventoryArea.OnFarCauldron -= HideInventory;
