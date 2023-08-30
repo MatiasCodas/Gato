@@ -28,17 +28,21 @@ namespace Gato.Gameplay
             {
                 Destroy(itemTransform.gameObject);
                 _particleSystem.Play();
+
                 if (_testing)
-                    StartCoroutine(ReinitiateDragDropTest());
+                {
+                    float xPos = itemTransform.position.x;
+                    StartCoroutine(ReinitiateDragDropTest(xPos));
+                }
             }
         }
 
-        private IEnumerator ReinitiateDragDropTest()
+        private IEnumerator ReinitiateDragDropTest(float xPos)
         {
             yield return new WaitForSeconds(4f);
             _particleSystem.Stop();
             GameObject dragDropClone = Instantiate(_dragDropPrefab, transform.parent);
-            dragDropClone.transform.localPosition = new Vector3(-10f, -38f, 0);
+            dragDropClone.transform.localPosition = new Vector3(xPos, -38f, 0);
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -47,8 +51,12 @@ namespace Gato.Gameplay
             {
                 Destroy(eventData.pointerDrag.gameObject);
                 _particleSystem.Play();
+
                 if (_testing)
-                    StartCoroutine(ReinitiateDragDropTest());
+                {
+                    float xPos = eventData.pointerDrag.transform.position.x;
+                    StartCoroutine(ReinitiateDragDropTest(xPos));
+                }
             }
         }
     }
