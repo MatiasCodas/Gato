@@ -8,8 +8,19 @@ namespace Gato.Gameplay
 {
     public class InventoryAnim : MonoBehaviour
     {
+        [SerializeField] private InputActionReference _inventoryGameplayDisplay;
+        [SerializeField] private InputActionReference _inventoryMenuDisplay;
+
+        private void Awake()
+        {
+            HideInventory();
+        }
+
         private void OnEnable()
         {
+            _inventoryGameplayDisplay.action.started += GameplayDisplay;
+            _inventoryMenuDisplay.action.started += MenuDisplay;
+
             DragDropItem.OnDragging += ShowInventory;
             DragDropItem.OnDropping += HideInventory;
             InventorySlot.OnDropping += delegate { StartCoroutine(HideAnimCoroutine()); };
@@ -19,11 +30,33 @@ namespace Gato.Gameplay
 
         private void OnDisable()
         {
+            _inventoryGameplayDisplay.action.started -= GameplayDisplay;
+            _inventoryMenuDisplay.action.started -= MenuDisplay;
+
             DragDropItem.OnDragging -= ShowInventory;
             DragDropItem.OnDropping -= HideInventory;
             InventorySlot.OnDropping -= delegate { StartCoroutine(HideAnimCoroutine()); };
             CauldronInventoryArea.OnNearCauldron -= ShowInventory;
             CauldronInventoryArea.OnFarCauldron -= HideInventory;
+        }
+
+        private void GameplayDisplay(InputAction.CallbackContext context)
+        {
+            if (transform.position.y == -150)
+            {
+                ShowInventory();
+                StartCoroutine(HideAnimCoroutine());
+            }
+            else if (transform.position.y == 0)
+            {
+                StopCoroutine(HideAnimCoroutine());
+                HideInventory();
+            }
+        }
+
+        private void MenuDisplay(InputAction.CallbackContext context)
+        {
+            // TODO
         }
 
         private void ShowInventory()
