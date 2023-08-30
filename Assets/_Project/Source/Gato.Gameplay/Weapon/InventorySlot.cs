@@ -1,4 +1,5 @@
 using Spine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace Gato.Gameplay
         [SerializeField] private Transform _sceneObjects;
 
         private bool _canDrop;
+
+        public static Action OnDropping;
 
         private void Awake()
         {
@@ -96,6 +99,8 @@ namespace Gato.Gameplay
             eventData.pointerDrag.transform.localScale = new Vector3(.8f, .8f, .8f);
             eventData.pointerDrag.transform.GetComponent<DragDrop>().CanDrop = true;
             _canDrop = true;
+
+            OnDropping?.Invoke();
         }
     }
 }

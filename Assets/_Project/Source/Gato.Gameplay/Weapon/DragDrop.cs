@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,9 @@ namespace Gato.Gameplay
         public bool CanDrag;
         public bool CanDrop;
 
+        public static Action OnDragging;
+        public static Action OnDropping;
+
         private void Awake()
         {
             _originalParent = transform.root;
@@ -26,6 +30,8 @@ namespace Gato.Gameplay
         {
             if (CanDrag || CanDrop)
             {
+                OnDragging?.Invoke();
+
                 if (eventData.pointerDrag.transform.root != _originalParent)
                 {
                     eventData.pointerDrag.transform.SetParent(_originalParent);
@@ -44,6 +50,7 @@ namespace Gato.Gameplay
         public void OnDrop(PointerEventData eventData)
         {
             CanDrop = false;
+            OnDropping?.Invoke();
         }
     }
 }
