@@ -6,31 +6,44 @@ using UnityEngine.InputSystem;
 
 namespace Gato.Gameplay
 {
-    public class DragDrop : MonoBehaviour, IDragHandler
+    public class DragDrop : MonoBehaviour, IDragHandler, IDropHandler
     {
         [SerializeField] private InputActionReference _mousePos;
         
         private Transform _originalParent;
 
+        public bool CanDrag;
+        public bool CanDrop;
+
         private void Awake()
         {
             _originalParent = transform.root;
+            CanDrag = false;
+            CanDrop = false;
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (eventData.pointerDrag.transform.root != _originalParent)
+            if (CanDrag || CanDrop)
             {
-                eventData.pointerDrag.transform.SetParent(_originalParent);
-                eventData.pointerDrag.transform.localScale = new Vector3(.0065f, .0065f, .0065f);
-            }
+                if (eventData.pointerDrag.transform.root != _originalParent)
+                {
+                    eventData.pointerDrag.transform.SetParent(_originalParent);
+                    eventData.pointerDrag.transform.localScale = new Vector3(.0065f, .0065f, .0065f);
+                }
 
-            if (eventData.pointerDrag.transform.root == _originalParent)
-            {
-                Vector3 newPos = Camera.main.ScreenToWorldPoint(_mousePos.action.ReadValue<Vector2>());
-                newPos = new Vector3(newPos.x, newPos.y, 0);
-                transform.position = newPos;
+                if (eventData.pointerDrag.transform.root == _originalParent)
+                {
+                    Vector3 newPos = Camera.main.ScreenToWorldPoint(_mousePos.action.ReadValue<Vector2>());
+                    newPos = new Vector3(newPos.x, newPos.y, 0);
+                    transform.position = newPos;
+                }
             }
+        }
+
+        public void OnDrop(PointerEventData eventData)
+        {
+            CanDrop = false;
         }
     }
 }
