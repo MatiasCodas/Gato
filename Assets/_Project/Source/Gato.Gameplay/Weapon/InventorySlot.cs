@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace Gato.Gameplay
 {
-    public class Inventory : MonoBehaviour, IDropHandler
+    public class InventorySlot : MonoBehaviour, IDropHandler
     {
         [SerializeField] private InputActionReference _mousePosInput;
         [SerializeField] private InputActionReference _gamepadStickPosInput;
