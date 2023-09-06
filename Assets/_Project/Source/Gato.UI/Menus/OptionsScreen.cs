@@ -55,11 +55,12 @@ namespace Gato.UI
             _confirmationYes.onClick.AddListener(HandleConfirmationYes);
             _confirmationNo.onClick.AddListener(HandleConfirmationNo);
             _confirmationScreen.SetActive(false);
-            SetConfirmationButtons(false);
+            
             WindowModeIndex--;
             HandleWindowCycleNext();
             ResolutionIndex--;
             HandleResolutionCycleNext();
+            SetConfirmationButtons(false);
         }
 
 
