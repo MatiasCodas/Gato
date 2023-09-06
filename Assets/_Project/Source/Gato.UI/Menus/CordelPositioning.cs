@@ -18,12 +18,11 @@ namespace Gato.UI
 
         private void Start()
         {
-            _resolution = new Vector2( Screen.currentResolution.width, Screen.currentResolution.height);
             for (int i = 0; i < transform.childCount; i++)
             {
                 _cordelOrder.Add(transform.GetChild(i).gameObject);
-                _cordelOrder[i].transform.localPosition = new Vector3(_resolution.x * (i - ActiveScreenIndex), 0, 0);
             }
+            CordelReposition();
 
         }
 
@@ -41,6 +40,15 @@ namespace Gato.UI
         public void SetIndex(int indexInput)
         {
             ActiveScreenIndex = indexInput;
+        }
+
+        public void CordelReposition()
+        {
+            _resolution = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height);
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                _cordelOrder[i].transform.localPosition = new Vector3(_resolution.x * (i - ActiveScreenIndex), 0, 0);
+            }
         }
     }
 }

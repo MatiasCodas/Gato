@@ -43,6 +43,9 @@ namespace Gato.UI
         [SerializeField]
         private TMP_Text _timeToReturnResolution;
 
+        public static float SoundFactor, MusicFactor, SFXFactor;
+
+        private CordelPositioning _cordelPositioning;
 
         private void Awake()
         {
@@ -55,6 +58,9 @@ namespace Gato.UI
             _confirmationYes.onClick.AddListener(HandleConfirmationYes);
             _confirmationNo.onClick.AddListener(HandleConfirmationNo);
             _confirmationScreen.SetActive(false);
+            _soundSlider.onValueChanged.AddListener( delegate { HandleGeneralSound(); });
+            _musicSlider.onValueChanged.AddListener(delegate { HandleMusic(); });
+            _sfxSlider.onValueChanged.AddListener(delegate { HandleSFX(); });
             
             WindowModeIndex--;
             HandleWindowCycleNext();
@@ -63,7 +69,24 @@ namespace Gato.UI
             SetConfirmationButtons(false);
         }
 
+        #region Sound Functions
+        private void HandleGeneralSound()
+        {
+            SoundFactor = _soundSlider.value;
+        }
 
+        private void HandleMusic()
+        {
+            MusicFactor = _musicSlider.value;
+        }
+
+        private void HandleSFX()
+        {
+            SFXFactor = _sfxSlider.value;
+        }
+        #endregion
+
+        #region Resolution Functions
         private void HandleWindowCycleNext()
         {
             WindowModeIndex++;
@@ -138,6 +161,7 @@ namespace Gato.UI
             _previousResolution = Screen.currentResolution;
             _previousScreenMode = Screen.fullScreenMode;
             Screen.SetResolution((int)_resolutions[ResolutionIndex].x, (int)_resolutions[ResolutionIndex].y, ScreenMode());
+            _cordelPositioning.CordelReposition();
             _confirmationScreen.SetActive(true);
         }
 
@@ -156,6 +180,8 @@ namespace Gato.UI
             SetConfirmationButtons(false); ;
         }
 
-        
+        #endregion
+
+
     }
 }
