@@ -45,6 +45,7 @@ namespace Gato.UI
 
         public static float SoundFactor, MusicFactor, SFXFactor;
 
+        [SerializeField]
         private CordelPositioning _cordelPositioning;
 
         private void Awake()
@@ -176,6 +177,7 @@ namespace Gato.UI
         private void HandleConfirmationNo()
         {
             Screen.SetResolution(_previousResolution.width, _previousResolution.height, _previousScreenMode);
+            _cordelPositioning.CordelReposition();
             _confirmationScreen.SetActive(false);
             SetConfirmationButtons(false); ;
         }

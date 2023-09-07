@@ -291,8 +291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b344846971ef143919ee68ceee4eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody2D: {fileID: 2081841288}
-  _animator: {fileID: 2241775832496813637}
   _spineSkel: {fileID: 3145823807007039978}
   IdleAnimationName:
   - Idle_Costas
@@ -808,7 +806,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fdd0ad690011a98479bd2623748db198, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
