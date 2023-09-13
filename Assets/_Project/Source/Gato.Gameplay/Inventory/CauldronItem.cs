@@ -42,8 +42,8 @@ namespace Gato.Gameplay
 
         private void FindItemsInInventory()
         {
-            Inventory[] slots = FindObjectsOfType<Inventory>();
-            foreach (Inventory slot in slots)
+            InventorySlot[] slots = FindObjectsOfType<InventorySlot>();
+            foreach (InventorySlot slot in slots)
             {
                 if (slot.transform.childCount > 0)
                     _itemTransform = slot.transform.GetChild(0).transform;

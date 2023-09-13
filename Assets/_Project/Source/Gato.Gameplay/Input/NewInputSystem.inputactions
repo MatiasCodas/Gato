@@ -87,9 +87,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Inventory",
+                    "name": "InventoryInteraction",
                     "type": "Button",
                     "id": "e52045e8-4504-4f0d-b050-1fbd20ab036c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "InventoryGameplayDisplay",
+                    "type": "Button",
+                    "id": "f0e4d307-564a-4fef-8e5b-19fb563113d5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "InventoryMenuDisplay",
+                    "type": "Button",
+                    "id": "ebd26a54-c4f9-49a1-84fc-1cd5da857944",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -423,7 +441,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Inventory",
+                    "action": "InventoryInteraction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -434,7 +452,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Inventory",
+                    "action": "InventoryInteraction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "19656094-9447-487e-b2f7-b4135d82ce2d",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventoryGameplayDisplay",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de4ebc8f-bee6-4730-9a17-d3266a7d2b8a",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventoryMenuDisplay",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
