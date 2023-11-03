@@ -1,3 +1,4 @@
+using Gato.Audio;
 using Spine;
 using System;
 using System.Collections;
@@ -11,6 +12,7 @@ namespace Gato.Gameplay
 {
     public class InventorySlot : MonoBehaviour, IDropHandler
     {
+        [SerializeField] private InventoryManager _inventoryManager;
         [SerializeField] private InputActionReference _mousePosInput;
         [SerializeField] private InputActionReference _gamepadStickPosInput;
         [SerializeField] private InputActionReference _inventoryInput;
@@ -82,6 +84,7 @@ namespace Gato.Gameplay
                 itemTransform.localPosition = Vector3.zero;
                 itemTransform.localScale = new Vector3(.8f, .8f, .8f);
                 itemTransform.transform.GetComponent<DragDropItem>().CanDrop = true;
+                AudioManager.Instance.ToggleSFX(_inventoryManager.InventoryAudioSource, _inventoryManager.InventorySFX.NewItemSFX);
                 StartCoroutine(InventoryCoolDown());
             }
         }
@@ -100,6 +103,7 @@ namespace Gato.Gameplay
                 eventData.pointerDrag.transform.localPosition = Vector3.zero;
                 eventData.pointerDrag.transform.localScale = new Vector3(.8f, .8f, .8f);
                 eventData.pointerDrag.transform.GetComponent<DragDropItem>().CanDrop = true;
+                AudioManager.Instance.ToggleSFX(_inventoryManager.InventoryAudioSource, _inventoryManager.InventorySFX.NewItemSFX);
                 _canDrop = true;
 
                 OnDropping?.Invoke();

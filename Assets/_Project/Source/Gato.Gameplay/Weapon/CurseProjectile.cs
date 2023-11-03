@@ -1,3 +1,4 @@
+using Gato.Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace Gato.Gameplay
 
         [SerializeField]
         private PlayerStats _playerStats;
+        [SerializeField]
+        private PlayerSFXLibrary _playerSFX;
 
         //Outside objects
         [HideInInspector]
@@ -390,7 +393,8 @@ namespace Gato.Gameplay
             IsAlreadyDead = true;
             OnRopeDestroy?.Invoke();
             Destroy(gameObject);
-            
+            AudioManager.Instance.ToggleSFX(_player.GetComponent<AudioSource>(), _playerSFX.MissSFX);
+
             return;
         }
     }

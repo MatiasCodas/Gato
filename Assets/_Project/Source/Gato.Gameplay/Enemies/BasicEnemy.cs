@@ -1,3 +1,4 @@
+using Gato.Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -126,6 +127,7 @@ namespace Gato.Gameplay
                 {
                     collision.transform.SendMessage("EnemyHit");
                     OnIncreaseHitPoints?.Invoke();
+                    AudioManager.Instance.ToggleSFX(collision.transform.GetComponent<AudioSource>(), collision.transform.GetComponent<PlayerControlSystem>().PlayerSFX.DamageSFX);
                     EnemyHitCooldown = 2f;
                     CollisionShock(collision);
                 }

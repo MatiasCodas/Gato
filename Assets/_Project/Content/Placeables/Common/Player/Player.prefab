@@ -367,10 +367,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerStats: {fileID: 11400000, guid: 02287128bc6c28641b81d60579b35b02, type: 2}
-  _playerAudioSource: {fileID: 1362824276566528239}
-  _playerSFX: {fileID: 11400000, guid: 30ec1875ba5800240a43256d8e57c6b7, type: 2}
   _gamepadAimDirection: {fileID: 7682367593317144658, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
   _mouseAimDirection: {fileID: -1003849247148768773, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _playerAudioSource: {fileID: 1362824276566528239}
+  PlayerSFX: {fileID: 11400000, guid: 30ec1875ba5800240a43256d8e57c6b7, type: 2}
   RopeBoostInputAction: {fileID: 4876707805901083400, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
   RopePullInputAction: {fileID: 5672727285585731309, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
   RopePullableTarget: {fileID: 1969122742962000030}
