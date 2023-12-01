@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Linq;
 
 namespace Gato.Backend
@@ -37,7 +38,11 @@ namespace Gato.Backend
             _dataPersistenceObjects = FindAllDataPersistanceObjects();
             LoadGame();
         }
-
+        private void OnLevelWasLoaded(int level)
+        {
+            Start();
+            Debug.Log("data objects checked on load");
+        }
         public void NewGame()
         {
             GameData = new GameData();
