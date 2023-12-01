@@ -10,11 +10,13 @@ namespace Gato.Backend
 
         public Vector3 PlayerPos;
         public SerializableDictionary<string, bool> WorldInteraction;
+        public string Scene;
 
         public GameData ()
         {
             PlayerPos = Vector3.zero;
             WorldInteraction = new SerializableDictionary<string, bool>();
+            Scene = "TestingLevel";
         }
     }
 }

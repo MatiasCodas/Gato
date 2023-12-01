@@ -241,12 +241,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nextSceneName: TestingLevel
-  _playButton: {fileID: 536590140}
+  _newGameButton: {fileID: 536590140}
+  _loadGameButton: {fileID: 936580942}
   _optionsButton: {fileID: 838708600}
   _creditsButton: {fileID: 640984198}
   _returnToMainButton:
   - {fileID: 1545856950}
   - {fileID: 1127953639}
+  _saveGameData: {fileID: 453884056}
 --- !u!114 &4544944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1594,8 +1596,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fileName: MelusinaSav.zip
+  _useEncryption: 1
   GameData:
     PlayerPos: {x: 0, y: 0, z: 0}
+    WorldInteraction:
+      _keys: []
+      _values: 
+    Scene: TestingLevel
 --- !u!4 &453884057
 Transform:
   m_ObjectHideFlags: 0

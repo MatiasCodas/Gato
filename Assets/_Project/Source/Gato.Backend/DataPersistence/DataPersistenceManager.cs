@@ -35,7 +35,7 @@ namespace Gato.Backend
         {
             _dataHandler = new FileDataHandler(Application.persistentDataPath, _fileName, _useEncryption);
             _dataPersistenceObjects = FindAllDataPersistanceObjects();
-            //LoadGame();
+            LoadGame();
         }
 
         public void NewGame()
