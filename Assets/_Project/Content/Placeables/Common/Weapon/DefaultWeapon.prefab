@@ -120,13 +120,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerStats: {fileID: 11400000, guid: 02287128bc6c28641b81d60579b35b02, type: 2}
+  _playerSFX: {fileID: 11400000, guid: 30ec1875ba5800240a43256d8e57c6b7, type: 2}
   HingeJoint: {fileID: 0}
   Rope: {fileID: 0}
   ConnectedRopeTip: {fileID: 0}
-  IsCursed: 0
   RopeShooter: {fileID: 0}
   ConnectedToRope: []
-  TimerToDestroy: 0
+  IsAlreadyDead: 0
 --- !u!233 &8740845537454030218
 HingeJoint2D:
   m_ObjectHideFlags: 0

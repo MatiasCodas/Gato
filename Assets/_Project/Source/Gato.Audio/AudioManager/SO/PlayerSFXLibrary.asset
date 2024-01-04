@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0655b766e40cc554c83d404fd3ae839f, type: 3}
   m_Name: PlayerSFXLibrary
   m_EditorClassIdentifier: 
-  WalkSFX: {fileID: 8300000, guid: afda1e04fee4dc1428dd6267cde5c7b7, type: 3}
-  ThrowRopeSFX: {fileID: 8300000, guid: d6eb1856e6cce794ab677d439b1ad8e3, type: 3}
-  BoostByRopeSFX: {fileID: 8300000, guid: 4756f617a0aa57d4aa342d5afbf7df23, type: 3}
+  IdleSFX: {fileID: 8300000, guid: 68a74cb99e1c94840b1069ce6549aa07, type: 3}
+  WalkSFX: {fileID: 8300000, guid: 177b0b83b88db824f8da232a3beeb13d, type: 3}
+  DamageSFX: {fileID: 8300000, guid: c0d29b93c73ad534d876c95b978a9ae1, type: 3}
+  ThrowRopeSFX: {fileID: 8300000, guid: 26d1cdb609c2f67459ea1f9c7e4384ad, type: 3}
+  BoostByRopeSFX: {fileID: 8300000, guid: ff6af0a6fd5a49d4190440280b121ee1, type: 3}
   TeleportingSFX: {fileID: 8300000, guid: 31f94b65b6bea5749892a1cbcba9638e, type: 3}
-  HitByEnemySFX: {fileID: 8300000, guid: 2ae2ee2aa01dc2746a5e2cd4888e9fff, type: 3}
+  HitSFX: {fileID: 8300000, guid: 1e8d14e6a1166f547b21945d93b8cd3a, type: 3}
+  MissSFX: {fileID: 8300000, guid: c9d0ae7d18cefcb4ea8d8a7efc4a6126, type: 3}
+  NewItemSFX: {fileID: 8300000, guid: aa6bb8607324b7e40b7f3907165692c3, type: 3}

@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Gato.UI;
 
 namespace Gato.Gameplay
 {
     public class DragDropItem : MonoBehaviour, IDragHandler, IDropHandler
     {
         [SerializeField] private InputActionReference _mousePos;
-        
+
         private Transform _originalParent;
 
         [HideInInspector] public bool CanDrag;
@@ -28,22 +29,34 @@ namespace Gato.Gameplay
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (CanDrag || CanDrop)
+            if (Time.timeScale == 1)
             {
-                OnDragging?.Invoke();
-
-                if (eventData.pointerDrag.transform.root != _originalParent)
+                if (CanDrag || CanDrop)
                 {
-                    eventData.pointerDrag.transform.SetParent(_originalParent);
-                    eventData.pointerDrag.transform.localScale = new Vector3(.0065f, .0065f, .0065f);
-                }
+                    OnDragging?.Invoke();
 
-                if (eventData.pointerDrag.transform.root == _originalParent)
-                {
-                    Vector3 newPos = Camera.main.ScreenToWorldPoint(_mousePos.action.ReadValue<Vector2>());
-                    newPos = new Vector3(newPos.x, newPos.y, 0);
-                    transform.position = newPos;
+                    if (eventData.pointerDrag.transform.root != _originalParent)
+                    {
+                        eventData.pointerDrag.transform.SetParent(_originalParent);
+                        eventData.pointerDrag.transform.localScale = new Vector3(.0065f, .0065f, .0065f);
+                    }
+
+                    if (eventData.pointerDrag.transform.root == _originalParent)
+                    {
+                        Vector3 newPos = Camera.main.ScreenToWorldPoint(_mousePos.action.ReadValue<Vector2>());
+                        newPos = new Vector3(newPos.x, newPos.y, 0);
+                        transform.position = newPos;
+                    }
                 }
+            }
+            else
+            {
+                // TODO:
+                /*
+                Vector3 newPos = Camera.main.ScreenToWorldPoint(_mousePos.action.ReadValue<Vector2>());
+                newPos = new Vector3(newPos.x, newPos.y, 0);
+                transform.position = newPos;
+                */
             }
         }
 

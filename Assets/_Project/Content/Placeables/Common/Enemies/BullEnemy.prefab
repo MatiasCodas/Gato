@@ -239,7 +239,7 @@ MonoBehaviour:
   EnemyHitCooldown: 0
   _bullStats: {fileID: 11400000, guid: f99a19a1d8a773d40b1651cacadfded7, type: 2}
   _audioSource: {fileID: 4122478716194935634}
-  _enemySFXLibrary: {fileID: 11400000, guid: da847efcea09dad4ca738b273371f6cf, type: 2}
+  _playerSFXLibrary: {fileID: 11400000, guid: 30ec1875ba5800240a43256d8e57c6b7, type: 2}
   DestinationSetter: {fileID: 1959738188034270897}
   AIPath: {fileID: 4067232263759231680}
 --- !u!114 &5354433976405163427

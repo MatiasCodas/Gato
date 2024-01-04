@@ -15,11 +15,6 @@ namespace Gato.Gameplay
         private PlayerStats _playerStats;
         public static PlayerControlSystem Player;
 
-        [Space(5)]
-        [Header("Audio Settings")]
-        [SerializeField] private AudioSource _playerAudioSource;
-        [SerializeField] private PlayerSFXLibrary _playerSFX;
-
         private bool _canDash = true;
         private bool _canWalk = true;
         private bool _isDashing = false;
@@ -37,6 +32,11 @@ namespace Gato.Gameplay
         [Header("Aim Actions")]
         [SerializeField] private InputActionReference _gamepadAimDirection;
         [SerializeField] private InputActionReference _mouseAimDirection;
+
+        [Space(5)]
+        [Header("Audio Settings")]
+        [SerializeField] private AudioSource _playerAudioSource;
+        public PlayerSFXLibrary PlayerSFX;
 
         [Space(5)]
         [Header("Rope Actions")]
@@ -61,7 +61,7 @@ namespace Gato.Gameplay
             CurseProjectile.OnBoosting += RopeBoostingMovement;
 
             Teleport.OnTeleporting += PlayTeleportSFX;
-            BasicEnemy.OnIncreaseHitPoints += PlayHitByEnemySFX;
+            BasicEnemy.OnIncreaseHitPoints += PlayDamageSFX;
         }
 
         public override void Dispose()
@@ -69,7 +69,7 @@ namespace Gato.Gameplay
             CurseProjectile.OnBoosting -= RopeBoostingMovement;
 
             Teleport.OnTeleporting -= PlayTeleportSFX;
-            BasicEnemy.OnIncreaseHitPoints -= PlayHitByEnemySFX;
+            BasicEnemy.OnIncreaseHitPoints -= PlayDamageSFX;
         }
 
         public void Dash(Vector2 direction)
@@ -86,27 +86,27 @@ namespace Gato.Gameplay
         public void Move(Vector2 direction)
         {
             if (!_canWalk)
-            {
                 return;
-            }
 
             _rigidbody2d.MovePosition(_rigidbody2d.position + (direction * _playerStats.MovementSpeed * Time.fixedDeltaTime));
             _animationComponent.Walking(direction);
 
-            // Walking SFX was disabled as it may not be needed
-            /*
             if (direction != Vector2.zero)
-                AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.WalkSFX, true);
+            {
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, PlayerSFX.WalkSFX, true);
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, PlayerSFX.IdleSFX, false);
+            }
             else
-                AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.WalkSFX, false);
-            */
+            {
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, PlayerSFX.WalkSFX, false);
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, PlayerSFX.IdleSFX, true);
+            }
         }
 
         public void WeaponAim(Vector2 direction)
         {
             // Before:
             // _curseWeapon.Aim("Controller", direction + (Vector2)transform.position);
-
 
             if (_gamepadAimDirection.action.IsPressed())
             {
@@ -167,7 +167,7 @@ namespace Gato.Gameplay
 
             _rangedWeapon.ThrowWeapon(direction);
 
-            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.ThrowRopeSFX);
+            AudioManager.Instance.ToggleSFX(_playerAudioSource, PlayerSFX.ThrowRopeSFX);
         }
 
         public void RecoverWeapon()
@@ -201,12 +201,12 @@ namespace Gato.Gameplay
 
         private void PlayTeleportSFX()
         {
-            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.TeleportingSFX);
+            AudioManager.Instance.ToggleSFX(_playerAudioSource, PlayerSFX.TeleportingSFX);
         }
 
-        private void PlayHitByEnemySFX()
+        private void PlayDamageSFX()
         {
-            AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.HitByEnemySFX);
+            AudioManager.Instance.ToggleSFX(_playerAudioSource, PlayerSFX.DamageSFX);
         }
 
         private void RopeBoostingMovement(List<GameObject> ropeList, Vector3 ropeTipPosition, Collision2D collider)
@@ -231,7 +231,7 @@ namespace Gato.Gameplay
 
             if (_boosting)
             {
-                AudioManager.Instance.ToggleSFX(_playerAudioSource, _playerSFX.BoostByRopeSFX);
+                AudioManager.Instance.ToggleSFX(_playerAudioSource, PlayerSFX.BoostByRopeSFX);
                 transform.position = Vector2.MoveTowards(transform.position, _boostableTargetPosition, 1f);
             }
 

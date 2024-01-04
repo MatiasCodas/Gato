@@ -11,18 +11,25 @@ namespace Gato.Audio
         private void Awake()
         {
             if (Instance == null)
+            {
                 Instance = this;
+            }
+            else
+            {
+                Destroy(Instance);
+                Instance = this;
+            }
             DontDestroyOnLoad(this);
         }
 
         public void ToggleSFX(AudioSource audioSource, AudioClip audioClip, bool toggle = true)
         {
-            if (toggle && !audioSource.isPlaying)
+            if (toggle && audioSource.clip != audioClip)
             {
                 audioSource.clip = audioClip;
                 audioSource.Play();
             }
-            else if (!toggle && audioSource.isPlaying)
+            else if (!toggle)
             {
                 audioSource.Stop();
             }

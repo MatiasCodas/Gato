@@ -18,7 +18,7 @@ namespace Gato.Gameplay
         [Space(5)]
         [Header("Audio Settings")]
         [SerializeField] private AudioSource _audioSource;
-        [SerializeField] private EnemySFXLibrary _enemySFXLibrary;
+        [SerializeField] private PlayerSFXLibrary _playerSFXLibrary;
 
         [Space(5)]
         [Header("AI")]
@@ -118,7 +118,7 @@ namespace Gato.Gameplay
 
         private void PlayCurseSFX()
         {
-            AudioManager.Instance.ToggleSFX(_audioSource, _enemySFXLibrary.CurseSFX);
+            AudioManager.Instance.ToggleSFX(_audioSource, _playerSFXLibrary.HitSFX);
         }
     }
 }
