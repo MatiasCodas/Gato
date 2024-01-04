@@ -241,12 +241,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nextSceneName: TestingLevel
-  _playButton: {fileID: 536590140}
+  _newGameButton: {fileID: 536590140}
+  _loadGameButton: {fileID: 936580942}
   _optionsButton: {fileID: 838708600}
   _creditsButton: {fileID: 640984198}
   _returnToMainButton:
   - {fileID: 1545856950}
   - {fileID: 1127953639}
+  _saveGameData: {fileID: 453884056}
 --- !u!114 &4544944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1564,6 +1566,58 @@ RectTransform:
   m_AnchoredPosition: {x: -497, y: -197}
   m_SizeDelta: {x: 1820, y: 735.5222}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &453884055
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 453884057}
+  - component: {fileID: 453884056}
+  m_Layer: 0
+  m_Name: DataPersistenceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &453884056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453884055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d2dbe03b191fa479101dd8400929fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fileName: MelusinaSav.zip
+  _useEncryption: 1
+  GameData:
+    PlayerPos: {x: 0, y: 0, z: 0}
+    WorldInteraction:
+      _keys: []
+      _values: 
+    Scene: TestingLevel
+--- !u!4 &453884057
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453884055}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 737.5552, y: 73.20945, z: -16.149597}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &467381287
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gato.Backend;
 
 
 namespace Gato.Gameplay
@@ -19,6 +20,7 @@ namespace Gato.Gameplay
         public float WaveSize;
         public float SpawnTime;
         private bool _activated = false;
+        private WorldInteractable _saveInfo;
 
         public GameObject BlessingPrefab;
         public GameObject[] Curses;
@@ -30,12 +32,24 @@ namespace Gato.Gameplay
         private void Start()
         {
             Instance = this;
+            _saveInfo = GetComponent<WorldInteractable>();
             //_collider2D = GetComponent<BoxCollider2D>();
             _activeEnemies = new List<GameObject>();
 
             foreach (GameObject item in Curses)
             {
                 item.SetActive(true);
+            }
+            StartCoroutine(LateStart());
+        }
+
+        private IEnumerator LateStart()
+        {
+            yield return new WaitForEndOfFrame();
+            if (_saveInfo.Interacted)
+            {
+                FinishedArea();
+                StopAllCoroutines();
             }
         }
 
@@ -113,6 +127,7 @@ namespace Gato.Gameplay
                 Instantiate(BlessingPrefab, item.transform.position, Quaternion.identity, transform).transform.parent = transform.parent;
                 Destroy(item);
             }
+            _saveInfo.Interacted = true;
             Destroy(gameObject);
         }
 

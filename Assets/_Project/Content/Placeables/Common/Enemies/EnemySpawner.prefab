@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 8032483938135342867}
   - component: {fileID: 8032483938135342864}
   - component: {fileID: 8032483938135342866}
+  - component: {fileID: 710717080254978586}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -146,6 +147,7 @@ MonoBehaviour:
   - {fileID: 8032483937972488761}
   - {fileID: 8032483936790324580}
   - {fileID: 8032483936202640902}
+  _activeEnemies: []
   WaveSize: 2
   SpawnTime: 1
   BlessingPrefab: {fileID: 1805360586432797081, guid: cb414d308b1ba3b44ab2b422574488da, type: 3}
@@ -177,3 +179,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &710717080254978586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8032483938135342865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59bddba961763104abb226b614487cf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 
+  Interacted: 0
