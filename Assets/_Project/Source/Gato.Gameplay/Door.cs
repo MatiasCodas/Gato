@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gato.Backend;
 
 namespace Gato.Gameplay
 {
@@ -19,6 +20,7 @@ namespace Gato.Gameplay
         private Transform[] _doorSides;
         private SpriteRenderer [] _sprites;
         private float _timeLeftToColorize;
+        private WorldInteractable _saveInfo;
 
         private void Start()
         {
@@ -27,10 +29,19 @@ namespace Gato.Gameplay
             _timeLeftToColorize = 3;
 
             _doorSides[1].localPosition = Open ? -OpenPosition : -ClosedPosition;
-            _doorSides[2].localPosition = Open ? OpenPosition : ClosedPosition;
+            _doorSides[2].localPosition = Open ? OpenPosition : ClosedPosition; 
+            StartCoroutine(LateStart());
         }
 
-        private void Update()
+        private IEnumerator LateStart()
+        {
+            yield return new WaitForEndOfFrame();
+            if (_saveInfo.Interacted)
+            {
+                Bless();
+            }
+        }
+                private void Update()
         {
             TryToColorize();
             if(Blessed)SetState();
@@ -60,6 +71,7 @@ namespace Gato.Gameplay
         {
             Blessed = true;
             _timeLeftToColorize = 3;
+            _saveInfo.Interacted = true;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
