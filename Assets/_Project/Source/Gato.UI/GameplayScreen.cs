@@ -23,6 +23,12 @@ namespace Gato.UI
         {
             _pauseButton.onClick.AddListener(HandlePauseButtonPressed);
             _quitButton.onClick.AddListener(QuitGame);
+            Cursor.visible = false;
+        }
+
+        private void Start()
+        {
+            Cursor.visible = false;
         }
 
         private void FixedUpdate()
@@ -35,6 +41,7 @@ namespace Gato.UI
 
         private void HandlePauseButtonPressed()
         {
+            Cursor.visible = true;
             _pauseMenuContainer.SetActive(true);
             Time.timeScale = 0;
         }
