@@ -347,6 +347,7 @@ MonoBehaviour:
   _pauseButton: {fileID: 3573808465083269134}
   _pauseMenuContainer: {fileID: 5177562248595102648}
   _pauseInput: {fileID: -1013666896755316900, guid: 30e8a5c8cbc780c44ae615d3c95bf593, type: 3}
+  _quitButton: {fileID: 0}
 --- !u!1 &430244794022736734
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +385,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 64, y: 64}
+  m_SizeDelta: {x: 26.5, y: 80.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7323676093619635763
 CanvasRenderer:
@@ -414,7 +415,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9aa4348290784b2468144a97eb15d8d7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2ed8c1762e0c5874b9f3a9fc113e2596, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

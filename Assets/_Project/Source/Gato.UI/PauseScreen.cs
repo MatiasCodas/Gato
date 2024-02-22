@@ -22,12 +22,14 @@ namespace Gato.UI
         private void HandleResetButtonPressed()
         {
             Time.timeScale = 1;
+            Cursor.visible = false;
             Scene scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name);
         }
 
         private void HandleReturnButtonPressed()
         {
+            Cursor.visible = false;
             gameObject.SetActive(false);
             Time.timeScale = 1;
         }

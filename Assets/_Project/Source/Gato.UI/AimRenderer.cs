@@ -14,10 +14,13 @@ namespace Gato.UI
         [SerializeField]
         private InputActionReference _aimPos;
 
+        
         private void Update()
         {
             Vector3 mousePos = _aimPos.action.ReadValue<Vector2>();
             _aimTransform.position = mousePos;
+            Vector3 difference = transform.position - transform.parent.position;
+            _aimTransform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg) - 90);
         }
     }
 }

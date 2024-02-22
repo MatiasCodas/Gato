@@ -32,7 +32,6 @@ namespace Gato.Gameplay
             _inCooldown = false;
             _hinge = GetComponent<HingeJoint2D>();
         }
-
         public void Aim(string mode, Vector2 position, bool performed)
         {
             switch (mode)
