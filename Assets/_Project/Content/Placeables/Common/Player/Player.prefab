@@ -193,7 +193,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2241775832496813639}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &7915125587691586226
 CircleCollider2D:
@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 2241775832496813632}
   - component: {fileID: 2241775832496813635}
   - component: {fileID: 2241775832496813634}
+  - component: {fileID: 7181296599165695611}
   - component: {fileID: 2081841288}
   - component: {fileID: 2241775832496813644}
   - component: {fileID: 2241775832496813647}
@@ -403,6 +404,18 @@ MonoBehaviour:
   _projectilePrefab: {fileID: 1364707071902809101, guid: 8f539a993dc3f8a4a80be778a26ae741, type: 3}
   _aim: {fileID: 2241775832972034640}
   _laserAim: {fileID: 363286527}
+--- !u!114 &7181296599165695611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2241775832496813754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7bd2262bbc4edf49b53cc66ad65362d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &2081841288
 Rigidbody2D:
   serializedVersion: 4
@@ -868,7 +881,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: fdd0ad690011a98479bd2623748db198, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

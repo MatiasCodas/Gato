@@ -11,6 +11,7 @@ TagManager:
   - RopeBoostable
   - DragDrop
   - Cauldron
+  - Hole
   layers:
   - Default
   - TransparentFX
