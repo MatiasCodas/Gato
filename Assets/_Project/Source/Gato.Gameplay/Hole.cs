@@ -6,7 +6,7 @@ namespace Gato.Gameplay
 {
     public class Hole : MonoBehaviour
     {
-        private void OnCollisionEnter(Collider2D collision)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.name == "Player")
             {
