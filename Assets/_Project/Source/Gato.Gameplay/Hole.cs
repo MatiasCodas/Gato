@@ -10,9 +10,14 @@ namespace Gato.Gameplay
         {
             if (collision.gameObject.name == "Player")
             {
-                Debug.Log("GOT");
-                CheckpointManager checkpointManager = collision.gameObject.GetComponent<CheckpointManager>();
-                checkpointManager.GoToCheckpoint();
+                PlayerControlSystem player = collision.gameObject.GetComponent<PlayerControlSystem>();
+
+                if (!player.IsImmuneToHole)
+                {
+                    Debug.Log("GOT");
+                    CheckpointManager checkpointManager = collision.gameObject.GetComponent<CheckpointManager>();
+                    checkpointManager.GoToCheckpoint();
+                }
             }
         }
     }

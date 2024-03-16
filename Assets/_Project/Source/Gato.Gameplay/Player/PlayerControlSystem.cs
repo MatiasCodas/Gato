@@ -14,6 +14,7 @@ namespace Gato.Gameplay
         [SerializeField]
         private PlayerStats _playerStats;
         public static PlayerControlSystem Player;
+        public bool IsImmuneToHole;
 
         private bool _canDash = true;
         private bool _canWalk = true;
@@ -45,6 +46,7 @@ namespace Gato.Gameplay
         public Transform RopePullableTarget;
 
         public ServiceLocator OwningLocator { get; set; }
+        public bool IsImuneToHole { get; internal set; }
 
         public static Action OnBoosted;
 
@@ -128,6 +130,7 @@ namespace Gato.Gameplay
         public void EnemyHit()
         {
             if (_isDashing) return;
+            if (_boosting) return;
 
             if (_playerStats.HitPoints + 1 < _playerStats.MaxHP)
             {
@@ -214,6 +217,8 @@ namespace Gato.Gameplay
             _ropeList = ropeList;
             _boostableTargetPosition = ropeTipPosition;
             _boostableCollider = collider;
+
+            //_isInvunerableDuringBoost = true;
         }
 
         public override void Tick(float deltaTime)
@@ -240,6 +245,13 @@ namespace Gato.Gameplay
                 _boosting = false;
                 _ropeList.Clear();
                 OnBoosted?.Invoke();
+
+                if (_boosting)
+                {
+                    IsImmuneToHole = true;
+                }
+
+               // _isInvunerableDurringBoost = false;
             }
         }
     }
