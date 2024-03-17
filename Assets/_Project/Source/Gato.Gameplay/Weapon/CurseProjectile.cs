@@ -45,6 +45,8 @@ namespace Gato.Gameplay
         private int _layerMask;
         private float _timeActive;
         private int _lineIndex = 0;
+        private string _collisionTag;
+        private GameObject _collision;
 
         //Curse and bless stuff
         public static bool IsBlessed;
@@ -217,6 +219,8 @@ namespace Gato.Gameplay
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            _collisionTag = collision.gameObject.tag;
+            _collision = collision.gameObject;
             if (collision.gameObject.CompareTag("Rope"))
             {
                 return;
@@ -268,7 +272,10 @@ namespace Gato.Gameplay
             {
                 default:
                     if (IsCursed[_ropeProjectileIndex]) OnCurseTriggered?.Invoke();
-                    if (IsBlessed) collision.gameObject.SendMessageUpwards("Bless");
+                    if (IsBlessed)
+                    {
+                        collision.gameObject.SendMessageUpwards("Bless");
+                    }
                     break;
                 case "Curse":
                     IsCursed[_ropeProjectileIndex] = true;
@@ -291,9 +298,9 @@ namespace Gato.Gameplay
             Rope.ActivateJoints();
         }
 
-        private void OnCollisionExit2D(Collision2D collision)
+        private void DeactivateCollisionTriggers()
         {
-            if (collision.gameObject.CompareTag("Rope"))
+            if (_collisionTag == "Rope")
             {
                 return;
             }
@@ -301,7 +308,7 @@ namespace Gato.Gameplay
                 // _isCursed = false;
                 _sentCurse = false;
             //if (collision.gameObject.name == "Curse")
-            switch (collision.gameObject.tag)
+            switch (_collisionTag)
             {
                 case "Curse":
                     IsCursed[_ropeProjectileIndex] = false;
@@ -326,12 +333,12 @@ namespace Gato.Gameplay
                 return;
             }
 
-            if (collision.gameObject.layer != 7)
+            if (_collision.layer != 7)
             {
                 return;
             }
 
-            collision.gameObject.layer = 0;
+            _collision.layer = 0;
 
 
 
