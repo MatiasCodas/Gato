@@ -41,7 +41,7 @@ namespace Gato.Gameplay
                 Bless();
             }
         }
-                private void Update()
+        private void Update()
         {
             TryToColorize();
             if(Blessed)SetState();
