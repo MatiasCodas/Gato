@@ -13,6 +13,7 @@ namespace Gato.Gameplay
         private InputCodeSettings _inputSettings;
         [SerializeField]
         private InputActionReference _movement, _dash, _mousePosition, _aimPosition, _ropePlus, _ropeMinus, _ropeAction1, _ropeAction2;
+        public bool MenuOpenCloseInput { get; private set; }
 
         private Vector2 _direction;
         private Vector2 _directionWeapon = new Vector2(0, -1);
@@ -70,6 +71,8 @@ namespace Gato.Gameplay
             {
                 _playerControlSystem.RecoverWeapon();
             }
+
+            MenuOpenCloseInput = _ropePlus.action.WasPressedThisFrame();
         }
 
 
