@@ -27,6 +27,7 @@
     "com.unity.postprocessing": "3.2.2",
     "com.unity.probuilder": "5.0.3",
     "com.unity.recorder": "3.0.3",
+    "com.unity.render-pipelines.universal": "12.1.7",
     "com.unity.settings-manager": "2.0.1",
     "com.unity.test-framework": "1.1.31",
     "com.unity.testtools.codecoverage": "1.1.1",

@@ -12,6 +12,7 @@ TagManager:
   - DragDrop
   - Cauldron
   - Hole
+  - SafeObject
   layers:
   - Default
   - TransparentFX
