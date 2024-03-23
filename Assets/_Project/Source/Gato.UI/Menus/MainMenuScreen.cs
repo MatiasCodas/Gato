@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Gato.Backend;
+using UnityEngine.EventSystems;
 
 namespace Gato.UI
 {
@@ -17,6 +18,13 @@ namespace Gato.UI
         private Button[] _returnToMainButton;
         [SerializeField]
         private DataPersistenceManager _saveGameData;
+
+        [SerializeField]
+        private GameObject _mainMenuFirstOption;
+        [SerializeField]
+        private GameObject _optionsFirstOption;
+        [SerializeField]
+        private GameObject _creditsFirstOption;
 
         private CordelPositioning _cordelPositioning;
 
@@ -33,6 +41,7 @@ namespace Gato.UI
             {
                 _returnToMainButton[i].onClick.AddListener(HandleReturnToMainButtonPressed);
             }
+            EventSystem.current.SetSelectedGameObject(_mainMenuFirstOption);
         }
 
         private void HandleNewGameButtonPressed()
@@ -49,14 +58,17 @@ namespace Gato.UI
         private void HandleReturnToMainButtonPressed()
         {
             _cordelPositioning.SetIndex(0);
+            EventSystem.current.SetSelectedGameObject(_mainMenuFirstOption);
         }
         private void HandleOptionsButtonPressed()
         {
             _cordelPositioning.SetIndex(1);
+            EventSystem.current.SetSelectedGameObject(_optionsFirstOption);
         }
         private void HandleCreditsButtonPressed()
         {
             _cordelPositioning.SetIndex(2);
+            EventSystem.current.SetSelectedGameObject(_creditsFirstOption);
         }
     }
 }
