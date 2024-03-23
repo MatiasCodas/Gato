@@ -15,6 +15,7 @@ namespace Gato.Gameplay
         private PlayerStats _playerStats;
         public static PlayerControlSystem Player;
         public bool IsImmuneToHole;
+        public bool safeZone;
 
         private bool _canDash = true;
         private bool _canWalk = true;
@@ -47,6 +48,11 @@ namespace Gato.Gameplay
 
         public ServiceLocator OwningLocator { get; set; }
         public bool IsImuneToHole { get; internal set; }
+      
+
+        
+        
+        
 
         public static Action OnBoosted;
 
@@ -220,7 +226,7 @@ namespace Gato.Gameplay
 
             //_isInvunerableDuringBoost = true;
         }
-
+         
         public override void Tick(float deltaTime)
         {
             base.Tick(deltaTime);
@@ -251,6 +257,8 @@ namespace Gato.Gameplay
                     IsImmuneToHole = true;
                 }
 
+              
+     
                // _isInvunerableDurringBoost = false;
             }
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using UnityEngine;
 
 namespace Gato.Gameplay
@@ -19,6 +20,13 @@ namespace Gato.Gameplay
                     checkpointManager.GoToCheckpoint();
                 }
             }
+
+
+
         }
+
     }
 }
+
+//versão que funciona!
+
