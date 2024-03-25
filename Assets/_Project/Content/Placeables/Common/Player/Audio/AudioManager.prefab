@@ -604,6 +604,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9054445420844132627}
+  - component: {fileID: 6043279009866260295}
   m_Layer: 0
   m_Name: BMG
   m_TagString: Untagged
@@ -630,6 +631,19 @@ Transform:
   m_Father: {fileID: 1437022094454529550}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6043279009866260295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3070296721601058112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8830343afdacd174598d4fff25035c9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSources: []
 --- !u!1 &3290434895527546395
 GameObject:
   m_ObjectHideFlags: 0
