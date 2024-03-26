@@ -40,7 +40,7 @@ namespace Gato.Gameplay
 
         private void StrafeMovement()
         {
-            Vector2 perpendicularMovement = Vector2.Perpendicular( Vector2.ClampMagnitude(Target.transform.position - transform.position, _stats.Speed));
+            Vector2 perpendicularMovement = Vector2.Perpendicular( Vector2.ClampMagnitude(Target.transform.position - transform.position, Stats.Speed));
             NextPosition = (Vector2)transform.position + (_clockwise ? perpendicularMovement : -perpendicularMovement);
             
             _variationMomentum = Vector2.ClampMagnitude(_variationMomentum + NextPosition, _straferStats.MovementVariation);

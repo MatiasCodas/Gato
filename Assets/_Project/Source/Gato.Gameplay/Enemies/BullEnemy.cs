@@ -25,6 +25,8 @@ namespace Gato.Gameplay
         public AIDestinationSetter DestinationSetter;
         public AIPath AIPath;
 
+        
+
         private void Awake()
         {
             CurseProjectile.OnCursedStatus += PlayCurseSFX;
@@ -65,7 +67,7 @@ namespace Gato.Gameplay
                     break;
 
             }
-            NextPosition = (Vector2)transform.position + Vector2.ClampMagnitude(Target.transform.position - transform.position, _stats.Speed);
+            NextPosition = (Vector2)transform.position + Vector2.ClampMagnitude(Target.transform.position - transform.position, Stats.Speed);
             FaceDirection();
         }
         private void Update()
