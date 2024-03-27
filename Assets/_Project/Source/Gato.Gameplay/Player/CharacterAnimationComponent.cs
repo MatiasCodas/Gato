@@ -34,14 +34,8 @@ namespace Gato.Gameplay
 
         public void Walking(Vector2 direction)
         {
-            if (_direction == direction) return; //this one cuts the situations where it's all equal to zero
-            //I hate how this part here is checking for dupe movement but it'll have to do for now
-            //It makes the animation smoother I swear
-            if (_direction.x > 0 && direction.x > 0) return;
-            if (_direction.x < 0 && direction.x < 0) return;
-            if (_direction.y > 0 && direction.y > 0) return;
-            if (_direction.y < 0 && direction.y < 0) return;
-            //end of gambiarra
+            if (_direction == direction) return;
+            if ((_direction.x * direction.x > 0) && (_direction.y * direction.y > 0)) return;
             _direction = direction;
             InvertWhenLeft();
             FaceDirection();

@@ -44,19 +44,13 @@ namespace Gato.Gameplay
         {
             AnimationState = _spineSkel.AnimationState;
             Skeleton = _spineSkel.skeleton;
-            AnimationState.SetAnimation(0, IdleAnimationName[1], true);
+            AnimationState.SetAnimation(0, SpawnAnimationName[1], false);
         }
 
         public void Walking(Vector2 direction)
         {
-            if (_direction == direction) return; //this one cuts the situations where it's all equal to zero
-            //I hate how this part here is checking for dupe movement but it'll have to do for now
-            //It makes the animation smoother I swear
-            if (_direction.x > 0 && direction.x > 0) return;
-            if (_direction.x < 0 && direction.x < 0) return;
-            if (_direction.y > 0 && direction.y > 0) return;
-            if (_direction.y < 0 && direction.y < 0) return;
-            //end of gambiarra
+            if (_direction == direction) return;
+            if ((_direction.x * direction.x > 0 ) && (_direction.y * direction.y > 0 )) return;
             _direction = direction;
             InvertWhenLeft();
             FaceDirection();
@@ -71,7 +65,21 @@ namespace Gato.Gameplay
             AnimationState.SetAnimation(0, DashAnimationName[_faceDirection], true);
         }
 
-        public void WalkOrIdle(Vector2 direction)
+        public void ChargingDash()
+        {
+            InvertWhenLeft();
+            FaceDirection();
+            AnimationState.SetAnimation(0, ChargingAnimationName[_faceDirection], true);
+        }
+
+        public void Die()
+        {
+            AnimationState.SetAnimation(0, DeathAnimationName[_faceDirection], false);
+            AnimationState.AddAnimation(0, DeadAnimationName[_faceDirection], true, 0);
+            
+        }
+
+            public void WalkOrIdle(Vector2 direction)
         {
             if (direction == Vector2.zero)
             {
@@ -94,7 +102,7 @@ namespace Gato.Gameplay
             {
                 _faceDirection = 1;
             }
-            if (_direction.x != 0)
+            if (Mathf.Abs( _direction.x) >  Mathf.Abs(_direction.y))
             {
                 _faceDirection = 2;
             }

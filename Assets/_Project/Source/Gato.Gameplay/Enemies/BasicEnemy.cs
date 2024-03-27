@@ -12,13 +12,13 @@ namespace Gato.Gameplay
         [SerializeField]
         protected BasicEnemyStats Stats;
         public GameObject Target;
-        private EnemyAnimation _animatComponent;
+        
 
         public Sprite Left;
         public Sprite Right;
         public Sprite Up;
         public Sprite Down;
-        private bool _cursed;
+        public bool cursed;
         [HideInInspector]
         public Rigidbody2D RB2D;
         [HideInInspector]
@@ -57,10 +57,9 @@ namespace Gato.Gameplay
             RB2D = GetComponent<Rigidbody2D>();
             Sprite = GetComponent<SpriteRenderer>();
             NextPosition = transform.position;
-            _cursed = false;
+            cursed = false;
             Target = PlayerControlSystem.Player.gameObject;
-            _animatComponent = GetComponent<EnemyAnimation>();
-            _animatComponent.Walking(Vector2.zero);
+            
         }
 
         public void BasicUpdate()
@@ -68,7 +67,7 @@ namespace Gato.Gameplay
             if (EnemyHitCooldown > 0)
                 EnemyHitCooldown -= Time.deltaTime;
 
-            if (!_cursed) return;
+            if (!cursed) return;
             Sprite.color = Color.magenta;
         }
 
@@ -76,7 +75,7 @@ namespace Gato.Gameplay
         {
             NextPosition = (Vector2)transform.position + Vector2.ClampMagnitude(Target.transform.position - transform.position, Stats.Speed);
             RB2D.MovePosition(NextPosition);
-            _animatComponent.Walking(NextPosition);
+            
         }
 
         public void FaceDirection()//placeholder for  until we get some animations
@@ -105,7 +104,7 @@ namespace Gato.Gameplay
 
         public void Curse(GameObject rope)
         {
-            _cursed = true;
+            cursed = true;
             StartCoroutine(TimerToDie(rope));
         }
 

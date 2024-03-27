@@ -14,6 +14,8 @@ namespace Gato.Gameplay
         private BullStats _bullStats;
         private bool _angry;
         private bool _tired;
+        private EnemyAnimation _animatComponent;
+        [SerializeField] private float _timeToWalkAgain;
 
         [Space(5)]
         [Header("Audio Settings")]
@@ -41,11 +43,18 @@ namespace Gato.Gameplay
         {
             BasicStart();
             DestinationSetter.target = Target.transform;
+            _animatComponent = GetComponent<EnemyAnimation>();
+            //_animatComponent.Walking(Vector2.zero);
         }
 
 
         private void FixedUpdate()
         {
+            if(_timeToWalkAgain >= 0)
+            {
+                _timeToWalkAgain -= Time.deltaTime/2;
+                return;
+            }
             switch (MovementState)
             {
                 default:
@@ -68,10 +77,17 @@ namespace Gato.Gameplay
 
             }
             NextPosition = (Vector2)transform.position + Vector2.ClampMagnitude(Target.transform.position - transform.position, Stats.Speed);
+            _animatComponent.Walking(NextPosition - (Vector2)transform.position);
+            //Debug.Log(NextPosition - (Vector2)transform.position);
             FaceDirection();
         }
         private void Update()
         {
+            if (_timeToWalkAgain >= 0)
+            {
+                _timeToWalkAgain -= Time.deltaTime / 2;
+                return;
+            }
             BasicUpdate();
         }
 
@@ -90,6 +106,7 @@ namespace Gato.Gameplay
         {
             Sprite.color = new Color(Random.value, Random.value, Random.value);
             RB2D.velocity = Vector2.zero;
+            _animatComponent.ChargingDash();
         }
         private IEnumerator ChargingUp()
         {
@@ -105,6 +122,25 @@ namespace Gato.Gameplay
             MovementState = 0;
             StartCoroutine(Dashing());
             StartCoroutine(Cooldown());
+            _animatComponent.Dashing(Vector2.ClampMagnitude((Target.transform.position - transform.position), 10));
+        }
+
+        public void Curse(GameObject rope)
+        {
+            cursed = true;
+            StartCoroutine(TimerToDie(rope));
+            _animatComponent.Die();
+            _timeToWalkAgain = 20;
+        }
+
+        private IEnumerator TimerToDie(GameObject rope)
+        {
+
+            yield return new WaitForSeconds(Stats.TimeToDie);
+            CurseProjectile.GoAllBack = true;
+            Destroy(gameObject);
+
+            // Destroy(rope);
         }
 
         private IEnumerator Dashing()
